@@ -20,6 +20,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
+      - ../the_construct:/the_construct
       - .:/app
       - rails_cache:/app/tmp/cache
       - bundle:/usr/local/bundle
@@ -41,7 +42,7 @@ services:
       - .dockerdev/env/database
     depends_on:
       - postgres
-      - webpacker
+      # - webpacker
       - redis
 
   web:
