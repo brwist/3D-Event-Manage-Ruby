@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ActiveAdmin
-  class PagePolicy < ApplicationPolicy
+  class PagePolicy < AdministratorPolicy
     class Scope < Scope
       def resolve
         scope.all
