@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_05_181907) do
+ActiveRecord::Schema.define(version: 2021_05_05_183635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,24 @@ ActiveRecord::Schema.define(version: 2021_05_05_181907) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.bigint "attendee_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["attendee_id"], name: "index_attendances_on_attendee_id"
+    t.index ["event_id"], name: "index_attendances_on_event_id"
+  end
+
+  create_table "attendees", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_attendees_on_email", unique: true
   end
 
   create_table "clients", force: :cascade do |t|
@@ -80,5 +98,7 @@ ActiveRecord::Schema.define(version: 2021_05_05_181907) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "attendances", "attendees"
+  add_foreign_key "attendances", "events"
   add_foreign_key "events", "clients"
 end
