@@ -110,6 +110,13 @@ GEM
     diff-lcs (1.4.4)
     dry-inflector (0.2.0)
     erubi (1.10.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
+    faker (2.17.0)
+      i18n (>= 1.6, < 2)
     ffi (1.15.0)
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
@@ -326,6 +333,8 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  factory_bot_rails
+  faker
   friendly_id (~> 5.4.0)
   geared_pagination
   jbuilder (~> 2.7)
