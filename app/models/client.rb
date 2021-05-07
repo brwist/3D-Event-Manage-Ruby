@@ -4,5 +4,5 @@ class Client < ApplicationRecord
 
   has_many :events
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 end
