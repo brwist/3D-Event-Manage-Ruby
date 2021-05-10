@@ -29,7 +29,6 @@ services:
       - .dockerdev/.psqlrc:/root/.psqlrc:ro
     environment:
       - NODE_ENV=${NODE_ENV:-development}
-      - REDIS_URL=redis://redis:6379/
       - WEBPACKER_DEV_SERVER_HOST=webpacker
       - BOOTSNAP_CACHE_DIR=/usr/local/bundle/_bootsnap
       - HISTFILE=/app/log/.bash_history
