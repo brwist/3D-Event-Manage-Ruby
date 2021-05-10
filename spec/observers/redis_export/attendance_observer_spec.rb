@@ -7,11 +7,15 @@ RSpec.describe RedisExport::AttendanceObserver do
   let(:attendee) { create :attendee }
 
   context 'attendance was created' do
-    let(:fake_exporter) { instance_double('RedisExport::AttendanceCreation') }
     let(:created_attendance) { Attendance.create!(event: event, attendee: attendee) }
 
     it 'calls AttendanceCreation service object' do
       expect_any_instance_of(RedisExport::AttendanceCreation).to receive(:call)
+      subject.update(created_attendance)
+    end
+
+    it "doesn't call destroy service object" do
+      expect_any_instance_of(RedisExport::AttendanceDeleting).to_not receive(:call)
       subject.update(created_attendance)
     end
   end
