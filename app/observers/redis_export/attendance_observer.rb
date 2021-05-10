@@ -4,6 +4,8 @@ module RedisExport
       case
       when created?(attendance)
         AttendanceCreation.new(attendance: attendance).call
+      when attendance.destroyed?
+        AttendanceDeleting.new(attendance: attendance).call
       end
     end
   end
