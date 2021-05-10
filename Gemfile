@@ -29,6 +29,8 @@ gem 'pundit'
 gem 'friendly_id', '~> 5.4.0'
 gem 'oj'
 
+gem 'simple_form'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
