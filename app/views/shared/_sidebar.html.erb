@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <%= link_to 'Stisla', root_path  %>
+      <%= link_to 'Dashboard', root_path  %>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <%= link_to 'St', root_path %>
@@ -14,13 +14,13 @@
       </li>
 
       <li class="menu-header">Controllers</li>
-      <%= render 'shared/sidebar_dropdown', title: 'Resources', icon: 'fas fa-file-alt' do %>
+      <%#= render 'shared/sidebar_dropdown', title: 'Resources', icon: 'fas fa-file-alt' do %>
       <!--
         <li class="<#= active_nav_item('customers', crud_actions) #>">
           <#= link_to 'Customers', customers_path, class: 'nav-link' #>
         </li>
       -->
-      <% end %>
+      <%# end %>
     </ul>
   </aside>
 </div>
