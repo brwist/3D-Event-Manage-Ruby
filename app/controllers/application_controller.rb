@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  before_action :authenticate_user!
+
   def access_denied(exception)
     redirect_to root_url, alert: exception.message
   end
