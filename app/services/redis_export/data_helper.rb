@@ -9,7 +9,7 @@ module RedisExport
     end
 
     def attendee_json
-      # NB: Use mode: :compat option for symbol keys
+      # NB: Use ({...}, mode: :compat) option for symbol keys
       Oj.dump(
         'client' => @client.name,
         'event'  => @event.name,
