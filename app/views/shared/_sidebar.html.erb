@@ -4,9 +4,19 @@
       <%= link_to 'Dashboard', root_path  %>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <%= link_to 'St', root_path %>
+      <%= link_to 'DB', root_path %>
     </div>
     <ul class="sidebar-menu" data-controller="sidebar">
+      <% if current_user.admin? %>
+        <li class="menu-header">Admin</li>
+        <li>
+          <%= link_to admin_root_path, class: "nav-link" do %>
+            <i class="fas fa-tools"></i> <span>Admin</span>
+          <% end %>
+        </li>
+      <% end %>
+
+      <li class="menu-header">Dashboard</li>
       <li class="<%= active_nav_item('home', 'index') %>">
         <%= link_to root_path, class: "nav-link" do %>
           <i class="fas fa-fire"></i> <span>Dashboard</span>
