@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   resources :home, only: :index
 
-  root to: redirect('/admin')
+  root 'home#index'
   # mount Sidekiq::Web => '/sidekiq'
 end
