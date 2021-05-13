@@ -10,7 +10,7 @@ module EventManage
   class Application < Rails::Application
     config.app                            = config_for(:config)
     config.i18n.default_locale            = :en
-    config.time_zone                      = 'UTC'
+    config.time_zone                      = 'Eastern Time (US & Canada)'
     config.generators.scaffold_stylesheet = false
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
