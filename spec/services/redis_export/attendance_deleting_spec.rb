@@ -9,8 +9,8 @@ RSpec.describe RedisExport::AttendanceDeleting do
 
   # clean up redis records
   after do
-    keys_to_del = $redis.keys("test.*")
-    $redis.del(keys_to_del) if keys_to_del.present?
+    keys_to_del = Redis.current.keys("test.*")
+    Redis.current.del(keys_to_del) if keys_to_del.present?
   end
 
   subject do
@@ -20,10 +20,10 @@ RSpec.describe RedisExport::AttendanceDeleting do
   describe '#call' do
     it 'removes attendee JSON from redis' do
       redis_key = "test.attendee.#{event.client.slug}.#{event.slug}"
-      $redis.hset(redis_key, attendee.email, 'some data')
+      Redis.current.hset(redis_key, attendee.email, 'some data')
 
       expect { subject.call }
-        .to change { $redis.hget(redis_key, attendee.email) }
+        .to change { Redis.current.hget(redis_key, attendee.email) }
         .from('some data').to(nil)
     end
   end

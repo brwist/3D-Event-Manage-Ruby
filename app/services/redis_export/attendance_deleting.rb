@@ -10,7 +10,7 @@ module RedisExport
     end
 
     def call
-      $redis.hdel(event_key, @attendee.email)
+      Redis.current.hdel(event_key, @attendee.email)
     end
   end
 end

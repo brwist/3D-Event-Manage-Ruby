@@ -31,6 +31,14 @@ gem 'oj'
 
 gem 'simple_form'
 
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'ransack'
+gem 'platform_agent'
+gem 'geared_pagination'
+gem 'spreadsheet_architect'
+gem 'redis'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -66,6 +74,7 @@ group :test do
   gem 'webdrivers'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'mock_redis'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
