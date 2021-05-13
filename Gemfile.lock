@@ -176,6 +176,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.0.3)
     minitest (5.14.4)
+    mock_redis (0.28.0)
+      ruby2_keywords
     msgpack (1.4.2)
     nio4r (2.5.7)
     nokogiri (1.11.3-arm64-darwin)
@@ -360,6 +362,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   license_finder
   listen (~> 3.3)
+  mock_redis
   oj
   pg (~> 1.1)
   platform_agent

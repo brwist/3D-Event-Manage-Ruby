@@ -12,8 +12,8 @@ module RedisExport
         @event = event
         @client = event.client
 
-        $redis.hdel(event_key, previous_email) if previous_email
-        $redis.hset(event_key, @attendee.email, attendee_json)
+        Redis.current.hdel(event_key, previous_email) if previous_email
+        Redis.current.hset(event_key, @attendee.email, attendee_json)
       end
     end
 

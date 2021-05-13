@@ -10,7 +10,7 @@ module RedisExport
     end
 
     def call
-      $redis.hset(event_key, @attendee.email, attendee_json)
+      Redis.current.hset(event_key, @attendee.email, attendee_json)
     end
   end
 end

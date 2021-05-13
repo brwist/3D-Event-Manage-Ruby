@@ -1,5 +1,3 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
   resources :events
   ActiveAdmin.routes(self)
@@ -9,5 +7,4 @@ Rails.application.routes.draw do
   resources :home, only: :index
 
   root 'home#index'
-  # mount Sidekiq::Web => '/sidekiq'
 end

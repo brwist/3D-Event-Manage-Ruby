@@ -8,8 +8,8 @@ RSpec.describe RedisExport::AttendanceCreation do
   let(:attendance) { Attendance.create!(event: event, attendee: attendee) }
 
   after do
-    keys_to_del = $redis.keys("test.*")
-    $redis.del(keys_to_del) if keys_to_del.present?
+    keys_to_del = Redis.current.keys("test.*")
+    Redis.current.del(keys_to_del) if keys_to_del.present?
   end
 
   subject do
@@ -23,7 +23,7 @@ RSpec.describe RedisExport::AttendanceCreation do
       allow(subject).to receive(:attendee_json).and_return(fake_json)
 
       expect { subject.call }
-        .to change { $redis.hget("test.attendee.#{event.client.slug}.#{event.slug}", attendee.email) }
+        .to change { Redis.current.hget("test.attendee.#{event.client.slug}.#{event.slug}", attendee.email) }
         .from(nil).to(fake_json)
     end
   end
