@@ -77,17 +77,7 @@ group :test do
   gem 'mock_redis'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'ransack'
-gem 'platform_agent'
-gem 'geared_pagination'
-gem 'spreadsheet_architect'
-gem 'redis'
-
-
 group :production do
-  gem 'sidekiq'
   gem 'rack-ratelimit'
   gem 'rack-timeout'
 end
