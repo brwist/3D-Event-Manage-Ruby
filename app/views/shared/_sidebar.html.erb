@@ -24,6 +24,11 @@
       </li>
 
       <li class="menu-header">Controllers</li>
+      <li class='<%= active_nav_item('events') %>'>
+        <%= link_to events_path, class: 'nav-link' do %>
+        <i class='fas fa-mountain'></i><span>Events</span>
+        <% end %>
+      </li>
       <%#= render 'shared/sidebar_dropdown', title: 'Resources', icon: 'fas fa-file-alt' do %>
       <!--
         <li class="<#= active_nav_item('customers', crud_actions) #>">

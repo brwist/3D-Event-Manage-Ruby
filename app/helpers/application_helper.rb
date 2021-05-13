@@ -7,7 +7,7 @@ module ApplicationHelper
     %w( index show new edit create update )
   end
 
-  def active_nav_item(controller, actions)
+  def active_nav_item(controller, actions=nil)
     'active' if active_actions?(controller, actions)
   end
 
@@ -36,6 +36,6 @@ module ApplicationHelper
 
   private
     def active_actions?(controller, actions)
-      params[:controller].include?(controller) && actions.include?(params[:action])
+      params[:controller].include?(controller) && (actions.nil? || actions.include?(params[:action]))
     end
 end
