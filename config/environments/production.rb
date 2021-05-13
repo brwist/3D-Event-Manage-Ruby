@@ -3,7 +3,6 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   config.force_ssl = true
   config.ssl_options = { hsts: { expires: 10.days, preload: true } }
-  config.active_job.queue_adapter = :sidekiq
   config.action_controller.asset_host = ENV['CLOUDFRONT_URL']
   config.cache_store = :redis_cache_store, { url: ENV['REDIS_CACHE_URL'] }
 
