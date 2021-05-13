@@ -13,7 +13,10 @@
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/events", type: :request do
-  
+  let(:user) { create :user }
+
+  before { sign_in user }
+
   # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
@@ -41,7 +44,7 @@ RSpec.describe "/events", type: :request do
   end
 
   describe "GET /new" do
-    xit "renders a successful response" do
+    it "renders a successful response" do
       get new_event_url
       expect(response).to be_successful
     end
