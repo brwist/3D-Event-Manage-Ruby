@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
 
   def index
-    @search = Event.reverse_chronologically.ransack(params[:q])
+    @search = Event.includes(:client).reverse_chronologically.ransack(params[:q])
 
     respond_to do |format|
       format.any(:html, :json) { @events = set_page_and_extract_portion_from @search.result }
