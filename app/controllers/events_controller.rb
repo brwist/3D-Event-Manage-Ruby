@@ -11,6 +11,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @attendees = @event.attendees
     fresh_when etag: @event
   end
 
