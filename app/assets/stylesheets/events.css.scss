@@ -1,0 +1,10 @@
+@import "bootstrap/scss/bootstrap";
+@import "stisla/style";
+@import "stisla/components";
+
+.card-highlight-info {
+  @extend .card-info;
+  border: 1px solid #3abaf4 !important;
+
+  padding: 40px 20px;
+}
