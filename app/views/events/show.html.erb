@@ -1,6 +1,6 @@
 <section class="section">
   <div class="section-header d-mobile-none">
-    <h1>Events</h1>
+    <h1><%= @event.name %></h1>
     <div class="section-header-breadcrumb">
       <div class="breadcrumb-item"><%= link_to 'Dashboard', root_path %></div>
       <div class="breadcrumb-item"><%= link_to 'Events', events_path %></div>
@@ -11,11 +11,37 @@
   <div class="section-body">
     <div class="card">
       <div class="card-header">
-        <h4>Show Event</h4>
+        <h4>Event Parameters</h4>
       </div>
       <div class="card-body">
-        <dl class="row">
-        </dl>
+        <ul class="nav nav-tabs" id="myTab2" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#home2" role="tab" aria-controls="home" aria-selected="true">Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile" aria-selected="false">Attendees</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#permissions" role="tab" aria-controls="contact" aria-selected="false">Permissions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab2" data-toggle="tab" href="#rooms" role="tab" aria-controls="contact" aria-selected="false">Rooms</a>
+          </li>
+        </ul>
+        <div class="tab-content tab-bordered" id="myTab3Content">
+          <div class="tab-pane fade show active" id="home2" role="tabpanel" aria-labelledby="home-tab2">
+            <%= render 'form', event: @event %>
+          </div>
+          <div class="tab-pane fade" id="profile2" role="tabpanel" aria-labelledby="profile-tab2">
+            Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis iaculis tellus. Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit venenatis justo, eget scelerisque tellus pharetra a.
+          </div>
+          <div class="tab-pane fade" id="permissions" role="tabpanel" aria-labelledby="contact-tab2">
+            TBD
+          </div>
+          <div class="tab-pane fade" id="rooms" role="tabpanel" aria-labelledby="contact-tab2">
+            TBD
+          </div>
+        </div>
       </div>
     </div>
   </div>
