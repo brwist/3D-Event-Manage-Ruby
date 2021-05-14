@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     @event.save!
 
     respond_to do |format|
-      format.html { redirect_to @event, notice: 'Event was successfully created.' }
+      format.html { redirect_to events_url, notice: 'Event was successfully created.' }
       format.json { render :show, status: :created }
     end
   end
