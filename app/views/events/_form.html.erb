@@ -1,12 +1,12 @@
 <%= form_with(model: event, data: { controller: 'validation' }) do |form| %>
   <div class="row">
-    <div class="col">
+    <div class="col-5">
       <div class="form-group">
         <%= form.label :name %>
         <%= form.text_field :name, class: 'form-control', tabindex: 1 %>
       </div>
     </div>
-    <div class="col">
+    <div class="col-5">
       <div class="form-group">
         <%= form.label :client_id %>
         <%= form.collection_select(:client_id, Client.all, :id, :name, {}, { class: 'form-control', data: { controller: 'select' } }) %>
@@ -15,13 +15,13 @@
   </div>
 
   <div class="row">
-    <div class="col">
+    <div class="col-5">
       <div class="form-group">
         <%= form.label :start_time %>
         <%= form.text_field :start_time, value: l(event.start_time), class: 'form-control', type: 'datetime-local', tabindex: 2 %>
       </div>
     </div>
-    <div class="col">
+    <div class="col-5">
       <div class="form-group">
         <label>Tags (TBD)</label>
         <input type="text" class="form-control inputtags">
@@ -30,13 +30,13 @@
   </div>
 
   <div class="row">
-    <div class="col">
+    <div class="col-5">
       <div class="form-group">
         <%= form.label :end_time %>
         <%= form.text_field :end_time, value: l(event.end_time), class: 'form-control', type: 'datetime-local', tabindex: 3 %>
       </div>
     </div>
-    <div class="col">
+    <div class="col-5">
       <div class="form-group">
         <label>Event Main Entrance (TBD)</label>
         <input type="text" class="form-control inputtags">
