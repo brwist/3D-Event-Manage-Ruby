@@ -6,6 +6,8 @@ class Attendee < ApplicationRecord
 
   after_commit :notify_observers
 
+  validates :name, :email, presence: true
+
   def observers
     @observers ||=
       if Rails.application.config.cache_events_in_redis
