@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @attendees = @event.attendees
+    @attendances = @event.attendances.includes(:attendee)
     fresh_when etag: @event
   end
 

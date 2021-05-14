@@ -28,12 +28,12 @@
       <div class="table-responsive">
         <table class="table table-striped table-md">
           <tbody>
-            <% @attendees.each do |attendee| %>
+            <% @attendances.each do |a| %>
               <tr>
-                <td><%= attendee.email %></td>
-                <td><%= attendee.name %></td>
+                <td><%= a.attendee.email %></td>
+                <td><%= a.attendee.name %></td>
                 <td>
-                  <%= link_to icon('fas fa-trash'), '#', title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :get, data: { confirm: 'Are you sure?', remote: true } %>
+                  <%= link_to icon('fas fa-trash'), attendance_path(a), title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: false } %>
                 </td>
               </tr>
             <% end %>
