@@ -5,7 +5,7 @@ ActiveAdmin.register Attendee do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :name, :email, :encrypted_password
+  permit_params :name, :email, :encrypted_password
   #
   # or
   #
