@@ -1,0 +1,2 @@
+class HotspotPolicy < AdministratorPolicy
+end

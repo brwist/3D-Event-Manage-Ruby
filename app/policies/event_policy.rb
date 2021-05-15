@@ -1,0 +1,2 @@
+class EventPolicy < AdministratorPolicy
+end
