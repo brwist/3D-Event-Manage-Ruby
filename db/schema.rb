@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_13_200759) do
+ActiveRecord::Schema.define(version: 2021_05_15_124239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(version: 2021_05_13_200759) do
     t.index ["client_id"], name: "index_events_on_client_id"
   end
 
+  create_table "hotspots", force: :cascade do |t|
+    t.string "external_id"
+    t.bigint "event_id", null: false
+    t.string "destination_url"
+    t.string "type"
+    t.string "tooltip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_hotspots_on_event_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -104,4 +115,5 @@ ActiveRecord::Schema.define(version: 2021_05_13_200759) do
   add_foreign_key "attendances", "attendees"
   add_foreign_key "attendances", "events"
   add_foreign_key "events", "clients"
+  add_foreign_key "hotspots", "events"
 end
