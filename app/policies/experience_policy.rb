@@ -1,0 +1,2 @@
+class ExperiencePolicy < AdministratorPolicy
+end
