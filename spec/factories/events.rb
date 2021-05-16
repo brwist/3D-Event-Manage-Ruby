@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :event do
     association(:client)
+    association(:main_entrance, factory: :experience)
 
     name { Faker::FunnyName.name }
 
