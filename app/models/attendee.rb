@@ -4,6 +4,10 @@ class Attendee < ApplicationRecord
 
   validates :name, :email, presence: true
 
+  def attendees_key
+    "attendees.#{client_slug}.#{event_slug}"
+  end
+
   def as_json(options = nil)
     {
       client: client_slug,
@@ -12,5 +16,9 @@ class Attendee < ApplicationRecord
       email: email,
       encrypted_password: encrypted_password
     }
+  end
+
+  def publish
+    Redis.current.hset(attendees_key, email, to_json)
   end
 end
