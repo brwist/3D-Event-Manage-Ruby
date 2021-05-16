@@ -1,8 +1,5 @@
 class Hotspot < ApplicationRecord
-  belongs_to :event
-
-  delegate :client_slug, to: :event, prefix: false, allow_nil: true
-  delegate :slug, to: :event, prefix: true, allow_nil: true
+  include BelongsToEvent
 
   def as_json(options = nil)
     {
