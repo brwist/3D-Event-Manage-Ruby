@@ -1,3 +1,11 @@
+# https://stackoverflow.com/questions/27032902/activeadmin-with-friendly-id
+ActiveAdmin::ResourceController.class_eval do
+  def find_resource
+    finder = resource_class.is_a?(FriendlyId) ? :slug : :id
+    scoped_collection.find_by(finder => params[:id])
+  end
+end
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -117,7 +125,7 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  config.root_to = 'dashboard#index'
+  config.root_to = 'users#index'
 
   # == Admin Comments
   #

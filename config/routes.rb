@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :home, only: :index
   resources :events
-  resources :attendances
 
   root 'home#index'
 end
