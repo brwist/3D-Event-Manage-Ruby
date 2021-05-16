@@ -27,7 +27,7 @@ RSpec.describe AttendeesImporter do
       end
 
       it "doesn't create new attendee if such record exists" do
-        Attendee.create!(input_data)
+        event.attendees.create!(input_data)
         expect { subject.call }.to_not change(Attendee, 'count')
       end
 
@@ -37,7 +37,7 @@ RSpec.describe AttendeesImporter do
       end
 
       it 'replaces existing attendees from event' do
-        tommy_lee_jones = Attendee.create!(name: 'Sheriff E. T. Bell', email: 'email@email.email')
+        tommy_lee_jones = event.attendees.create!(name: 'Sheriff E. T. Bell', email: 'email@email.email')
         event.attendees << tommy_lee_jones
 
         subject.call
