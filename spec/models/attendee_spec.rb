@@ -21,7 +21,7 @@ RSpec.describe Attendee, type: :model do
   describe '#publish' do
     it 'publishes to redis' do
       attendee.publish
-      expect(Redis.current.hget("attendees.#{attendee.event_key}", attendee.email)).to eq attendee.to_json
+      expect(Redis.current.hget("attendee.#{attendee.event_key}", attendee.email)).to eq attendee.to_json
     end
   end
 end

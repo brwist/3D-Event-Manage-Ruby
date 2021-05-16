@@ -5,7 +5,7 @@ class Attendee < ApplicationRecord
   validates :name, :email, presence: true
 
   def attendees_key
-    "attendees.#{client_slug}.#{event_slug}"
+    "attendee.#{event_key}"
   end
 
   def as_json(options = nil)
