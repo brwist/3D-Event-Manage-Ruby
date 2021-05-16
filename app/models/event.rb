@@ -8,4 +8,8 @@ class Event < ApplicationRecord
   delegate :slug, to: :client, prefix: true, allow_nil: true
 
   validates :name, :start_time, :end_time, presence: true
+
+  def key
+    "#{client_slug}.#{slug}"
+  end
 end
