@@ -6,11 +6,10 @@ class AttendeesImporter
 
   def call
     return if data.nil?
-    @event.attendances.destroy_all
+    @event.attendees.destroy_all
 
     data.each do |data_item|
-      attendee = Attendee.find_or_create_by(data_item.slice(:name, :email))
-      @event.attendees << attendee if attendee.persisted?
+      @event.attendees.create(data_item.slice(:name, :email))
     end
   end
 
