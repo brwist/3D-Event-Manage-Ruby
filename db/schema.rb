@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_15_235545) do
+ActiveRecord::Schema.define(version: 2021_05_16_215910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,15 @@ ActiveRecord::Schema.define(version: 2021_05_15_235545) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "main_entrance_id"
     t.index ["client_id"], name: "index_events_on_client_id"
+    t.index ["main_entrance_id"], name: "index_events_on_main_entrance_id"
+  end
+
+  create_table "experiences", force: :cascade do |t|
+    t.string "path"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "hotspots", force: :cascade do |t|
@@ -107,5 +115,6 @@ ActiveRecord::Schema.define(version: 2021_05_15_235545) do
 
   add_foreign_key "attendees", "events"
   add_foreign_key "events", "clients"
+  add_foreign_key "events", "experiences", column: "main_entrance_id"
   add_foreign_key "hotspots", "events"
 end

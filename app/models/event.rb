@@ -4,6 +4,7 @@ class Event < ApplicationRecord
 
   has_many :attendees
   belongs_to :client
+  belongs_to :main_entrance, class_name: 'Experience'
 
   delegate :slug, to: :client, prefix: true, allow_nil: true
 
