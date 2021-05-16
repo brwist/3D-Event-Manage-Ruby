@@ -6,9 +6,6 @@ module BelongsToEvent
 
     delegate :client_slug, to: :event, prefix: false, allow_nil: true
     delegate :slug, to: :event, prefix: true, allow_nil: true
-
-    def event_key
-      "#{client_slug}.#{event_slug}"
-    end
+    delegate :key, to: :event, prefix: true, allow_nil: true
   end
 end
