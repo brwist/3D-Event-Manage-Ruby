@@ -132,8 +132,8 @@ RSpec.describe '/events', type: :request do
   end
 
   describe 'POST /upload_attendees' do
-    subject do
-      post upload_attendees_event_path(event), params: { upload: { file: file }}
+    subject(:send_request) do
+      post upload_attendees_event_path(event), params: { upload: { file: file } }
     end
 
     let(:event) { create :event }
@@ -142,11 +142,11 @@ RSpec.describe '/events', type: :request do
       let(:file) { fixture_file_upload('correct_attendees_list.csv', 'text/csv') }
 
       it 'creates attendees records' do
-        expect { subject }.to change(Attendee, 'count').by(5)
+        expect { send_request }.to change(Attendee, 'count').by(5)
       end
 
       it 'binds attendees to event' do
-        subject
+        send_request
         expect(Attendee.last(5).map(&:event_id)).to all(eq(event.id))
       end
     end
@@ -155,11 +155,11 @@ RSpec.describe '/events', type: :request do
       let(:file) { fixture_file_upload('wrong_attendees_list.csv', 'text/csv') }
 
       it 'doesnt create attendees records' do
-        expect { subject }.to_not change(Attendee, 'count')
+        expect { send_request }.not_to change(Attendee, 'count')
       end
 
       it 'responds with flash error' do
-        subject
+        send_request
         expect(flash[:error]).to include('Processing csv file error')
       end
     end
