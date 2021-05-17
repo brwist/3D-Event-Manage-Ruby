@@ -8,6 +8,7 @@ class AttendeesController < ApplicationController
     @attendee = @event.attendees.build(attendee_params)
 
     if @attendee.save
+      flash[:notice] = 'Attendee created'
     else
       flash[:error] = @attendee.errors.full_messages.join('. ')
     end
