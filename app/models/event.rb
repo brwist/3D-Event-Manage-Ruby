@@ -20,7 +20,7 @@ class Event < ApplicationRecord
   end
 
   def configuration_key
-    "configuration.#{key}"
+    "event.#{key}"
   end
 
   def publish
