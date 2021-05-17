@@ -5,6 +5,7 @@ class Attendee < ApplicationRecord
   include BelongsToEvent
 
   validates :name, :email, presence: true
+  validates :email, uniqueness: { scope: :event_id }
 
   def attendees_key
     "attendee.#{event_key}"
