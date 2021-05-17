@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    @attendances = @event.attendances.includes(:attendee)
+    @attendees = @event.attendees
     fresh_when etag: @event
   end
 
@@ -47,6 +47,10 @@ class EventsController < ApplicationController
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upload_attendees
+    _importer = AttendeesImporter.new(@event, file)
   end
 
   private
