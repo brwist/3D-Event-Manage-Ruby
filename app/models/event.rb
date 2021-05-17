@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :scoped, scope: :client

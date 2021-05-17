@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Hotspot < ApplicationRecord
   include BelongsToEvent
 
@@ -5,7 +7,7 @@ class Hotspot < ApplicationRecord
     "hotspot.#{event_key}"
   end
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     {
       id: external_id,
       client: client_slug,

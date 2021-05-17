@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe AttendeesImporter do
+  subject { described_class.new(event, fake_file) }
+
   let(:event) { create :event, name: 'No Country for Old Men' }
   let(:fake_file) { instance_double('ActionDispatch::Http::UploadedFile', original_filename: 'fake file') }
-
-  subject { AttendeesImporter.new(event, fake_file) }
 
   describe '#call' do
     context 'valid data' do
@@ -28,7 +28,7 @@ RSpec.describe AttendeesImporter do
 
       it "doesn't create new attendee if such record exists" do
         event.attendees.create!(input_data)
-        expect { subject.call }.to_not change(Attendee, 'count')
+        expect { subject.call }.not_to change(Attendee, 'count')
       end
 
       it 'binds attendees to event' do
@@ -41,13 +41,13 @@ RSpec.describe AttendeesImporter do
         event.attendees << tommy_lee_jones
 
         subject.call
-        expect(event.reload.attendees).to_not include(tommy_lee_jones)
+        expect(event.reload.attendees).not_to include(tommy_lee_jones)
       end
     end
 
     context 'wrong input data' do
       context 'worng file format' do
-        let(:input_data) { "fake input data" }
+        let(:input_data) { 'fake input data' }
 
         before do
           allow(SmarterCSV).to receive(:process).and_raise('Wrong file format')
@@ -65,7 +65,7 @@ RSpec.describe AttendeesImporter do
         end
       end
 
-      [:email, :name].each do |absent_field|
+      %i[email name].each do |absent_field|
         context "#{absent_field} absence" do
           before do
             input_data.first[absent_field] = nil
@@ -78,7 +78,7 @@ RSpec.describe AttendeesImporter do
           end
 
           it "doesn't create new attendee" do
-            expect { subject.call }.to_not change(Attendee, 'count').from(0)
+            expect { subject.call }.not_to change(Attendee, 'count').from(0)
           end
         end
       end

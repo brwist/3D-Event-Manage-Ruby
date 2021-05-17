@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :set_event, only: %i[show edit update destroy]
 
   def index
     @search = Event.includes(:client).reverse_chronologically.ransack(params[:q])
@@ -19,8 +21,7 @@ class EventsController < ApplicationController
     @event = Event.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @event = Event.new(event_params)
@@ -49,11 +50,12 @@ class EventsController < ApplicationController
   end
 
   private
-    def set_event
-      @event = Event.friendly.find(params[:id])
-    end
 
-    def event_params
-      params.require(:event).permit(:name, :start_time, :end_time, :client_id)
-    end
+  def set_event
+    @event = Event.friendly.find(params[:id])
+  end
+
+  def event_params
+    params.require(:event).permit(:name, :start_time, :end_time, :client_id)
+  end
 end

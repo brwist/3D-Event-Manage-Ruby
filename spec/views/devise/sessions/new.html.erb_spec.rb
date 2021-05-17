@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-
-RSpec.describe "devise/sessions/new", type: :view do
-
+RSpec.describe 'devise/sessions/new', type: :view do
   module DeviseUserBits
     def resource
       User.new
@@ -17,13 +17,13 @@ RSpec.describe "devise/sessions/new", type: :view do
     end
   end
 
-  before(:each) do
+  before do
     view.class.include DeviseUserBits
   end
 
-  it "renders new event form" do
+  it 'renders new event form' do
     render
 
-    assert_select "form[autocomplete=off]"
+    assert_select 'form[autocomplete=off]'
   end
 end
