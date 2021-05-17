@@ -65,6 +65,7 @@ group :development do
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'license_finder'
+  gem 'overcommit'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'spring'

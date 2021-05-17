@@ -139,6 +139,7 @@ GEM
       has_scope (~> 0.6)
       railties (>= 5.2, < 6.2)
       responders (>= 2, < 4)
+    iniparse (1.5.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -186,6 +187,9 @@ GEM
       racc (~> 1.4)
     oj (3.11.5)
     orm_adapter (0.5.0)
+    overcommit (0.57.0)
+      childprocess (>= 0.6.3, < 5)
+      iniparse (~> 1.4)
     parallel (1.20.1)
     parser (3.0.1.0)
       ast (~> 2.4.1)
@@ -386,6 +390,7 @@ DEPENDENCIES
   listen (~> 3.3)
   mock_redis
   oj
+  overcommit
   pg (~> 1.1)
   platform_agent
   pry-byebug
