@@ -22,7 +22,7 @@ class AttendeesImporter
 
   def errors_report
     errors.map do |e|
-      e.values_at(:message, :exception).compact.join(": ")
+      e.values_at(:message, :exception).compact.join(': ')
     end.join('. ')
   end
 

@@ -53,7 +53,7 @@ class EventsController < ApplicationController
     importer = AttendeesImporter.new(@event, params[:upload][:file])
 
     if importer.call
-      flash[:notice] ='Attendees added'
+      flash[:notice] = 'Attendees added'
     else
       flash[:error] = importer.errors_report
     end
