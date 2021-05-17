@@ -6,7 +6,7 @@ ActiveAdmin.register Event do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :slug, :start_time, :end_time, :client_id
+  permit_params :name, :slug, :start_time, :end_time, :client_id, :main_entrance_id
   #
   # or
   #
