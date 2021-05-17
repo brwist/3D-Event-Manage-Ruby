@@ -5,6 +5,8 @@ class Event < ApplicationRecord
   friendly_id :name, use: :scoped, scope: :client
 
   has_many :attendees
+  has_many :hotspots
+
   belongs_to :client
   belongs_to :main_entrance, class_name: 'Experience'
 
@@ -23,5 +25,8 @@ class Event < ApplicationRecord
 
   def publish
     Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
+
+    attendees.each(&:publish)
+    hotspots.each(&:publish)
   end
 end
