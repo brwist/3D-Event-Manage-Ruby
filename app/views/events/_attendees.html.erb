@@ -42,16 +42,18 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-3">
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile">
-          <label class="custom-file-label" for="customFile">Choose file</label>
+    <%= simple_form_for(:upload, url: upload_attendees_event_path) do |f| %>
+      <div class="row">
+        <div class="col-3">
+          <div class="custom-file">
+            <%= f.file_field :file, label: 'Report', class: 'custom-file-input form-control-md' %>
+            <%= f.label :file, 'Choose file', class: 'custom-file-label' %>
+          </div>
         </div>
+        <button class='btn btn-info'>
+          <i class="fas fa-upload"></i>
+        </button>
       </div>
-      <a class="btn btn-info" href="#">
-        <i class="fas fa-upload"></i>
-      </a>
-    </div>
+    <% end %>
   </div>
 </div>

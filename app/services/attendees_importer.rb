@@ -20,6 +20,12 @@ class AttendeesImporter
     @errors ||= []
   end
 
+  def errors_report
+    errors.map do |e|
+      e.values_at(:message, :exception).compact.join(": ")
+    end.join('. ')
+  end
+
   private
 
   def data
