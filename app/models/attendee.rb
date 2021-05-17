@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Attendee < ApplicationRecord
   devise :database_authenticatable
   include BelongsToEvent
@@ -8,7 +10,7 @@ class Attendee < ApplicationRecord
     "attendee.#{event_key}"
   end
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     {
       client: client_slug,
       event: event_slug,

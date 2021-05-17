@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AttendeesImporter
   def initialize(event, file)
     @event = event
@@ -6,6 +8,7 @@ class AttendeesImporter
 
   def call
     return if data.nil?
+
     @event.attendees.destroy_all
 
     data.each do |data_item|
@@ -26,7 +29,7 @@ class AttendeesImporter
     nil
   end
 
-  def register_error(message, exception=nil)
+  def register_error(message, exception = nil)
     errors << { message: message, exception: exception }
   end
 end

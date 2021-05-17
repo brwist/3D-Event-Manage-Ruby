@@ -24,38 +24,29 @@ RSpec.describe AdministratorPolicy, type: :policy do
     end
   end
 
-  permissions :index? do
-    it 'index' do
+  shared_examples_for :only_administrator do
+    it do
       expect(subject).not_to permit(user, User.new)
       expect(subject).to permit(admin, User.new)
     end
+  end
+  permissions :index? do
+    it_behaves_like :only_administrator
   end
 
   permissions :show? do
-    it 'shows' do
-      expect(subject).not_to permit(user, User.new)
-      expect(subject).to permit(admin, User.new)
-    end
+    it_behaves_like :only_administrator
   end
 
   permissions :create? do
-    it 'creates' do
-      expect(subject).not_to permit(user, User.new)
-      expect(subject).to permit(admin, User.new)
-    end
+    it_behaves_like :only_administrator
   end
 
   permissions :update? do
-    it 'updates' do
-      expect(subject).not_to permit(user, User.new)
-      expect(subject).to permit(admin, User.new)
-    end
+    it_behaves_like :only_administrator
   end
 
   permissions :destroy? do
-    it 'destroys' do
-      expect(subject).not_to permit(user, User.new)
-      expect(subject).to permit(admin, User.new)
-    end
+    it_behaves_like :only_administrator
   end
 end

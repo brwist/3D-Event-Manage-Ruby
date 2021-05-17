@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def page_title
     content_for(:page_title) || Rails.application.class.to_s.split('::').first
   end
 
   def crud_actions
-    %w( index show new edit create update )
+    %w[index show new edit create update]
   end
 
-  def active_nav_item(controller, actions=nil)
+  def active_nav_item(controller, actions = nil)
     'active' if active_actions?(controller, actions)
   end
 
@@ -32,10 +34,11 @@ module ApplicationHelper
   def localize(object, options = {})
     super(object, options) if object
   end
-  alias :l :localize
+  alias l localize
 
   private
-    def active_actions?(controller, actions)
-      params[:controller].include?(controller) && (actions.nil? || actions.include?(params[:action]))
-    end
+
+  def active_actions?(controller, actions)
+    params[:controller].include?(controller) && (actions.nil? || actions.include?(params[:action]))
+  end
 end

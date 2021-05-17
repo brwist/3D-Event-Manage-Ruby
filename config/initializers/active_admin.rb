@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://stackoverflow.com/questions/27032902/activeadmin-with-friendly-id
 ActiveAdmin::ResourceController.class_eval do
   def find_resource
@@ -12,7 +14,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Event Manage"
+  config.site_title = 'Event Manage'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -75,7 +77,7 @@ ActiveAdmin.setup do |config|
   # In case you prefer Pundit over other solutions you can here pass
   # the name of default policy class. This policy will be used in every
   # case when Pundit is unable to find suitable policy.
-  config.pundit_default_policy = "AdministratorPolicy"
+  config.pundit_default_policy = 'AdministratorPolicy'
 
   # If you wish to maintain a separate set of Pundit policies for admin
   # resources, you may set a namespace here that Pundit will search
@@ -165,7 +167,7 @@ ActiveAdmin.setup do |config|
   # You can exclude possibly sensitive model attributes from being displayed,
   # added to forms, or exported by default by ActiveAdmin
   #
-  config.filter_attributes = [:encrypted_password, :password, :password_confirmation]
+  config.filter_attributes = %i[encrypted_password password password_confirmation]
 
   # == Localize Date/Time Format
   #

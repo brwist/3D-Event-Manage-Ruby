@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Hotspot, type: :model do
   subject(:hotspot) { create(:hotspot) }
+
   let(:event) { hotspot.event }
   let(:client) { event.client }
 
   describe '#as_json' do
-
     it 'returns appropriate hash' do
       expect(hotspot.as_json[:id]).to eq(hotspot.external_id)
       expect(hotspot.as_json[:client]).to eq(client.slug)
