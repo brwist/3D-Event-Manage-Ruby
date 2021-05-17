@@ -130,4 +130,38 @@ RSpec.describe '/events', type: :request do
       expect(response).to redirect_to(events_url)
     end
   end
+
+  describe 'POST /upload_attendees' do
+    subject do
+      post upload_attendees_event_path(event), params: { upload: { file: file }}
+    end
+
+    let(:event) { create :event }
+
+    context 'correct input' do
+      let(:file) { fixture_file_upload('correct_attendees_list.csv', 'text/csv') }
+
+      it 'creates attendees records' do
+        expect { subject }.to change(Attendee, 'count').by(5)
+      end
+
+      it 'binds attendees to event' do
+        subject
+        expect(Attendee.last(5).map(&:event_id)).to all(eq(event.id))
+      end
+    end
+
+    context 'wrong input file' do
+      let(:file) { fixture_file_upload('wrong_attendees_list.csv', 'text/csv') }
+
+      it 'doesnt create attendees records' do
+        expect { subject }.to_not change(Attendee, 'count')
+      end
+
+      it 'responds with flash error' do
+        subject
+        expect(flash[:error]).to include('Processing csv file error')
+      end
+    end
+  end
 end

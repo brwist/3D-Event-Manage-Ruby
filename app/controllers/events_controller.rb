@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_event, only: %i[show edit update destroy upload_attendees]
 
   def index
     @search = Event.includes(:client).reverse_chronologically.ransack(params[:q])
@@ -50,7 +50,15 @@ class EventsController < ApplicationController
   end
 
   def upload_attendees
-    _importer = AttendeesImporter.new(@event, file)
+    importer = AttendeesImporter.new(@event, params[:upload][:file])
+
+    if importer.call
+      flash[:notice] ='Attendees added'
+    else
+      flash[:error] = importer.errors_report
+    end
+
+    redirect_to @event
   end
 
   private
