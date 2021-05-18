@@ -3,7 +3,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :name %>
-        <%= form.text_field :name, class: 'form-control', tabindex: 1 %>
+        <%= form.text_field :name, class: 'form-control', tabindex: 1, autofocus: true %>
       </div>
     </div>
     <div class="col-5">
@@ -18,7 +18,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :start_time %>
-        <%= form.text_field :start_time, value: l(event.start_time), class: 'form-control', type: 'datetime-local', tabindex: 2 %>
+        <%= form.text_field :start_time, class: 'form-control datetimepicker', tabindex: 2 %>
       </div>
     </div>
     <div class="col-5">
@@ -33,7 +33,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :end_time %>
-        <%= form.text_field :end_time, value: l(event.end_time), class: 'form-control', type: 'datetime-local', tabindex: 3 %>
+        <%= form.text_field :end_time, class: 'form-control datetimepicker', tabindex: 3 %>
       </div>
     </div>
 
