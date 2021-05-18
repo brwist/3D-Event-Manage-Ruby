@@ -31,3 +31,6 @@ Rails/BulkChangeTable:
 Rails/SkipsModelValidations:
   Exclude:
     - 'spec/**/*.rb'
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
