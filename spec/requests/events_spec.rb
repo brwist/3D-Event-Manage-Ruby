@@ -16,11 +16,19 @@ require 'rails_helper'
 
 RSpec.describe '/events', type: :request do
   let(:user) { create :user }
-  # Event. As you add validations to Event, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
-  }
+  let(:client) { create :client }
+  let(:main_entrance) { create :experience }
+
+  let(:valid_attributes) do
+    {
+      name: Faker::FunnyName.name,
+      start_time: 20.hours.from_now.to_s,
+      end_time: 25.hours.from_now.to_s,
+      client_id: client.id,
+      main_entrance_id: main_entrance.id
+    }
+  end
+
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
   }
@@ -68,7 +76,7 @@ RSpec.describe '/events', type: :request do
 
       it 'redirects to the created event' do
         post events_url, params: { event: valid_attributes }
-        expect(response).to redirect_to(event_url(Event.last))
+        expect(response).to redirect_to(events_url)
       end
     end
 

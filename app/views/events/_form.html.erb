@@ -36,10 +36,11 @@
         <%= form.text_field :end_time, value: l(event.end_time), class: 'form-control', type: 'datetime-local', tabindex: 3 %>
       </div>
     </div>
+
     <div class="col-5">
       <div class="form-group">
-        <label>Event Main Entrance (TBD)</label>
-        <input type="text" class="form-control inputtags">
+        <%= form.label :main_entrance_id %>
+        <%= form.collection_select(:main_entrance_id, Experience.all, :id, :path, {}, { class: 'form-control', data: { controller: 'select' } }) %>
       </div>
     </div>
   </div>
