@@ -6,7 +6,7 @@ ActiveAdmin.register Hotspot do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :external_id, :event_id, :destination_url, :type, :tooltip
+  permit_params :external_id, :event_id, :destination_url, :type
   #
   # or
   #
@@ -22,7 +22,6 @@ ActiveAdmin.register Hotspot do
       f.input :event
       f.input :destination_url
       f.input :type
-      f.input :tooltip
     end
     f.actions
   end
