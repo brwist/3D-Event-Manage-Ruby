@@ -30,6 +30,7 @@ RSpec.describe AdministratorPolicy, type: :policy do
       expect(subject).to permit(admin, User.new)
     end
   end
+
   permissions :index? do
     it_behaves_like :only_administrator
   end

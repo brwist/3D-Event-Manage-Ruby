@@ -6,7 +6,7 @@ ActiveAdmin.register Attendee do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :email, :encrypted_password
+  permit_params :event_id, :name, :email, :password, :password_confirmation
   #
   # or
   #
@@ -15,4 +15,16 @@ ActiveAdmin.register Attendee do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  #
+
+  form do |f|
+    f.inputs do
+      f.input :event
+      f.input :name
+      f.input :email
+      f.input :password
+      f.input :password_confirmation
+    end
+    f.actions
+  end
 end
