@@ -21,5 +21,11 @@ FactoryBot.define do
         event.hotspots << create_list(:hotspot, 2, event: event)
       end
     end
+
+    trait :with_labels do
+      after(:build) do |event|
+        event.labels << create_list(:label, 2, event: event)
+      end
+    end
   end
 end

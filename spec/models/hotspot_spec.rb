@@ -13,7 +13,6 @@ RSpec.describe Hotspot, type: :model do
       expect(hotspot.as_json[:id]).to eq(hotspot.external_id)
       expect(hotspot.as_json[:client]).to eq(client.slug)
       expect(hotspot.as_json[:event]).to eq(event.slug)
-      expect(hotspot.as_json[:tooltip]).to eq(hotspot.tooltip)
       expect(hotspot.as_json[:type]).to eq(hotspot.type)
       expect(hotspot.as_json[:destination_url]).to eq(hotspot.destination_url)
     end

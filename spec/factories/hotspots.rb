@@ -4,7 +4,6 @@ FactoryBot.define do
   factory :hotspot do
     association(:event)
     destination_url { Faker::Internet.url(scheme: 'https') }
-    tooltip { Faker::Lorem.words.join(' ') }
     type { 'redirect' }
 
     after(:create) do |hotspot|

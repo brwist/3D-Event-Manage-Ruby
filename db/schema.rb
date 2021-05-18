@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_212843) do
+ActiveRecord::Schema.define(version: 2021_05_18_124222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,10 +73,18 @@ ActiveRecord::Schema.define(version: 2021_05_17_212843) do
     t.bigint "event_id", null: false
     t.string "destination_url"
     t.string "type"
-    t.string "tooltip"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_hotspots_on_event_id"
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "external_id"
+    t.bigint "event_id", null: false
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_labels_on_event_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -118,4 +126,5 @@ ActiveRecord::Schema.define(version: 2021_05_17_212843) do
   add_foreign_key "events", "clients"
   add_foreign_key "events", "experiences", column: "main_entrance_id"
   add_foreign_key "hotspots", "events"
+  add_foreign_key "labels", "events"
 end

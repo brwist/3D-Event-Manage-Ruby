@@ -6,6 +6,7 @@ class Event < ApplicationRecord
 
   has_many :attendees
   has_many :hotspots
+  has_many :labels
 
   belongs_to :client
   belongs_to :main_entrance, class_name: 'Experience'
@@ -28,6 +29,7 @@ class Event < ApplicationRecord
 
     attendees.each(&:publish)
     hotspots.each(&:publish)
+    labels.each(&:publish)
   end
 
   private
