@@ -24,9 +24,21 @@ class Event < ApplicationRecord
   end
 
   def publish
-    Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
+    publish_event
 
     attendees.each(&:publish)
     hotspots.each(&:publish)
+  end
+
+  private
+
+  def publish_event
+    Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
+    Redis.current.hset(configuration_key, 'start_time', time_to_publish_format(start_time))
+    Redis.current.hset(configuration_key, 'end_time', time_to_publish_format(end_time))
+  end
+
+  def time_to_publish_format(time)
+    (time.to_i * 1000).to_s
   end
 end
