@@ -1,6 +1,6 @@
-name, email
-Oliver Rogers, oliver@rogers.com
-Madras Gonzalez, madras@facebook.com
-Yan Nepomnyashcshiy, noname@fide.org
-Luke Skywalker, luke@rebels.sw
-Boris Eltsin, ben@nineties.ru
+name, email, password
+Oliver Rogers, oliver@rogers.com, 12345678
+Madras Gonzalez, madras@facebook.com, foobar
+Yan Nepomnyashcshiy, noname@fide.org, 123456
+Luke Skywalker, luke@rebels.sw, foobar
+Boris Eltsin, ben@nineties.ru, cucumber

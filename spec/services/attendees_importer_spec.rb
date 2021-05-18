@@ -16,9 +16,9 @@ RSpec.describe AttendeesImporter do
 
       let(:input_data) do
         [
-          { name: 'Llewelyn Moss', email: 'one@example.com' },
-          { name: 'Anton Chigurh', email: 'two@example.com' },
-          { name: 'Carson Wells', email: 'three@example.com' }
+          { name: 'Llewelyn Moss', email: 'one@example.com', password: '12345678' },
+          { name: 'Anton Chigurh', email: 'two@example.com', password: '12345678' },
+          { name: 'Carson Wells', email: 'three@example.com', password: '12345678' }
         ]
       end
 
@@ -29,6 +29,12 @@ RSpec.describe AttendeesImporter do
       it "doesn't create new attendee if such record exists" do
         event.attendees.create!(input_data)
         expect { subject.call }.not_to change(Attendee, 'count')
+      end
+
+      it 'stores encrypted password' do
+        subject.call
+        expect(Attendee.last(3).map { |at| at.valid_password?('12345678') })
+          .to all(eq(true))
       end
 
       it 'binds attendees to event' do

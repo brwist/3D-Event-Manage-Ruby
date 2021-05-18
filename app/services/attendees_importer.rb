@@ -12,7 +12,7 @@ class AttendeesImporter
     @event.attendees.destroy_all
 
     data.each do |data_item|
-      @event.attendees.create(data_item.slice(:name, :email))
+      @event.attendees.create(data_item.slice(:name, :email, :password))
     end
   end
 
