@@ -17,6 +17,9 @@ RSpec.describe Event, type: :model do
 
     it 'publishes configuration' do
       expect(Redis.current.hget("event.#{event.key}", 'main_entrance')).to eq event.main_entrance.path
+      expect(Redis.current.hget("event.#{event.key}", 'start_time')).to eq (event.start_time.to_i * 1000).to_s
+      expect(Redis.current.hget("event.#{event.key}", 'end_time')).to eq (event.end_time.to_i * 1000).to_s
+
       event.attendees.each do |attendee|
         expect(Redis.current.hget(attendee.attendees_key, attendee.email)).to eq attendee.to_json
       end
