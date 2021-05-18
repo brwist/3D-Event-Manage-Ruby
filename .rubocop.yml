@@ -16,6 +16,9 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/SharedExamples:
   Enabled: false
 
+RSpec/MultipleExpectations:
+  Enabled: false
+
 Style/BlockDelimiters:
   Enabled: false
 

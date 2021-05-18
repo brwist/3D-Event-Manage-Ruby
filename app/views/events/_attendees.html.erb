@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <%= simple_form_for(:upload, url: upload_attendees_event_path) do |f| %>
+    <%= simple_form_for(:upload, url: upload_attendees_event_path(id: event.id)) do |f| %>
       <div class="row">
         <div class="col-3">
           <div class="custom-file">

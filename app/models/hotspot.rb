@@ -13,6 +13,8 @@ class Hotspot < ApplicationRecord
       id: external_id,
       client: client_slug,
       event: event_slug,
+      tooltip: tooltip,
+      type: type,
       destination_url: destination_url
     }
   end
