@@ -16,4 +16,13 @@ ActiveAdmin.register Label do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  form do |f|
+    f.inputs do
+      f.input :external_id
+      f.input :event
+      f.input :text
+    end
+    f.actions
+  end
 end
