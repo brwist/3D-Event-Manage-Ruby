@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Event, type: :model do
-  subject(:event) { create(:event, :with_attendees, :with_hotspots) }
+  subject(:event) { create(:event, :with_attendees, :with_hotspots, :with_labels) }
 
   it { is_expected.to(validate_presence_of(:name)) }
   it { is_expected.to(validate_presence_of(:start_time)) }
@@ -23,8 +23,13 @@ RSpec.describe Event, type: :model do
       event.attendees.each do |attendee|
         expect(Redis.current.hget(attendee.attendees_key, attendee.email)).to eq attendee.to_json
       end
+
       event.hotspots.each do |hotspot|
         expect(Redis.current.hget(hotspot.hotspots_key, hotspot.external_id)).to eq hotspot.to_json
+      end
+
+      event.labels.each do |label|
+        expect(Redis.current.hget(label.labels_key, label.external_id)).to eq label.to_json
       end
     end
   end
