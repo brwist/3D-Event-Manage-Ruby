@@ -15,4 +15,15 @@ ActiveAdmin.register Hotspot do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  form do |f|
+    f.inputs do
+      f.input :external_id
+      f.input :event
+      f.input :destination_url
+      f.input :type
+      f.input :tooltip
+    end
+    f.actions
+  end
 end

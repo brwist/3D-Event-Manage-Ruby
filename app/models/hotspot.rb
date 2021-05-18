@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Hotspot < ApplicationRecord
+  self.inheritance_column = nil
   include BelongsToEvent
 
   def hotspots_key
