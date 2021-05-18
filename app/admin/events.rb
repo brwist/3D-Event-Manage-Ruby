@@ -15,4 +15,13 @@ ActiveAdmin.register Event do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  action_item :publish, only: :show do
+    link_to 'Publish', publish_admin_event_path, method: :put
+  end
+
+  member_action :publish, method: :put do
+    resource.publish
+    redirect_to resource_path, notice: 'Published!'
+  end
 end
