@@ -18,7 +18,7 @@ class AttendeesController < ApplicationController
 
   def destroy
     @attendee.destroy
-    redirect_to event_url(@attendee.event, 'Participance cancelled')
+    redirect_to edit_event_url(@attendee.event), notice: 'Participance cancelled'
   end
 
   private

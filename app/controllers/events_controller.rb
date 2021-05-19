@@ -12,16 +12,16 @@ class EventsController < ApplicationController
     end
   end
 
-  def show
-    @attendees = @event.attendees
-    fresh_when etag: @event
-  end
+  def show; end
 
   def new
     @event = Event.new
   end
 
-  def edit; end
+  def edit
+    @attendees = @event.attendees
+    fresh_when etag: @event
+  end
 
   def create
     @event = Event.new(event_params)
