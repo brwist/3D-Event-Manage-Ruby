@@ -343,8 +343,8 @@ Devise.setup do |config|
 
   class LogSamlFailedCallback
     def handle(saml_response, strategy)
-      puts strategy
-      puts saml_response
+      puts strategy.inspect
+      puts saml_response.inspect
     end
   end
   config.saml_failed_callback = LogSamlFailedCallback
