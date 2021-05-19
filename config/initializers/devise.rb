@@ -341,6 +341,13 @@ Devise.setup do |config|
   # and implements a #handle method. This method can then redirect the user, return error messages, etc.
   # config.saml_failed_callback = nil
 
+  class LogSamlFailedCallback
+    def handle(saml_response, strategy)
+      puts strategy
+      puts saml_response
+    end
+  end
+  config.saml_failed_callback = LogSamlFailedCallback
   # You can customize the named routes generated in case of named route collisions with
   # other Devise modules or libraries. Set the saml_route_helper_prefix to a string that will
   # be appended to the named route.
