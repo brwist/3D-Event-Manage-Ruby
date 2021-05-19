@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy upload_attendees]
+  before_action :set_event, only: %i[show edit update destroy upload_attendees publish]
 
   def index
     @search = Event.includes(:client).reverse_chronologically.ransack(params[:q])
@@ -59,6 +59,13 @@ class EventsController < ApplicationController
     end
 
     redirect_to @event
+  end
+
+  def publish
+    @event.publish
+    respond_to do |format|
+      format.js { flash.now[:notice] = 'Event published' }
+    end
   end
 
   private

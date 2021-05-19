@@ -47,6 +47,7 @@
                   <td><%= pretty_time(event.start_time) %></td>
                   <td><%= pretty_time(event.end_time) %></td>
                   <td>
+                    <%= link_to icon('fas fa-database'), publish_event_path(event), title: 'Publish', method: :post, remote: true, class: 'btn btn-icon btn-sm btn-primary mr-1' %>
                     <%= link_to icon('fas fa-edit'), edit_event_path(event), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' %>
                     <%= link_to icon('fas fa-trash'), event, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } %>
                   </td>

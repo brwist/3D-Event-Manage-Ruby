@@ -1,6 +1,8 @@
 <section class="section">
   <div class="section-header d-mobile-none">
-    <h1><%= @event.name %></h1>
+    <h1>
+      <%= @event.name %>
+    </h1>
     <div class="section-header-breadcrumb">
       <div class="breadcrumb-item"><%= link_to 'Dashboard', root_path %></div>
       <div class="breadcrumb-item"><%= link_to 'Events', events_path %></div>
@@ -12,6 +14,9 @@
     <div class="card">
       <div class="card-header">
         <h4>Event Parameters</h4>
+        <div class="card-header-action">
+          <%= link_to icon('fas fa-database', 'Publish'), publish_event_path, class: 'btn btn-icon icon-left btn-primary', method: :post, remote: true %>
+        </div>
       </div>
       <div class="card-body">
         <ul class="nav nav-tabs" id="myTab2" role="tablist">
