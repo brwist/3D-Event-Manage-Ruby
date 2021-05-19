@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :home, only: :index
   resources :events do
     post 'upload_attendees', on: :member
+    post 'publish', on: :member
     resources :attendees
   end
 
