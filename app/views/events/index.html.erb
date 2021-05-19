@@ -33,7 +33,7 @@
             <thead>
               <tr>
                 <th><%= sort_link_turbo(@search, :name, 'Event Name') %></th>
-                <th>Customer</th>
+                <th>Client</th>
                 <th><%= sort_link_turbo(@search, :start_time, 'Start') %></th>
                 <th><%= sort_link_turbo(@search, :end_time, 'End') %></th>
                 <th>Actions</th>
@@ -43,7 +43,7 @@
               <% @events.each do |event| %>
                 <tr data-target="infinite-page.item">
                   <td><%= event.name %></td>
-                  <td><%= event.client.name %></td>
+                  <td><%= event.client_name %></td>
                   <td><%= pretty_time(event.start_time) %></td>
                   <td><%= pretty_time(event.end_time) %></td>
                   <td>
