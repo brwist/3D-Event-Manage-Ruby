@@ -48,6 +48,8 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'smarter_csv', '~> 1.2.8'
 
+gem 'devise_saml_authenticatable', github: 'apokalipto/devise_saml_authenticatable'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
