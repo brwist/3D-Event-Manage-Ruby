@@ -372,5 +372,6 @@ Devise.setup do |config|
     settings.idp_sso_service_url                = ENV['IDP_SSO_SERVICE_URL']
     settings.idp_cert_fingerprint               = ENV['IDP_CERT_FINGERPRINT']
     settings.idp_cert_fingerprint_algorithm     = ENV['IDP_CERT_FINGERPRINT_ALGORITHM']
+    settings.idp_cert                           = ENV['IDP_CERT']
   end
 end
