@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/apokalipto/devise_saml_authenticatable.git
+  revision: 5c9008e8ca542cc84a03d71586f1161ddd08a23d
+  specs:
+    devise_saml_authenticatable (1.6.3)
+      devise (> 2.0.0)
+      ruby-saml (~> 1.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -300,6 +308,9 @@ GEM
       rubocop (~> 1.0)
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
+    ruby-saml (1.12.2)
+      nokogiri (>= 1.10.5)
+      rexml
     ruby2_keywords (0.0.4)
     rubyzip (2.3.0)
     sass-rails (6.0.0)
@@ -379,6 +390,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise_saml_authenticatable!
   factory_bot_rails
   faker
   friendly_id (~> 5.4.0)
