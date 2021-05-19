@@ -360,7 +360,7 @@ Devise.setup do |config|
     settings.assertion_consumer_service_binding = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
     settings.name_identifier_format             = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'
     settings.issuer                             = "#{server_url}/users/saml/metadata"
-    settings.authn_context                      = ''
+    settings.authn_context                      = ENV['AUTHN_CONTEXT']
     settings.idp_slo_service_url                = ENV['IDP_SLO_SERVICE_URL']
     settings.idp_sso_service_url                = ENV['IDP_SSO_SERVICE_URL']
     settings.idp_cert_fingerprint               = ENV['IDP_CERT_FINGERPRINT']
