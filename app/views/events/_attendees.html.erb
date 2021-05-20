@@ -44,13 +44,13 @@
 
     <%= simple_form_for(:upload, url: upload_attendees_event_path(id: event.id)) do |f| %>
       <div class="row">
-        <div class="col-3">
+        <div class="col-4">
           <div class="custom-file">
-            <%= f.file_field :file, label: 'Report', class: 'custom-file-input form-control-md' %>
-            <%= f.label :file, 'Choose file', class: 'custom-file-label' %>
+            <%= f.file_field :file, label: 'Report', class: 'custom-file-input form-control-md', id: 'upload-attendees-select', accept: '.csv' %>
+            <%= f.label :file, 'Choose file', class: 'custom-file-label', id:  'upload-attendees-label' %>
           </div>
         </div>
-        <button class='btn btn-info'>
+        <button id='upload-attendees-btn' class='btn btn-light' disabled='true' title='Upload'>
           <i class="fas fa-upload"></i>
         </button>
       </div>
