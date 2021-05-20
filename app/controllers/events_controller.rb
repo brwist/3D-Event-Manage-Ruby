@@ -58,7 +58,7 @@ class EventsController < ApplicationController
       flash[:error] = importer.errors_report
     end
 
-    redirect_to @event
+    redirect_to edit_event_url(@event)
   end
 
   def publish
