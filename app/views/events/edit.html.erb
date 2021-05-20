@@ -15,7 +15,7 @@
       <div class="card-header">
         <h4>Event Parameters</h4>
         <div class="card-header-action">
-          <%= link_to icon('fas fa-database', 'Publish'), publish_event_path, class: 'btn btn-icon icon-left btn-primary', method: :post, remote: true %>
+          <%= link_to icon('fas fa-database', 'Publish'), publish_event_path(id: @event.id), class: 'btn btn-icon icon-left btn-primary', method: :post, remote: true %>
         </div>
       </div>
       <div class="card-body">
