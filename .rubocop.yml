@@ -1,8 +1,16 @@
 inherit_from: .rubocop_todo.yml
 
+inherit_mode:
+  merge:
+    - Exclude
+
 require:
   - rubocop-rails
   - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - !ruby/regexp /db\/migrate\/.+acts_as_taggable_on_engine.rb$/
 
 RSpec/ExampleLength:
   Max: 15
