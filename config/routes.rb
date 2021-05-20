@@ -5,12 +5,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :home, only: :index
   resources :events do
     post 'upload_attendees', on: :member
     post 'publish', on: :member
     resources :attendees
   end
 
-  root 'home#index'
+  root 'events#index'
 end
