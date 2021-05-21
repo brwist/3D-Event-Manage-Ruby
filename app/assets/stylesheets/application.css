@@ -12,6 +12,7 @@
  *
  *= require bootstrap/scss/bootstrap
  *= require bootstrap-daterangepicker/daterangepicker
+ *= require bootstrap-tagsinput/dist/bootstrap-tagsinput
  *= require fontawesome/rails
  *= require select2/dist/css/select2
  *= require izitoast/dist/css/iziToast
