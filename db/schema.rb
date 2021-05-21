@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_215421) do
+ActiveRecord::Schema.define(version: 2021_05_21_010632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,12 +70,6 @@ ActiveRecord::Schema.define(version: 2021_05_20_215421) do
     t.index ["main_entrance_id"], name: "index_events_on_main_entrance_id"
   end
 
-  create_table "experiences", force: :cascade do |t|
-    t.string "path"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "hotspots", force: :cascade do |t|
     t.string "external_id"
     t.bigint "event_id", null: false
@@ -103,6 +97,12 @@ ActiveRecord::Schema.define(version: 2021_05_20_215421) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "path"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_215421) do
 
   add_foreign_key "attendees", "events"
   add_foreign_key "events", "clients"
-  add_foreign_key "events", "experiences", column: "main_entrance_id"
+  add_foreign_key "events", "rooms", column: "main_entrance_id"
   add_foreign_key "hotspots", "events"
   add_foreign_key "labels", "events"
   add_foreign_key "taggings", "tags"
