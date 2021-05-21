@@ -70,6 +70,6 @@ class ContentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def content_params
-    params.require(:content).permit(:name, :myme_type, :essence, :tag_list)
+    params.require(:content).permit(:name, :file, :tag_list)
   end
 end
