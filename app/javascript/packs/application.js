@@ -17,6 +17,7 @@ Object.defineProperties(window, { $: descriptor, jQuery: descriptor })
 // App libraries
 require("bootstrap")
 require('bootstrap-daterangepicker')
+require('bootstrap-tagsinput')
 require("jquery.nicescroll")
 
 require("select2")
