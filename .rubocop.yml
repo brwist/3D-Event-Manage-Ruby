@@ -10,7 +10,7 @@ require:
 
 AllCops:
   Exclude:
-    - !ruby/regexp /db\/migrate\/.+acts_as_taggable_on_engine.rb$/
+    - 'db/migrate/*.rb'
 
 RSpec/ExampleLength:
   Max: 15
