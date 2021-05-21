@@ -2,5 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.describe Experience, type: :model do
+RSpec.describe Room, type: :model do
+  pending 'Add tests'
 end

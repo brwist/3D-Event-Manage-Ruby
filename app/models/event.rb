@@ -9,7 +9,7 @@ class Event < ApplicationRecord
   has_many :labels
 
   belongs_to :client
-  belongs_to :main_entrance, class_name: 'Experience'
+  belongs_to :main_entrance, class_name: 'Room'
 
   delegate :slug, to: :client, prefix: true, allow_nil: true
   delegate :path, to: :main_entrance, prefix: true, allow_nil: true
