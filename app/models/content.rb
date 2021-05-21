@@ -3,7 +3,7 @@
 class Content < ApplicationRecord
   acts_as_taggable_on :tags
 
-  has_one_attachment :essence
+  has_one_attached :essence
 
   validates :name, presence: true
 end
