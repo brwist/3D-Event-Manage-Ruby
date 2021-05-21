@@ -191,9 +191,9 @@ GEM
       ruby2_keywords
     msgpack (1.4.2)
     nio4r (2.5.7)
-    nokogiri (1.11.4-arm64-darwin)
+    nokogiri (1.11.5-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.11.4-x86_64-linux)
+    nokogiri (1.11.5-x86_64-linux)
       racc (~> 1.4)
     oj (3.11.5)
     orm_adapter (0.5.0)
