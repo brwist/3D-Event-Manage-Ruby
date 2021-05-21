@@ -34,12 +34,18 @@
           <table class="table table-striped table-md">
             <thead>
               <tr>
+                <th>Name</th>
+                <th>Tags</th>
+                <th>Myme Type</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody data-target="infinite-page.container">
               <% @contents.each do |content| %>
                 <tr data-target="infinite-page.item">
+                  <td><%= content.name %></td>
+                  <td><%= content.tags.join(', ') %></td>
+                  <td><%= content.myme_type %></td>
                   <td>
                     <%= link_to icon('fas fa-eye'), content, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' %>
                     <%= link_to icon('fas fa-edit'), edit_content_path(content), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' %>
