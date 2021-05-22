@@ -17,9 +17,13 @@ require 'rails_helper'
 RSpec.describe '/contents', type: :request do
   let(:user) { create :user }
 
-  let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
-  }
+  let(:valid_attributes) do
+    {
+      name: 'Very useful manual',
+      tag_list: ['tag one', 'tag two', 'tag three'],
+      file: fixture_file_upload('wrong_attendees_list.csv', 'text/csv')
+    }
+  end
 
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
@@ -117,17 +121,22 @@ RSpec.describe '/contents', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    subject(:send_request) { delete content_url(content) }
+
+    let!(:content) { Content.create! valid_attributes }
+
     it 'destroys the requested content' do
-      content = Content.create! valid_attributes
-      expect {
-        delete content_url(content)
-      }.to change(Content, :count).by(-1)
+      expect { send_request }.to change(Content, :count).by(-1)
     end
 
     it 'redirects to the contents list' do
-      content = Content.create! valid_attributes
-      delete content_url(content)
+      send_request
       expect(response).to redirect_to(contents_url)
+    end
+
+    it 'destroys the attachment' do
+      expect { send_request }.to \
+        change(ActiveStorage::Attachment, :count).by(-1)
     end
   end
 end
