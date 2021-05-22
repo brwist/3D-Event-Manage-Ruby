@@ -5,7 +5,7 @@ class ContentsController < ApplicationController
 
   # GET /contents or /contents.json
   def index
-    @search = Content.reverse_chronologically.ransack(params[:q])
+    @search = Content.includes(:tags).reverse_chronologically.ransack(params[:q])
 
     respond_to do |format|
       format.any(:html, :json) { @contents = set_page_and_extract_portion_from @search.result }
