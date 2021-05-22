@@ -17,7 +17,7 @@ Object.defineProperties(window, { $: descriptor, jQuery: descriptor })
 // App libraries
 require("bootstrap")
 require('bootstrap-daterangepicker')
-require('bootstrap-tagsinput')
+require('bootstrap4-tagsinput/tagsinput')
 require("jquery.nicescroll")
 
 require("select2")
@@ -33,5 +33,7 @@ require("vendors/stisla/scripts")
 
 // Application
 require("app").start()
+require('./contents.js')
+require('./events.js')
 
 import "controllers"
