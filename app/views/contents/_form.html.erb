@@ -2,7 +2,7 @@
   <div class="row">
     <div class="form-group col-10">
       <%= form.label :tag_list %>
-      <%= form.text_field :tag_list, class: 'form-control', data: { role: 'tagsinput' } %>
+      <%= form.text_field :tag_list, class: 'form-control', value: content.tag_list.join(',') %>
     </div>
 
   </div>
