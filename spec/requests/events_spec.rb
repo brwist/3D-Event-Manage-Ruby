@@ -17,7 +17,7 @@ require 'rails_helper'
 RSpec.describe '/events', type: :request do
   let(:user) { create :user }
   let(:client) { create :client }
-  let(:main_entrance) { create :experience }
+  let(:main_entrance) { create :room }
 
   let(:valid_attributes) do
     {

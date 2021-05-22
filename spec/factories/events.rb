@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :event do
     association(:client)
-    association(:main_entrance, factory: :experience)
+    association(:main_entrance, factory: :room)
 
     name { Faker::FunnyName.name }
 

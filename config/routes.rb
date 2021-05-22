@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :contents
   ActiveAdmin.routes(self)
 
   devise_for :users
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
     post 'publish', on: :member
     resources :attendees
   end
+  resources :contents
 
   root 'events#index'
 end
