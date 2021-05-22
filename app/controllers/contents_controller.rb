@@ -30,7 +30,9 @@ class ContentsController < ApplicationController
 
     respond_to do |format|
       if @content.save
-        format.html { redirect_to @content, notice: 'Content was successfully created.' }
+        format.html do
+          redirect_to contents_url, notice: 'Content was successfully created.'
+        end
         format.json { render :show, status: :created, location: @content }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +45,9 @@ class ContentsController < ApplicationController
   def update
     respond_to do |format|
       if @content.update(content_params)
-        format.html { redirect_to @content, notice: 'Content was successfully updated.' }
+        format.html do
+          redirect_to contents_url, notice: 'Content was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @content }
       else
         format.html { render :edit, status: :unprocessable_entity }
