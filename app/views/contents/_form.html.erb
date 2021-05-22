@@ -1,21 +1,27 @@
 <%= form_with(model: content, data: { controller: 'validation' }) do |form| %>
   <div class="row">
-    <div class="form-group col-10">
-      <%= form.label :tag_list %>
-      <%= form.text_field :tag_list, class: 'form-control', value: content.tag_list.join(',') %>
-    </div>
-
-  </div>
-
-  <div class="row">
     <div class="form-group col-5">
       <%= form.label :name %>
       <%= form.text_field :name, class: 'form-control' %>
     </div>
 
-    <div class="form-group col-5">
-      <%= form.label :file, 'Choose File' %>
-      <%= form.file_field :file, label: 'Report', class: 'form-control' %>
+    <% if params[:action] == 'new' %>
+      <div class="form-group col-5">
+        <%= form.label :file, 'Choose File' %>
+        <%= form.file_field :file, label: 'Report', class: 'form-control', accept: 'application/pdf' %>
+      </div>
+    <% else %>
+      <div class="form-group col-5">
+        <%= form.label :file, 'File' %>
+        <input type='text' class='form-control' disabled='true' value='<%= content.file.filename %>'>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-10">
+      <%= form.label :tag_list %>
+      <%= form.text_field :tag_list, class: 'form-control', value: content.tag_list.join(',') %>
     </div>
   </div>
 
