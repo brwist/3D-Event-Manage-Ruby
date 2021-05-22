@@ -51,6 +51,7 @@
                     <% end %>
                   </td>
                   <td>
+                    <%= link_to icon('fas fa-link'), url_for(content.file), title: 'Download file', class: 'btn btn-icon btn-sm btn-info mr-1', target: '_blank' %>
                     <%= link_to icon('fas fa-edit'), edit_content_path(content), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' %>
                     <%= link_to icon('fas fa-trash'), content, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } %>
                   </td>
