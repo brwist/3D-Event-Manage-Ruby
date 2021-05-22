@@ -3,7 +3,11 @@
 class Content < ApplicationRecord
   acts_as_taggable_on :tags
 
-  has_one_attached :file
+  if Rails.env.production?
+    has_one_attached :file, service: :content_storage
+  else
+    has_one_attached :file
+  end
 
   validates :name, presence: true
 end
