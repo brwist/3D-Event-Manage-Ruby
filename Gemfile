@@ -51,6 +51,7 @@ gem 'smarter_csv', '~> 1.2.8'
 gem 'devise_saml_authenticatable', github: 'apokalipto/devise_saml_authenticatable'
 
 gem 'acts-as-taggable-on', '~> 7.0'
+gem 'aws-sdk-s3', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
