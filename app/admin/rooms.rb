@@ -6,7 +6,9 @@ ActiveAdmin.register Room do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :path
+
+  permit_params :name, :path
+
   #
   # or
   #
