@@ -7,7 +7,7 @@ ActiveAdmin.register Token do
   # Uncomment all parameters which should be permitted for assignment
   #
 
-  permit_params :type, :name, :token, :room_id
+  permit_params :name, :token, :room_id, :content
 
   #
   # or
@@ -21,19 +21,19 @@ ActiveAdmin.register Token do
   index do
     selectable_column
     id_column
-    column :type
+    column :room
     column :name
     column :token
-    column :room
+    column :content
     actions
   end
 
   form do |f|
     f.inputs do
-      f.input :type, as: :select, collection: Token.descendants.map(&:name), include_blank: false
+      f.input :room
       f.input :name
       f.input :token
-      f.input :room
+      f.input :content
     end
     f.actions
   end

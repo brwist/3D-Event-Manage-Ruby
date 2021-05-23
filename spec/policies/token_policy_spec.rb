@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe HotspotTokenPolicy, type: :policy do
+RSpec.describe TokenPolicy, type: :policy do
   subject { described_class }
 
   it { is_expected.to be < AdministratorPolicy }

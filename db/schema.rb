@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_23_101240) do
+ActiveRecord::Schema.define(version: 2021_05_23_224719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,11 @@ ActiveRecord::Schema.define(version: 2021_05_23_101240) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "presign", default: false
     t.string "mime_type"
+    t.bigint "token_id"
+    t.bigint "content_id"
+    t.index ["content_id"], name: "index_hotspots_on_content_id"
     t.index ["event_id"], name: "index_hotspots_on_event_id"
+    t.index ["token_id"], name: "index_hotspots_on_token_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -170,12 +174,12 @@ ActiveRecord::Schema.define(version: 2021_05_23_101240) do
   end
 
   create_table "tokens", force: :cascade do |t|
-    t.string "type", default: "HotspotToken", null: false
     t.string "name", null: false
     t.string "token", null: false
     t.bigint "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "content", default: false
     t.index ["room_id"], name: "index_tokens_on_room_id"
   end
 
@@ -214,7 +218,9 @@ ActiveRecord::Schema.define(version: 2021_05_23_101240) do
   add_foreign_key "attendees", "events"
   add_foreign_key "events", "clients"
   add_foreign_key "events", "rooms", column: "main_entrance_id"
+  add_foreign_key "hotspots", "contents"
   add_foreign_key "hotspots", "events"
+  add_foreign_key "hotspots", "tokens"
   add_foreign_key "labels", "events"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tokens", "rooms"
