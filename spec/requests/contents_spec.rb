@@ -72,7 +72,7 @@ RSpec.describe '/contents', type: :request do
 
       it 'redirects to the created content' do
         post contents_url, params: { content: valid_attributes }
-        expect(response).to redirect_to(content_url(Content.last))
+        expect(response).to redirect_to(contents_url)
       end
     end
 
