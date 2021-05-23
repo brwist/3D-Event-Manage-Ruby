@@ -14,6 +14,8 @@ RSpec.describe Hotspot, type: :model do
       expect(hotspot.as_json[:client]).to eq(client.slug)
       expect(hotspot.as_json[:event]).to eq(event.slug)
       expect(hotspot.as_json[:type]).to eq(hotspot.type)
+      expect(hotspot.as_json[:mime_type]).to eq(hotspot.mime_type)
+      expect(hotspot.as_json[:presign]).to eq(hotspot.presign)
       expect(hotspot.as_json[:destination_url]).to eq(hotspot.destination_url)
     end
   end

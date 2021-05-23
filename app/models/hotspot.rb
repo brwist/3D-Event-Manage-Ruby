@@ -14,6 +14,8 @@ class Hotspot < ApplicationRecord
       client: client_slug,
       event: event_slug,
       type: type,
+      mime_type: mime_type,
+      presign: presign,
       destination_url: destination_url
     }
   end

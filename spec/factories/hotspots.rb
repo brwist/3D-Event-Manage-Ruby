@@ -5,6 +5,8 @@ FactoryBot.define do
     association(:event)
     destination_url { Faker::Internet.url(scheme: 'https') }
     type { 'redirect' }
+    mime_type { 'application/pdf' }
+    presign { false }
 
     after(:create) do |hotspot|
       hotspot.update!(external_id: hotspot.id.to_s)
