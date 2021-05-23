@@ -12,14 +12,14 @@ content_storage:
   access_key_id: <%= ENV['CONTENT_ACCESS_KEY_ID'] %>
   secret_access_key: <%= ENV['CONTENT_SECRET_ACCESS_KEY'] %>
   region: us-east-1
-  bucket: your_own_bucket
+  bucket: <%= ENV['CONTENT_BUCKET'] %>
 
 amazon:
   service: S3
   access_key_id: <%= ENV['EXPERIENCE_ACCESS_KEY_ID'] %>
   secret_access_key: <%= ENV['EXPERIENCE_SECRET_ACCESS_KEY'] %>
   region: us-east-1
-  bucket: your_own_bucket
+  bucket: <%= ENV['EXPERIENCE_BUCKET'] %>
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
