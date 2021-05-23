@@ -11,8 +11,8 @@ class User < ApplicationRecord
 
   before_validation :ensure_password, on: :create
 
-  def admin?
-    has_role?(:admin)
+  def superadmin?
+    has_role?(:superadmin)
   end
 
   private

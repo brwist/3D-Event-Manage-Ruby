@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <ul class="sidebar-menu" data-controller="sidebar">
-      <% if current_user.admin? %>
+      <% if current_user.superadmin? %>
         <li class="menu-header">Admin</li>
         <li>
           <%= link_to admin_root_path, class: "nav-link" do %>
