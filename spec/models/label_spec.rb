@@ -8,6 +8,8 @@ RSpec.describe Label, type: :model do
   let(:event) { label.event }
   let(:client) { event.client }
 
+  it { is_expected.to belong_to(:token).optional }
+
   describe '#as_json' do
     it 'returns appropriate hash' do
       expect(label.as_json[:id]).to eq(label.external_id)

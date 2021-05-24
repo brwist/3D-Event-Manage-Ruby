@@ -7,6 +7,7 @@ RSpec.describe Token, type: :model do
 
   let(:event) { create(:event) }
   let(:url) { Faker::Internet.url }
+  let(:text) { Faker::Tea.variety }
 
   it { is_expected.to belong_to(:room) }
 
@@ -21,6 +22,18 @@ RSpec.describe Token, type: :model do
       expect(hotspot.external_id).to eq(token.token)
       expect(hotspot.destination_url).to eq(url)
       expect(hotspot.type).to eq('redirect')
+    end
+  end
+
+  describe '#create_label' do
+    it 'creates corresponding label' do
+      expect {
+        token.create_label(event: event, text: text)
+      }.to change(Label, :count)
+
+      label = Label.last
+      expect(label.external_id).to eq(token.token)
+      expect(label.text).to eq(text)
     end
   end
 end
