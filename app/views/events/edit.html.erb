@@ -44,7 +44,7 @@
             TBD
           </div>
           <div class="tab-pane fade" id="rooms" role="tabpanel" aria-labelledby="contact-tab2">
-            TBD
+            <%= render 'rooms', rooms: @rooms %>
           </div>
         </div>
       </div>
@@ -53,5 +53,7 @@
 </section>
 
 <%= link_to icon('fas fa-arrow-left', 'Back'), events_path, class: 'btn btn-icon icon-left btn-secondary d-mobile-none' %>
+
+<%= render 'add_content_modal_form', event: @event %>
 
 <% content_for(:page_title, 'Show Event') %>
