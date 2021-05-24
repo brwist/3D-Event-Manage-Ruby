@@ -8,6 +8,9 @@ RSpec.describe Hotspot, type: :model do
   let(:event) { hotspot.event }
   let(:client) { event.client }
 
+  it { is_expected.to belong_to(:token).optional }
+  it { is_expected.to belong_to(:content).optional }
+
   describe '#as_json' do
     it 'returns appropriate hash' do
       expect(hotspot.as_json[:id]).to eq(hotspot.external_id)

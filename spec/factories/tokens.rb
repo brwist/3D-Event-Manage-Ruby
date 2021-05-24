@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :token do
-    type { '' }
-    name { 'MyString' }
-    token { 'MyString' }
-    room { nil }
+    association(:room)
+
+    name { Faker::ChuckNorris.fact }
+    token { Faker::Hipster.words.join('-') }
   end
 end

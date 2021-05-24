@@ -4,6 +4,9 @@ class Hotspot < ApplicationRecord
   self.inheritance_column = nil
   include BelongsToEvent
 
+  belongs_to :token, optional: true
+  belongs_to :content, optional: true
+
   def hotspots_key
     "hotspot.#{event_key}"
   end
