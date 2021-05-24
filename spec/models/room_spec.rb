@@ -3,5 +3,5 @@
 require 'rails_helper'
 
 RSpec.describe Room, type: :model do
-  it { is_expected.to have_many(:tokens) }
+  it { is_expected.to have_many(:tokens).dependent(:destroy) }
 end
