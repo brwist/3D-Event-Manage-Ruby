@@ -14,7 +14,7 @@ RSpec.describe Token, type: :model do
   describe '#create_url_hotspot' do
     it 'creates url hotspot' do
       expect {
-        token.create_url_hotspot(event: event, url: url)
+        token.create_url_hotspot(event: event, url: url, text: text)
       }.to change(Hotspot, :count)
 
       hotspot = Hotspot.last
@@ -22,6 +22,10 @@ RSpec.describe Token, type: :model do
       expect(hotspot.external_id).to eq(token.token)
       expect(hotspot.destination_url).to eq(url)
       expect(hotspot.type).to eq('redirect')
+
+      label = Label.last
+      expect(label.external_id).to eq(token.token)
+      expect(label.text).to eq(text)
     end
   end
 
