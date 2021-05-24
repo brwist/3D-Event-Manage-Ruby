@@ -14,14 +14,14 @@ RSpec.describe Token, type: :model do
   describe '#create_url_hotspot' do
     it 'creates url hotspot' do
       expect {
-        token.create_url_hotspot(event: event, url: url, text: text)
+        token.create_url_hotspot(event: event, url: url, text: text, type: :new_page)
       }.to change(Hotspot, :count)
 
       hotspot = Hotspot.last
       expect(hotspot.event).to eq(event)
       expect(hotspot.external_id).to eq(token.token)
       expect(hotspot.destination_url).to eq(url)
-      expect(hotspot.type).to eq('redirect')
+      expect(hotspot.type).to eq('new_page')
 
       label = Label.last
       expect(label.external_id).to eq(token.token)
