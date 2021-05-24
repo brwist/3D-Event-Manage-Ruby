@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :content do
-    name { 'MyString' }
+    name { Faker::File.name }
+    file { Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.pdf', 'application/pdf') }
   end
 end
