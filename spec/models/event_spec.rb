@@ -5,6 +5,9 @@ require 'rails_helper'
 RSpec.describe Event, type: :model do
   subject(:event) { create(:event, :with_attendees, :with_hotspots, :with_labels) }
 
+  it { is_expected.to have_many(:attendees).dependent(:destroy) }
+  it { is_expected.to have_many(:hotspots).dependent(:destroy) }
+  it { is_expected.to have_many(:labels).dependent(:destroy) }
   it { is_expected.to(validate_presence_of(:name)) }
   it { is_expected.to(validate_presence_of(:start_time)) }
   it { is_expected.to(validate_presence_of(:end_time)) }

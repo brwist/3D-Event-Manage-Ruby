@@ -4,9 +4,9 @@ class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :scoped, scope: :client
 
-  has_many :attendees
-  has_many :hotspots
-  has_many :labels
+  has_many :attendees, dependent: :destroy
+  has_many :hotspots, dependent: :destroy
+  has_many :labels, dependent: :destroy
 
   belongs_to :client
   belongs_to :main_entrance, class_name: 'Room'
