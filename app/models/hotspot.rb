@@ -4,6 +4,8 @@ class Hotspot < ApplicationRecord
   self.inheritance_column = nil
   include BelongsToEvent
 
+  enum type: { redirect: 'redirect', new_page: 'new_page', display: 'display' }
+
   belongs_to :token, optional: true
   belongs_to :content, optional: true
 

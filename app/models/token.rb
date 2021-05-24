@@ -6,8 +6,8 @@ class Token < ApplicationRecord
   has_many :hotspots
   has_many :labels
 
-  def create_url_hotspot(event:, url:, text:)
-    hotspots.create!(event: event, destination_url: url, external_id: token, type: 'redirect')
+  def create_url_hotspot(event:, url:, text:, type:)
+    hotspots.create!(event: event, destination_url: url, external_id: token, type: type)
     create_label(event: event, text: text)
   end
 
