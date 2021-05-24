@@ -7,7 +7,12 @@ class Token < ApplicationRecord
   has_many :labels
 
   def create_url_hotspot(event:, url:, text:, type:, content: nil)
-    hotspots.create!(event: event, destination_url: url, external_id: token, type: type, content: content)
+    hotspots.create!(event: event,
+                     destination_url: url,
+                     external_id: token,
+                     type: type,
+                     content: content,
+                     mime_type: content&.file&.content_type)
     create_label(event: event, text: text)
   end
 
