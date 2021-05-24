@@ -15,6 +15,7 @@
             <tr>
               <th>Name</th>
               <th>Token</th>
+              <th>Content</th>
               <th></th>
             </tr>
           </thead>
@@ -23,6 +24,7 @@
               <tr>
                 <td><%= token.name %></td>
                 <td><%= token.token %></td>
+                <td><%= token.content %></td>
                 <td>
                   <button type="button" class="btn btn-primary btn-sm bind-content-to-token-btn" data-toggle="modal" data-target="#bindContentModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
                     Add content
