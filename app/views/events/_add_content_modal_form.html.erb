@@ -1,0 +1,39 @@
+<div class="modal fade" id="bindContentModal" tabindex="-1" aria-labelledby="bindContentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bindContentModalLabel">
+          Add Content to
+          <code id='token-title-modal'></code>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for(:content_hotspot, url: attach_content_tokens_path) do |form| %>
+        <div class="modal-body">
+          <%= form.hidden_field :token_id, class: 'form-control' %>
+          <%= form.hidden_field :event_id, class: 'form-control', value: event.id %>
+
+          <div class="row">
+            <div class="col-6 form-group">
+              <%= form.label :text %>
+              <%= form.text_field :text, class: 'form-control' %>
+            </div>
+
+            <div class="col-6 form-group">
+              <%= form.label :content_id, 'Content' %>
+              <%= form.collection_select :content_id, Content.all, :id, :name, {}, class: 'form-control', data: { controller: 'select' } %>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= form.submit 'Add content', class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

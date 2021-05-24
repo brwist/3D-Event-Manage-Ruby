@@ -20,6 +20,8 @@ class EventsController < ApplicationController
 
   def edit
     @attendees = @event.attendees
+    @rooms = Room.all
+
     fresh_when etag: @event
   end
 

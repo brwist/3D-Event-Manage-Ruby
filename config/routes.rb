@@ -12,5 +12,9 @@ Rails.application.routes.draw do
   end
   resources :contents
 
+  resources :tokens do
+    post 'attach_content', on: :collection
+  end
+
   root 'events#index'
 end
