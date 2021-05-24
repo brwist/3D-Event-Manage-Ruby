@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: labels
+#
+#  id          :bigint           not null, primary key
+#  text        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  event_id    :bigint           not null
+#  external_id :string
+#  token_id    :bigint
+#
+# Indexes
+#
+#  index_labels_on_event_id  (event_id)
+#  index_labels_on_token_id  (token_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (event_id => events.id)
+#  fk_rails_...  (token_id => tokens.id)
+#
 class Label < ApplicationRecord
   include BelongsToEvent
 
