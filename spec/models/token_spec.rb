@@ -53,6 +53,7 @@ RSpec.describe Token, type: :model do
       expect(hotspot.external_id).to eq(token.token)
       expect(hotspot.destination_url).to eq(content.file.key)
       expect(hotspot.type).to eq('display')
+      expect(hotspot.mime_type).to eq('application/pdf')
 
       label = Label.last
       expect(label.external_id).to eq(token.token)
