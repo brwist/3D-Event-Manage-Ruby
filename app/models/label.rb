@@ -3,6 +3,8 @@
 class Label < ApplicationRecord
   include BelongsToEvent
 
+  belongs_to :token, optional: true
+
   def labels_key
     "label.#{event_key}"
   end
