@@ -11,6 +11,7 @@ require:
 AllCops:
   Exclude:
     - 'db/migrate/*.rb'
+    - 'lib/tasks/auto_annotate_models.rake'
 
 RSpec/ExampleLength:
   Max: 15
