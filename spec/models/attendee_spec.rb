@@ -1,5 +1,26 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: attendees
+#
+#  id                 :bigint           not null, primary key
+#  email              :string           default(""), not null
+#  encrypted_password :string           default(""), not null
+#  name               :string           default(""), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  event_id           :bigint           not null
+#
+# Indexes
+#
+#  index_attendees_on_email_and_event_id  (email,event_id) UNIQUE
+#  index_attendees_on_event_id            (event_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (event_id => events.id)
+#
 require 'rails_helper'
 
 RSpec.describe Attendee, type: :model do

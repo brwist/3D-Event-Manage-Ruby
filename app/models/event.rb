@@ -1,5 +1,29 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: events
+#
+#  id               :bigint           not null, primary key
+#  end_time         :datetime
+#  name             :string
+#  slug             :string
+#  start_time       :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  client_id        :bigint           not null
+#  main_entrance_id :bigint
+#
+# Indexes
+#
+#  index_events_on_client_id         (client_id)
+#  index_events_on_main_entrance_id  (main_entrance_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (client_id => clients.id)
+#  fk_rails_...  (main_entrance_id => rooms.id)
+#
 class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :scoped, scope: :client
