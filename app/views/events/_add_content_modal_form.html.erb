@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="bindContentModalLabel">
-          Add Content to
+          Set content to
           <code id='token-title-modal'></code>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,7 +17,7 @@
 
           <div class="row">
             <div class="col-6 form-group">
-              <%= form.label :text %>
+              <%= form.label :text, 'Label' %>
               <%= form.text_field :text, class: 'form-control' %>
             </div>
 
