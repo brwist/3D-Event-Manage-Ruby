@@ -5,7 +5,8 @@
         <th>Name</th>
         <th>Token</th>
         <% if type == :hotspots %>
-          <th>Hotspots</th>
+          <th>Content</th>
+          <th>Tags</th>
         <% end %>
         <th></th>
       </tr>
@@ -15,15 +16,27 @@
         <tr>
           <td><%= token.name %></td>
           <td><%= token.token %></td>
+          <% hotspot = token.hotspot(event_id: event.id) %>
+
           <% if type == :hotspots %>
             <td>
-              <% token.contents.each do |c| %>
-                <%= link_to c.name, url_for(c.file), target: '_blank', class: 'badge badge-secondary' %>
+              <% if hotspot %>
+                <%= hotspot.content.file.filename %>
+                <%= link_to edit_content_path(hotspot.content), target: '_blank' do %>
+                  <i class='fas fa-edit'></i>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+              <% if hotspot %>
+                <% hotspot.content.tags.each do |tag| %>
+                  <span class="badge badge-light"><%= tag %></span>
+                <% end %>
               <% end %>
             </td>
           <% end %>
           <td>
-            <% if type == :hotspots %>
+            <% if type == :hotspots && hotspot.nil? %>
               <button type="button" class="btn btn-primary btn-sm bind-content-to-token-btn" data-toggle="modal" data-target="#bindContentModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
                 Set content
               </button>

@@ -9,10 +9,10 @@
   <% rooms.each_with_index do |room, i| %>
     <div class="tab-pane fade show <%= 'active' if i.zero? %>" id='<%= "room#{i}" %>' role="tabpanel" aria-labelledby="home-tab3">
       <h4>Hotspots</h4>
-      <%= render 'tokens_table', type: :hotspots, tokens: room.tokens.where(content: true), room: room %>
+      <%= render 'tokens_table', type: :hotspots, tokens: room.tokens.where(content: true), room: room, event: event %>
 
       <h4 class='mt-4'>Labels</h4>
-      <%= render 'tokens_table', type: :labels, tokens: room.tokens.where(content: false), room: room %>
+      <%= render 'tokens_table', type: :labels, tokens: room.tokens.where(content: false), room: room, event: event %>
     </div>
   <% end %>
 </div>
