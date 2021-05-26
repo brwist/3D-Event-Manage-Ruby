@@ -24,6 +24,7 @@ class Token < ApplicationRecord
   belongs_to :room
 
   has_many :hotspots
+  has_many :contents, through: :hotspots
   has_many :labels
 
   def create_url_hotspot(event:, url:, text:, type:, content: nil)
