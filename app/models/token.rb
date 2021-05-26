@@ -24,7 +24,6 @@ class Token < ApplicationRecord
   belongs_to :room
 
   has_many :hotspots
-  has_many :contents, through: :hotspots
   has_many :labels
 
   def create_url_hotspot(event:, url:, text:, type:, content: nil)
@@ -43,5 +42,9 @@ class Token < ApplicationRecord
 
   def create_content_hotspot(event:, content:, text:)
     create_url_hotspot(event: event, url: content.file.key, text: text, type: :display, content: content)
+  end
+
+  def hotspot(event_id:)
+    hotspots.select { |h| h.event_id = event_id }.first
   end
 end
