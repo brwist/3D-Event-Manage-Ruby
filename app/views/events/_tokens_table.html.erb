@@ -4,7 +4,9 @@
       <tr>
         <th>Name</th>
         <th>Token</th>
+        <th>Label</th>
         <% if type == :hotspots %>
+          <th>Type</th>
           <th>Content</th>
           <th>Tags</th>
         <% end %>
@@ -16,29 +18,45 @@
         <tr>
           <td><%= token.name %></td>
           <td><%= token.token %></td>
-          <% hotspot = token.hotspot(event_id: event.id) %>
+          <td><%= token.label(event_id: event.id)&.text %></td>
 
+          <% hotspot = token.hotspot(event_id: event.id) %>
           <% if type == :hotspots %>
-            <td>
-              <% if hotspot %>
+            <% if hotspot&.display? %>
+              <td>File</td>
+              <td>
                 <%= hotspot.content.file.filename %>
                 <%= link_to edit_content_path(hotspot.content), target: '_blank' do %>
                   <i class='fas fa-edit'></i>
                 <% end %>
-              <% end %>
-            </td>
-            <td>
-              <% if hotspot %>
+
+              </td>
+              <td>
                 <% hotspot.content.tags.each do |tag| %>
                   <span class="badge badge-light"><%= tag %></span>
                 <% end %>
-              <% end %>
-            </td>
+              </td>
+            <% elsif hotspot&.redirect? %>
+              <td>Redirect</td>
+              <td>
+                <%= link_to hotspot.destination_url, hotspot.destination_url, target: '_blank' %>
+              </td>
+              <td></td>
+            <% else %>
+              <td></td>
+              <td></td>
+              <td></td>
+            <% end %>
+
           <% end %>
           <td>
             <% if type == :hotspots && hotspot.nil? %>
               <button type="button" class="btn btn-primary btn-sm bind-content-to-token-btn" data-toggle="modal" data-target="#bindContentModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
                 Set content
+              </button>
+
+              <button type="button" class="btn btn-info btn-sm bind-url-to-token-btn" data-toggle="modal" data-target="#bindUrlModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
+                Set URL
               </button>
             <% end %>
           </td>

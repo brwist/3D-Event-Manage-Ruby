@@ -54,6 +54,7 @@
 
 <%= link_to icon('fas fa-arrow-left', 'Back'), events_path, class: 'btn btn-icon icon-left btn-secondary d-mobile-none' %>
 
-<%= render 'add_content_modal_form', event: @event %>
+<%= render 'events/modals/add_content_modal_form', event: @event %>
+<%= render 'events/modals/set_url_modal_form', event: @event %>
 
 <% content_for(:page_title, 'Show Event') %>

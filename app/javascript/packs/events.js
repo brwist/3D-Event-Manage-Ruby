@@ -24,4 +24,22 @@ $(document).on('turbolinks:load', function(){
 
     });
   }
+
+  // Modal windows for attaching stuff to tokens
+  if ($('.bind-content-to-token-btn').length > 0) {
+    $('.bind-content-to-token-btn').on('click', function(){
+      $('#content_hotspot_token_id').val($(this).data('token-id'));
+      $('#content_hotspot_text').val('');
+      $('#token-title-content-modal').text($(this).data('token-title'));
+    });
+  }
+
+  if ($('.bind-url-to-token-btn').length > 0) {
+    $('.bind-url-to-token-btn').on('click', function(){
+      $('#url_hotspot_token_id').val($(this).data('token-id'));
+      $('#url_hotspot_text').val('');
+      $('#url_hotspot_url').val('');
+      $('#token-title-url-modal').text($(this).data('token-title'));
+    });
+  }
 });

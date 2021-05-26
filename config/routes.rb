@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   resources :contents
 
   resources :tokens do
-    post 'attach_content', on: :collection
+    post 'attach_content_hotspot', on: :collection
+    post 'attach_url_hotspot', on: :collection
   end
 
   root 'events#index'
