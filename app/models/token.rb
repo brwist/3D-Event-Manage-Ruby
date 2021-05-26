@@ -47,4 +47,8 @@ class Token < ApplicationRecord
   def hotspot(event_id:)
     hotspots.select { |h| h.event_id = event_id }.first
   end
+
+  def label(event_id:)
+    labels.select { |h| h.event_id = event_id }.first
+  end
 end
