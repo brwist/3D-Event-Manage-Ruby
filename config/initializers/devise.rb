@@ -312,7 +312,7 @@ Devise.setup do |config|
   # ==> Configuration for :saml_authenticatable
 
   # Create user if the user does not exist. (Default is false)
-  config.saml_create_user = true
+  config.saml_create_user = false
 
   # Update the attributes of the user after a successful login. (Default is false)
   config.saml_update_user = true
