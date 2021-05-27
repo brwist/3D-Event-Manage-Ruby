@@ -136,4 +136,36 @@ RSpec.describe Token, type: :model do
       expect(token.label(event_id: event.id)).to eq(expected_label)
     end
   end
+
+  describe '#detach_hotspot' do
+    subject(:call_method) do
+      token.detach_hotspot(event_id: event.id)
+    end
+
+    before do
+      token.create_content_hotspot(event: event, content: content, text: '_')
+    end
+
+    it 'detaches the hotspot from the token' do
+      expect { call_method }.to \
+        change { token.reload.hotspot(event_id: event.id) }.to(nil)
+    end
+
+    it 'destroyes the hotspot' do
+      expect { call_method }.to change(Hotspot, 'count').by(-1)
+    end
+
+    it 'detaches the label from the token' do
+      expect { call_method }.to \
+        change { token.reload.label(event_id: event.id) }.to(nil)
+    end
+
+    it 'destroyes the label' do
+      expect { call_method }.to change(Label, 'count').by(-1)
+    end
+
+    it 'doesnt destroy the content object' do
+      expect { call_method }.not_to change(Content, 'count')
+    end
+  end
 end

@@ -59,6 +59,8 @@
                 Set URL
               </button>
             <% end %>
+
+            <%= link_to icon('fas fa-trash'), hotspot_path(hotspot), title: 'Unset hotspot', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } if hotspot %>
           </td>
         </tr>
       <% end %>
