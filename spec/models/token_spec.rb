@@ -33,10 +33,12 @@ RSpec.describe Token, type: :model do
   it { is_expected.to belong_to(:room) }
 
   describe '#create_url_hotspot' do
-    it 'creates url hotspot' do
-      expect {
-        token.create_url_hotspot(event: event, url: url, text: text, type: :new_page)
-      }.to change(Hotspot, :count)
+    subject(:method_call) do
+      token.create_url_hotspot(event: event, url: url, text: text, type: :new_page)
+    end
+
+    it 'creates url hotspot', :aggregate_failures do
+      expect { method_call }.to change(Hotspot, :count)
 
       hotspot = Hotspot.last
       expect(hotspot.event).to eq(event)
@@ -48,10 +50,23 @@ RSpec.describe Token, type: :model do
       expect(label.external_id).to eq(token.token)
       expect(label.text).to eq(text)
     end
+
+    it 'creates label' do
+      expect { method_call }.to change(Label, 'count').by(1)
+    end
+
+    it 'returns the hotspot' do
+      expect(method_call).to eq(Hotspot.last)
+    end
+
+    it 'sets the presign to the false state' do
+      created_hotspot = method_call
+      expect(created_hotspot.presign).to be false
+    end
   end
 
   describe '#create_label' do
-    it 'creates corresponding label' do
+    it 'creates corresponding label', :aggregate_failures do
       expect {
         token.create_label(event: event, text: text)
       }.to change(Label, :count)
@@ -63,10 +78,12 @@ RSpec.describe Token, type: :model do
   end
 
   describe '#create_content_hotspot' do
-    it 'creates url hotspot' do
-      expect {
-        token.create_content_hotspot(event: event, content: content, text: text)
-      }.to change(Hotspot, :count)
+    subject(:method_call) do
+      token.create_content_hotspot(event: event, content: content, text: text)
+    end
+
+    it 'creates content hotspot', :aggregate_failures do
+      expect { method_call }.to change(Hotspot, :count).by(1)
 
       hotspot = Hotspot.last
       expect(hotspot.event).to eq(event)
@@ -78,6 +95,19 @@ RSpec.describe Token, type: :model do
       label = Label.last
       expect(label.external_id).to eq(token.token)
       expect(label.text).to eq(text)
+    end
+
+    it 'creates label' do
+      expect { method_call }.to change(Label, 'count').by(1)
+    end
+
+    it 'returns the hotspot' do
+      expect(method_call).to eq(Hotspot.last)
+    end
+
+    it 'sets the presign to the true state' do
+      created_hotspot = method_call
+      expect(created_hotspot.presign).to be true
     end
   end
 
