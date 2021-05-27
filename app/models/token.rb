@@ -45,10 +45,10 @@ class Token < ApplicationRecord
   end
 
   def hotspot(event_id:)
-    hotspots.select { |h| h.event_id = event_id }.first
+    hotspots.select { |h| h.event_id == event_id }.first
   end
 
   def label(event_id:)
-    labels.select { |h| h.event_id = event_id }.first
+    labels.select { |h| h.event_id == event_id }.first
   end
 end
