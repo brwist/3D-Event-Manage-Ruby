@@ -46,6 +46,11 @@ class Token < ApplicationRecord
     labels.select { |h| h.event_id == event_id }.first
   end
 
+  def detach_hotspot!(event_id:)
+    hotspot(event_id: event_id)&.destroy!
+    label(event_id: event_id)&.destroy!
+  end
+
   private
 
   def create_hotspot(event:, text:, type:, content: nil, url: nil)
@@ -53,7 +58,7 @@ class Token < ApplicationRecord
     hotspots.create!(
       event: event,
       destination_url: url,
-      external_id: token, # -> token.token
+      external_id: token,    # NB: token.token
       type: type,
       content: content,
       mime_type: content&.file&.content_type,
