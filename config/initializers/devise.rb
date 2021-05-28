@@ -312,7 +312,7 @@ Devise.setup do |config|
   # ==> Configuration for :saml_authenticatable
 
   # Create user if the user does not exist. (Default is false)
-  config.saml_create_user = false
+  config.saml_create_user = true
 
   # Update the attributes of the user after a successful login. (Default is false)
   config.saml_update_user = true
@@ -341,13 +341,13 @@ Devise.setup do |config|
   # and implements a #handle method. This method can then redirect the user, return error messages, etc.
   # config.saml_failed_callback = nil
 
-  # class LogSamlFailedCallback
-  #  def handle(saml_response, strategy)
-  #    puts strategy.inspect
-  #    puts saml_response.inspect
-  #  end
-  # end
-  # config.saml_failed_callback = LogSamlFailedCallback
+  class LogSamlFailedCallback
+    def handle(saml_response, strategy)
+      puts strategy.inspect
+      puts saml_response.inspect
+    end
+   end
+   config.saml_failed_callback = LogSamlFailedCallback
   # You can customize the named routes generated in case of named route collisions with
   # other Devise modules or libraries. Set the saml_route_helper_prefix to a string that will
   # be appended to the named route.
@@ -365,7 +365,7 @@ Devise.setup do |config|
     # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
     settings.assertion_consumer_service_url     = "#{server_url}/users/saml/auth"
     settings.assertion_consumer_service_binding = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
-    settings.name_identifier_format             = 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient'
+    settings.name_identifier_format             = ENV['NAME_IDENTIFIER_FORMAT']
     settings.issuer                             = "#{server_url}/users/saml/metadata"
     settings.authn_context                      = ENV['AUTHN_CONTEXT']
     settings.idp_slo_service_url                = ENV['IDP_SLO_SERVICE_URL']
