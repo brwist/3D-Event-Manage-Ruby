@@ -137,9 +137,9 @@ RSpec.describe Token, type: :model do
     end
   end
 
-  describe '#detach_hotspot' do
+  describe '#detach_hotspot!' do
     subject(:call_method) do
-      token.detach_hotspot(event_id: event.id)
+      token.detach_hotspot!(event_id: event.id)
     end
 
     before do
