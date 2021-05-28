@@ -2,7 +2,10 @@
 
 class ApplicationController < ActionController::Base
   include ForgeryProtection
+  include Pundit
   include SetPlatform
+
+  rescue_from Pundit::NotAuthorizedError, with: :permission_denied
 
   layout :layout_by_resource
 
@@ -13,6 +16,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def permission_denied
+    head 403
+  end
 
   def layout_by_resource
     if devise_controller?

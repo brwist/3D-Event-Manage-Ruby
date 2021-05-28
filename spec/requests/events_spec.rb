@@ -15,7 +15,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/events', type: :request do
-  let(:user) { create :user }
+  let(:admin) { create :user, :admin }
   let(:client) { create :client }
   let(:main_entrance) { create :room }
 
@@ -33,9 +33,13 @@ RSpec.describe '/events', type: :request do
     skip('Add a hash of attributes invalid for your model')
   }
 
-  before { sign_in user }
+  before { sign_in admin }
 
   describe 'GET /index' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get events_url }
+    end
+
     it 'renders a successful response' do
       Event.create! valid_attributes
       get events_url
@@ -52,6 +56,10 @@ RSpec.describe '/events', type: :request do
   end
 
   describe 'GET /new' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get new_event_url }
+    end
+
     it 'renders a successful response' do
       get new_event_url
       expect(response).to be_successful
@@ -59,8 +67,13 @@ RSpec.describe '/events', type: :request do
   end
 
   describe 'GET /edit' do
+    let(:event) { Event.create! valid_attributes }
+
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get edit_event_url(event) }
+    end
+
     it 'render a successful response' do
-      event = Event.create! valid_attributes
       get edit_event_url(event)
       expect(response).to be_successful
     end
@@ -68,6 +81,10 @@ RSpec.describe '/events', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
+      it_behaves_like 'authorization protected action' do
+        subject(:send_request) { post events_url, params: { event: valid_attributes } }
+      end
+
       it 'creates a new Event' do
         expect {
           post events_url, params: { event: valid_attributes }
@@ -97,8 +114,19 @@ RSpec.describe '/events', type: :request do
   describe 'PATCH /update' do
     context 'with valid parameters' do
       let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
+        {
+          name: Faker::FunnyName.name,
+          start_time: 10.hours.from_now.to_s,
+          end_time: 13.hours.from_now.to_s
+        }
       }
+
+      it_behaves_like 'authorization protected action' do
+        subject(:send_request) do
+          event = Event.create! valid_attributes
+          patch event_url(event), params: { event: new_attributes }
+        end
+      end
 
       it 'updates the requested event' do
         event = Event.create! valid_attributes
@@ -111,7 +139,7 @@ RSpec.describe '/events', type: :request do
         event = Event.create! valid_attributes
         patch event_url(event), params: { event: new_attributes }
         event.reload
-        expect(response).to redirect_to(event_url(event))
+        expect(response).to redirect_to(edit_event_url(event))
       end
     end
 
@@ -125,15 +153,17 @@ RSpec.describe '/events', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    let!(:event) { create :event }
+
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { delete event_url(event) }
+    end
+
     it 'destroys the requested event' do
-      event = Event.create! valid_attributes
-      expect {
-        delete event_url(event)
-      }.to change(Event, :count).by(-1)
+      expect { delete event_url(event) }.to change(Event, :count).by(-1)
     end
 
     it 'redirects to the events list' do
-      event = Event.create! valid_attributes
       delete event_url(event)
       expect(response).to redirect_to(events_url)
     end
@@ -145,10 +175,11 @@ RSpec.describe '/events', type: :request do
     end
 
     let(:event) { create :event }
+    let(:file) { fixture_file_upload('correct_attendees_list.csv', 'text/csv') }
+
+    it_behaves_like 'authorization protected action'
 
     context 'correct input' do
-      let(:file) { fixture_file_upload('correct_attendees_list.csv', 'text/csv') }
-
       it 'creates attendees records' do
         expect { send_request }.to change(Attendee, 'count').by(5)
       end
