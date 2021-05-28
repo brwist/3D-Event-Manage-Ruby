@@ -5,9 +5,9 @@
 # Table name: tokens
 #
 #  id         :bigint           not null, primary key
-#  content    :boolean          default(FALSE)
 #  name       :string           not null
 #  token      :string           not null
+#  type       :string           default("content")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  room_id    :bigint           not null
@@ -21,6 +21,9 @@
 #  fk_rails_...  (room_id => rooms.id)
 #
 class Token < ApplicationRecord
+  self.inheritance_column = nil
+  enum type: { content: 'content', label: 'label', navigation: 'navigation' }
+
   belongs_to :room
 
   has_many :hotspots
