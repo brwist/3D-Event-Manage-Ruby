@@ -5,6 +5,7 @@ class EventsController < ApplicationController
 
   def index
     @search = Event.includes(:client).reverse_chronologically.ransack(params[:q])
+    authorize @search.result
 
     respond_to do |format|
       format.any(:html, :json) { @events = set_page_and_extract_portion_from @search.result }
@@ -16,9 +17,12 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    authorize @event
   end
 
   def edit
+    authorize @event
+
     @attendees = @event.attendees
     @rooms = Room.all
 
@@ -27,6 +31,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    authorize @event
     @event.save!
 
     respond_to do |format|
@@ -36,6 +41,7 @@ class EventsController < ApplicationController
   end
 
   def update
+    authorize @event
     @event.update!(event_params)
     respond_to do |format|
       format.html { redirect_to edit_event_url(@event), notice: 'Event was successfully updated.' }
@@ -44,6 +50,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    authorize @event
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
@@ -52,6 +59,7 @@ class EventsController < ApplicationController
   end
 
   def upload_attendees
+    authorize @event
     importer = AttendeesImporter.new(@event, params[:upload][:file])
 
     if importer.call

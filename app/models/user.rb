@@ -39,6 +39,10 @@ class User < ApplicationRecord
 
   before_validation :ensure_password, on: :create
 
+  def admin?
+    (roles.map(&:name) & %w[superadmin admin]).present?
+  end
+
   def superadmin?
     has_role?(:superadmin)
   end
