@@ -10,15 +10,15 @@ class AdministratorPolicy < ApplicationPolicy
   end
 
   def index?
-    user.has_role?(:admin)
+    user.admin?
   end
 
   def show?
-    user.has_role?(:admin)
+    user.admin?
   end
 
   def create?
-    user.has_role?(:admin)
+    user.admin?
   end
 
   def new?
@@ -26,7 +26,7 @@ class AdministratorPolicy < ApplicationPolicy
   end
 
   def update?
-    user.has_role?(:admin)
+    user.admin?
   end
 
   def edit?
@@ -34,6 +34,6 @@ class AdministratorPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.has_role?(:admin)
+    user.admin?
   end
 end
