@@ -7,15 +7,33 @@ ActiveAdmin.register Config do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name, :value
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name, :value]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
 
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :value
+    actions
+  end
+
+  show do
+    attributes_table do
+      row :name
+      row :value
+    end
+  end
+
+  form do |f|
+    f.semantic_errors(*f.object.errors.keys)
+    f.inputs do
+      f.input :name, as: :select,
+                     collection: %w[login_background login_logo login_prompt default_redirect],
+                     include_blank: false
+      f.input :value
+    end
+
+    f.actions
+  end
   action_item :publish_all do
     link_to 'Publish Config', :publish_all_admin_configs, method: :put
   end
