@@ -36,12 +36,13 @@ RSpec.describe Config, type: :model do
   end
 
   describe '#publish_all' do
-    it 'puts config data to Redis' do
+    it 'puts config data to Redis', :aggregate_failures do
       records = 3.times.map { create :config }
       described_class.publish_all
 
-      expect(Redis.current.hmget('config', *records.map(&:name))).to \
-        contain_exactly(*records.map(&:value))
+      records.each do |record|
+        expect(Redis.current.hget('config', record.name)).to eq(record.value)
+      end
     end
   end
 end
