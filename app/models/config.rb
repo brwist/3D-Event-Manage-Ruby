@@ -17,6 +17,12 @@
 class Config < ApplicationRecord
   validates :name, uniqueness: true
 
+  def self.publish_all
+    all.find_each do |config|
+      Redis.current.hset('config', config.name, config.value)
+    end
+  end
+
   class << self
     def get(name, default: '')
       find_by(name: name)&.value || default
