@@ -7,7 +7,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-if Rails.env.development?
-  admin = User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+if Rails.env.development? && User.all.empty?
+  admin = User.create!(first_name: 'Jone', last_name: 'Smith', email: 'admin@example.com', password: 'password', password_confirmation: 'password')
   admin.add_role(:admin)
 end

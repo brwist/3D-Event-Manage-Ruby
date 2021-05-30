@@ -34,4 +34,14 @@ RSpec.describe Config, type: :model do
       expect(described_class.get('bla', default: 'hello')).to eq('hello')
     end
   end
+
+  describe '#publish_all' do
+    let!(:config) { described_class.create!(name: 'a setting', value: 'a value') }
+
+    before { described_class.publish_all }
+
+    it do
+      expect(Redis.current.hget('config', config.name)).to eql(config.value)
+    end
+  end
 end
