@@ -36,12 +36,12 @@ RSpec.describe Config, type: :model do
   end
 
   describe '#publish_all' do
-    let!(:config) { described_class.create!(name: 'a setting', value: 'a value') }
+    it 'puts config data to Redis' do
+      records = 3.times.map { create :config }
+      described_class.publish_all
 
-    before { described_class.publish_all }
-
-    it do
-      expect(Redis.current.hget('config', config.name)).to eql(config.value)
+      expect(Redis.current.hmget('config', *records.map(&:name))).to \
+        contain_exactly(*records.map(&:value))
     end
   end
 end

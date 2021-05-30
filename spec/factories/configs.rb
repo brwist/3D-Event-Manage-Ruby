@@ -16,7 +16,7 @@
 #
 FactoryBot.define do
   factory :config do
-    name { 'MyString' }
-    value { 'MyString' }
+    name { Faker::FunnyName.name }
+    value { Faker::Hipster.words.join('-') }
   end
 end
