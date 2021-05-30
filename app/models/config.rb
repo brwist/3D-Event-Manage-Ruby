@@ -18,9 +18,8 @@ class Config < ApplicationRecord
   validates :name, uniqueness: true
 
   def self.publish_all
-    all.find_each do |config|
-      Redis.current.hset('config', config.name, config.value)
-    end
+    configs = pluck(:name, :value).to_h
+    Redis.current.mapped_hmset('config', configs)
   end
 
   class << self
