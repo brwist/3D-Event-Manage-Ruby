@@ -6,6 +6,7 @@ class AttendeesController < ApplicationController
 
   def create
     @attendee = @event.attendees.build(attendee_params)
+    authorize @attendee
 
     if @attendee.save
       flash[:notice] = 'Attendee created'
@@ -17,6 +18,8 @@ class AttendeesController < ApplicationController
   end
 
   def destroy
+    authorize @attendee
+
     @attendee.destroy
     redirect_to edit_event_url(@attendee.event), notice: 'Participance cancelled'
   end
