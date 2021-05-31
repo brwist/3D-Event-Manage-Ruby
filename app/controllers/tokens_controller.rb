@@ -8,6 +8,8 @@ class TokensController < ApplicationController
     event   = Event.find(content_hotspot_params[:event_id])
     content = Content.find(content_hotspot_params[:content_id])
 
+    authorize event, :update?
+
     token.create_content_hotspot(event: event, content: content, text: text)
     redirect_to edit_event_url(event)
   end
@@ -17,6 +19,8 @@ class TokensController < ApplicationController
     url   = url_hotspot_params[:url]
     token = Token.find(url_hotspot_params[:token_id])
     event = Event.find(url_hotspot_params[:event_id])
+
+    authorize event, :update?
 
     token.create_url_hotspot(event: event, url: url, text: label, type: :redirect)
     redirect_to edit_event_url(event)
