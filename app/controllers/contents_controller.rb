@@ -6,6 +6,7 @@ class ContentsController < ApplicationController
   # GET /contents or /contents.json
   def index
     @search = Content.includes(:tags).reverse_chronologically.ransack(params[:q])
+    authorize @search.result
 
     respond_to do |format|
       format.any(:html, :json) { @contents = set_page_and_extract_portion_from @search.result }
@@ -19,14 +20,17 @@ class ContentsController < ApplicationController
   # GET /contents/new
   def new
     @content = Content.new
+    authorize @content
   end
 
   # GET /contents/1/edit
-  def edit; end
+  def edit
+    authorize @content
+  end
 
   # POST /contents or /contents.json
   def create
-    @content = Content.new(content_params)
+    authorize(@content = Content.new(content_params))
 
     respond_to do |format|
       if @content.save
@@ -43,6 +47,8 @@ class ContentsController < ApplicationController
 
   # PATCH/PUT /contents/1 or /contents/1.json
   def update
+    authorize @content
+
     respond_to do |format|
       if @content.update(content_params)
         format.html do
@@ -58,6 +64,8 @@ class ContentsController < ApplicationController
 
   # DELETE /contents/1 or /contents/1.json
   def destroy
+    authorize @content
+
     @content.destroy
     respond_to do |format|
       format.html { redirect_to contents_url, notice: 'Content was successfully destroyed.' }

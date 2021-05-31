@@ -15,7 +15,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe '/contents', type: :request do
-  let(:user) { create :user }
+  let(:admin) { create :user, :admin }
 
   let(:valid_attributes) do
     {
@@ -29,9 +29,13 @@ RSpec.describe '/contents', type: :request do
     skip('Add a hash of attributes invalid for your model')
   }
 
-  before { sign_in user }
+  before { sign_in admin }
 
   describe 'GET /index' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get contents_url }
+    end
+
     it 'renders a successful response' do
       Content.create! valid_attributes
       get contents_url
@@ -48,6 +52,10 @@ RSpec.describe '/contents', type: :request do
   end
 
   describe 'GET /new' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get new_content_url }
+    end
+
     it 'renders a successful response' do
       get new_content_url
       expect(response).to be_successful
@@ -55,14 +63,23 @@ RSpec.describe '/contents', type: :request do
   end
 
   describe 'GET /edit' do
+    let!(:content) { Content.create! valid_attributes }
+
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get edit_content_url(content) }
+    end
+
     it 'render a successful response' do
-      content = Content.create! valid_attributes
       get edit_content_url(content)
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { post contents_url, params: { content: valid_attributes } }
+    end
+
     context 'with valid parameters' do
       it 'creates a new Content' do
         expect {
@@ -91,23 +108,26 @@ RSpec.describe '/contents', type: :request do
   end
 
   describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
-      }
+    let!(:content) { Content.create! valid_attributes }
+    let(:new_attributes) { { name: 'Trash', tag_list: ['Replace ASAP'] } }
 
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) do
+        patch content_url(content), params: { content: new_attributes }
+      end
+    end
+
+    context 'with valid parameters' do
       it 'updates the requested content' do
-        content = Content.create! valid_attributes
         patch content_url(content), params: { content: new_attributes }
         content.reload
         skip('Add assertions for updated state')
       end
 
       it 'redirects to the content' do
-        content = Content.create! valid_attributes
         patch content_url(content), params: { content: new_attributes }
         content.reload
-        expect(response).to redirect_to(content_url(content))
+        expect(response).to redirect_to(contents_url)
       end
     end
 
@@ -124,6 +144,8 @@ RSpec.describe '/contents', type: :request do
     subject(:send_request) { delete content_url(content) }
 
     let!(:content) { Content.create! valid_attributes }
+
+    it_behaves_like 'authorization protected action'
 
     it 'destroys the requested content' do
       expect { send_request }.to change(Content, :count).by(-1)
