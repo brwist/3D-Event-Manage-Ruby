@@ -4,6 +4,7 @@ class HotspotsController < ApplicationController
   before_action :set_hotspot
 
   def destroy
+    authorize @hotspot
     token = @hotspot.token
     event = @hotspot.event
     token.detach_hotspot!(event_id: event.id)
