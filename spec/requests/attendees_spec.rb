@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe '/attendees', type: :request do
-  before { sign_in create(:user) }
+  before { sign_in create(:user, :admin) }
 
   let(:event) { create :event }
 
@@ -12,11 +12,13 @@ RSpec.describe '/attendees', type: :request do
       post event_attendees_path(event), params: { attendee: attendee_params }
     end
 
-    context 'valid params' do
-      let(:attendee_params) do
-        { name: Faker::Name.name, email: Faker::Internet.email }
-      end
+    let(:attendee_params) do
+      { name: Faker::Name.name, email: Faker::Internet.email }
+    end
 
+    it_behaves_like 'authorization protected action'
+
+    context 'valid params' do
       context 'attendee with specified params doesnt exist' do
         it 'creates new attendee record' do
           expect { send_request }.to change(Attendee, 'count').by(1)
@@ -77,6 +79,24 @@ RSpec.describe '/attendees', type: :request do
           end
         end
       end
+    end
+  end
+
+  describe 'DELETE /destroy' do
+    subject(:send_request) { delete event_attendee_url(event, attendee) }
+
+    let(:event) { create :event }
+    let!(:attendee) { create :attendee, event: event }
+
+    it_behaves_like 'authorization protected action'
+
+    it 'destroys the attendee' do
+      expect { send_request }.to change(Attendee, 'count').by(-1)
+    end
+
+    it 'redirects to the event page' do
+      send_request
+      expect(response).to redirect_to(edit_event_url(event))
     end
   end
 end
