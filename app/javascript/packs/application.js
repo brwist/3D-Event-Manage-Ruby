@@ -35,5 +35,6 @@ require("vendors/stisla/scripts")
 require("app").start()
 require('./contents.js')
 require('./events.js')
+require('./navigation_tokens.js')
 
 import "controllers"

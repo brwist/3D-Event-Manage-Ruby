@@ -111,6 +111,44 @@ RSpec.describe Token, type: :model do
     end
   end
 
+  describe '#create_navigation_hotspot' do
+    subject(:method_call) do
+      token.create_navigation_hotspot(event: event, room: 'Room A')
+    end
+
+    let(:token) { create :token, type: :navigation }
+
+    it 'creates navigation hotspot', :aggregate_failures do
+      expect { method_call }.to change(Hotspot, 'count').by(1)
+
+      hotspot = Hotspot.last
+      expect(hotspot.external_id).to eq(token.token)
+      expect(hotspot.type).to eq('navigation')
+    end
+
+    it 'binds the created hotspot to the specified event' do
+      method_call
+      expect(Hotspot.last.event).to eq(event)
+    end
+
+    it 'creates label', :aggregate_failures do
+      expect { method_call }.to change(Label, 'count').by(1)
+      label = Label.last
+      expect(label.external_id).to eq(token.token)
+      expect(label.text).to eq('Room A')
+    end
+
+    it 'returns the created hotspot' do
+      expect(method_call).to eq(Hotspot.last)
+    end
+
+    it 'stores the specified room' do
+      method_call
+      hotspot = Hotspot.last
+      expect(hotspot.destination_url).to eq('Room A')
+    end
+  end
+
   describe '#hotspot' do
     it 'returns the hotspot that attached to the specified event' do
       other_event   = create(:event)
