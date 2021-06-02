@@ -33,7 +33,7 @@ RSpec.describe '/hotspots', type: :request do
 
       it 'sends the notification' do
         send_request
-        expect(flash[:notification]).to include('Navigation updated')
+        expect(flash[:notice]).to include('Navigation updated')
       end
     end
 
@@ -72,7 +72,7 @@ RSpec.describe '/hotspots', type: :request do
 
       it 'sends the notification' do
         send_request
-        expect(flash[:notification]).to include('Navigation updated')
+        expect(flash[:notice]).to include('Navigation updated')
       end
     end
 
@@ -108,7 +108,7 @@ RSpec.describe '/hotspots', type: :request do
 
       it 'sends the notification' do
         send_request
-        expect(flash[:notification]).to include('Navigation updated')
+        expect(flash[:notice]).to include('Navigation updated')
       end
     end
   end
