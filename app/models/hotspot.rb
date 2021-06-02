@@ -18,9 +18,10 @@
 #
 # Indexes
 #
-#  index_hotspots_on_content_id  (content_id)
-#  index_hotspots_on_event_id    (event_id)
-#  index_hotspots_on_token_id    (token_id)
+#  index_hotspots_on_content_id                (content_id)
+#  index_hotspots_on_event_id                  (event_id)
+#  index_hotspots_on_event_id_and_external_id  (event_id,external_id) UNIQUE
+#  index_hotspots_on_token_id                  (token_id)
 #
 # Foreign Keys
 #
@@ -41,6 +42,8 @@ class Hotspot < ApplicationRecord
 
   belongs_to :token, optional: true
   belongs_to :content, optional: true
+
+  validates :external_id, uniqueness: { scope: :event_id }
 
   def hotspots_key
     "hotspot.#{event_key}"

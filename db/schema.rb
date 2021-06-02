@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_28_222400) do
+ActiveRecord::Schema.define(version: 2021_06_02_201456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2021_05_28_222400) do
     t.bigint "token_id"
     t.bigint "content_id"
     t.index ["content_id"], name: "index_hotspots_on_content_id"
+    t.index ["event_id", "external_id"], name: "index_hotspots_on_event_id_and_external_id", unique: true
     t.index ["event_id"], name: "index_hotspots_on_event_id"
     t.index ["token_id"], name: "index_hotspots_on_token_id"
   end
