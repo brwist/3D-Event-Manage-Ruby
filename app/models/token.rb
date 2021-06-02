@@ -29,6 +29,8 @@ class Token < ApplicationRecord
   has_many :hotspots
   has_many :labels
 
+  validates :name, :token, :type, presence: true
+
   def create_url_hotspot(event:, url:, text:, type:)
     create_hotspot(event: event, url: url, text: text, type: type)
   end
@@ -39,6 +41,10 @@ class Token < ApplicationRecord
 
   def create_content_hotspot(event:, content:, text:)
     create_hotspot(event: event, url: content.file.key, text: text, type: :display, content: content)
+  end
+
+  def create_navigation_hotspot(event:, room:)
+    create_hotspot(event: event, url: room, text: room, type: :navigation)
   end
 
   def hotspot(event_id:)

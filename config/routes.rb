@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     post 'attach_url_hotspot', on: :collection
   end
 
-  resources :hotspots, only: [:destroy]
+  resources :hotspots, only: %i[create destroy]
 
   root 'events#index'
 end

@@ -1,7 +1,24 @@
 # frozen_string_literal: true
 
 class HotspotsController < ApplicationController
-  before_action :set_hotspot
+  before_action :set_hotspot, only: [:destroy]
+
+  # rubocop:disable Metrics/AbcSize
+  def create
+    token = Token.find(hotspot_params[:token_id])
+    event = Event.find(hotspot_params[:event_id])
+    room  = hotspot_params[:room]
+
+    authorize event, :update?
+
+    case hotspot_params[:type]
+    when 'navigation'
+      token.detach_hotspot!(event_id: event.id)
+      token.create_navigation_hotspot(event: event, room: room) if room.present?
+      flash.now[:notice] = 'Navigation updated'
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     authorize @hotspot
@@ -19,5 +36,9 @@ class HotspotsController < ApplicationController
 
   def set_hotspot
     @hotspot = Hotspot.find(params[:id])
+  end
+
+  def hotspot_params
+    params.require(:hotspot)
   end
 end
