@@ -11,6 +11,13 @@
       <% end %>
 
       <li class="menu-header">Manage</li>
+
+      <li class='<%= active_nav_item('clients') %>'>
+        <%= link_to clients_path, class: 'nav-link' do %>
+        <i class='fas fa-user-tie'></i><span>Clients</span>
+        <% end %>
+      </li>
+
       <li class='<%= active_nav_item('events') %>'>
         <%= link_to events_path, class: 'nav-link' do %>
         <i class='fas fa-mountain'></i><span>Events</span>
