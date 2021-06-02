@@ -1,0 +1,30 @@
+<div class="mt-4">
+  <h4>Navigation</h4>
+  <div class="table-responsive">
+    <table class="table table-striped table-md">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Token</th>
+          <th>Label</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tokens.each do |token| %>
+          <tr>
+            <td><%= token.name %></td>
+            <td><%= token.token %></td>
+            <td><%= token.label(event_id: event.id)&.text %></td>
+
+            <% hotspot = token.hotspot(event_id: event.id) %>
+
+            <td>
+              <%= select_tag(:room, options_from_collection_for_select(Room.all, 'name', 'name', hotspot&.destination_url || ''), class: 'form-control navigation-selectbox', include_blank: true, data: { token: token.id, event: event.id }) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
