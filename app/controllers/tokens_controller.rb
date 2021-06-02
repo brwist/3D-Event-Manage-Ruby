@@ -14,17 +14,20 @@ class TokensController < ApplicationController
     redirect_to edit_event_url(event)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def attach_url_hotspot
     label = url_hotspot_params[:label]
     url   = url_hotspot_params[:url]
+    type  = url_hotspot_params[:type].to_sym
     token = Token.find(url_hotspot_params[:token_id])
     event = Event.find(url_hotspot_params[:event_id])
 
     authorize event, :update?
 
-    token.create_url_hotspot(event: event, url: url, text: label, type: :redirect)
+    token.create_url_hotspot(event: event, url: url, text: label, type: type)
     redirect_to edit_event_url(event)
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
