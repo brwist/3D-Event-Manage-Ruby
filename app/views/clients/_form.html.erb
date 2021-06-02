@@ -1,0 +1,16 @@
+<%= form_with(model: client, data: { controller: 'validation' }) do |form| %>
+  <div class="row">
+    <div class="col-5 form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control', autofocus: true %>
+    </div>
+
+    <div class="col-5 form-group">
+      <%= form.label :slug %>
+      <%= form.text_field :slug, class: 'form-control', autofocus: true %>
+    </div>
+  </div>
+  <div class="card-footer pl-0">
+    <%= form.submit class: 'btn btn-success' %>
+  </div>
+<% end %>
