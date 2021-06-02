@@ -33,12 +33,12 @@ RSpec.describe Token, type: :model do
   it { is_expected.to belong_to(:room) }
 
   describe '#create_url_hotspot' do
-    subject(:method_call) do
+    subject(:create_url_hotspot) do
       token.create_url_hotspot(event: event, url: url, text: text, type: :new_page)
     end
 
     it 'creates url hotspot', :aggregate_failures do
-      expect { method_call }.to change(Hotspot, :count)
+      expect { create_url_hotspot }.to change(Hotspot, :count)
 
       hotspot = Hotspot.last
       expect(hotspot.event).to eq(event)
@@ -52,15 +52,15 @@ RSpec.describe Token, type: :model do
     end
 
     it 'creates label' do
-      expect { method_call }.to change(Label, 'count').by(1)
+      expect { create_url_hotspot }.to change(Label, 'count').by(1)
     end
 
     it 'returns the hotspot' do
-      expect(method_call).to eq(Hotspot.last)
+      expect(create_url_hotspot).to eq(Hotspot.last)
     end
 
     it 'sets the presign to the false state' do
-      created_hotspot = method_call
+      created_hotspot = create_url_hotspot
       expect(created_hotspot.presign).to be false
     end
   end
@@ -78,12 +78,12 @@ RSpec.describe Token, type: :model do
   end
 
   describe '#create_content_hotspot' do
-    subject(:method_call) do
+    subject(:create_content_hotspot) do
       token.create_content_hotspot(event: event, content: content, text: text)
     end
 
     it 'creates content hotspot', :aggregate_failures do
-      expect { method_call }.to change(Hotspot, :count).by(1)
+      expect { create_content_hotspot }.to change(Hotspot, :count).by(1)
 
       hotspot = Hotspot.last
       expect(hotspot.event).to eq(event)
@@ -98,28 +98,28 @@ RSpec.describe Token, type: :model do
     end
 
     it 'creates label' do
-      expect { method_call }.to change(Label, 'count').by(1)
+      expect { create_content_hotspot }.to change(Label, 'count').by(1)
     end
 
     it 'returns the hotspot' do
-      expect(method_call).to eq(Hotspot.last)
+      expect(create_content_hotspot).to eq(Hotspot.last)
     end
 
     it 'sets the presign to the true state' do
-      created_hotspot = method_call
+      created_hotspot = create_content_hotspot
       expect(created_hotspot.presign).to be true
     end
   end
 
   describe '#create_navigation_hotspot' do
-    subject(:method_call) do
+    subject(:create_navigation_hotspot) do
       token.create_navigation_hotspot(event: event, room: 'Room A')
     end
 
     let(:token) { create :token, type: :navigation }
 
     it 'creates navigation hotspot', :aggregate_failures do
-      expect { method_call }.to change(Hotspot, 'count').by(1)
+      expect { create_navigation_hotspot }.to change(Hotspot, 'count').by(1)
 
       hotspot = Hotspot.last
       expect(hotspot.external_id).to eq(token.token)
@@ -127,23 +127,23 @@ RSpec.describe Token, type: :model do
     end
 
     it 'binds the created hotspot to the specified event' do
-      method_call
+      create_navigation_hotspot
       expect(Hotspot.last.event).to eq(event)
     end
 
     it 'creates label', :aggregate_failures do
-      expect { method_call }.to change(Label, 'count').by(1)
+      expect { create_navigation_hotspot }.to change(Label, 'count').by(1)
       label = Label.last
       expect(label.external_id).to eq(token.token)
       expect(label.text).to eq('Room A')
     end
 
     it 'returns the created hotspot' do
-      expect(method_call).to eq(Hotspot.last)
+      expect(create_navigation_hotspot).to eq(Hotspot.last)
     end
 
     it 'stores the specified room' do
-      method_call
+      create_navigation_hotspot
       hotspot = Hotspot.last
       expect(hotspot.destination_url).to eq('Room A')
     end
@@ -176,7 +176,7 @@ RSpec.describe Token, type: :model do
   end
 
   describe '#detach_hotspot!' do
-    subject(:call_method) do
+    subject(:detach_hotspot!) do
       token.detach_hotspot!(event_id: event.id)
     end
 
@@ -185,25 +185,25 @@ RSpec.describe Token, type: :model do
     end
 
     it 'detaches the hotspot from the token' do
-      expect { call_method }.to \
+      expect { detach_hotspot! }.to \
         change { token.reload.hotspot(event_id: event.id) }.to(nil)
     end
 
     it 'destroyes the hotspot' do
-      expect { call_method }.to change(Hotspot, 'count').by(-1)
+      expect { detach_hotspot! }.to change(Hotspot, 'count').by(-1)
     end
 
     it 'detaches the label from the token' do
-      expect { call_method }.to \
+      expect { detach_hotspot! }.to \
         change { token.reload.label(event_id: event.id) }.to(nil)
     end
 
     it 'destroyes the label' do
-      expect { call_method }.to change(Label, 'count').by(-1)
+      expect { detach_hotspot! }.to change(Label, 'count').by(-1)
     end
 
     it 'doesnt destroy the content object' do
-      expect { call_method }.not_to change(Content, 'count')
+      expect { detach_hotspot! }.not_to change(Content, 'count')
     end
   end
 end
