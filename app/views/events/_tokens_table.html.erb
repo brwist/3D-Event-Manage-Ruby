@@ -36,8 +36,8 @@
                   <span class="badge badge-light"><%= tag %></span>
                 <% end %>
               </td>
-            <% elsif hotspot&.redirect? %>
-              <td>Redirect</td>
+            <% elsif hotspot %>
+              <td><%= hotspot.type.humanize %></td>
               <td>
                 <%= link_to hotspot.destination_url, hotspot.destination_url, target: '_blank' %>
               </td>

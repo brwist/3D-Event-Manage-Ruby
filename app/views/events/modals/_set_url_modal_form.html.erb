@@ -26,6 +26,13 @@
               <%= form.text_field :url, class: 'form-control' %>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-6 form-group">
+              <%= form.label :type %>
+              <%= form.collection_select :type, [['redirect', 'Redirect'], ['new_page', 'New Page']], :first, :last, {}, class: 'form-control' %>
+            </div>
+          </div>
         </div>
 
         <div class="modal-footer">
