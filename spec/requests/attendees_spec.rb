@@ -13,7 +13,7 @@ RSpec.describe '/attendees', type: :request do
     end
 
     let(:attendee_params) do
-      { name: Faker::Name.name, email: Faker::Internet.email }
+      { name: Faker::Name.name, email: Faker::Internet.email, password: '12345678' }
     end
 
     it_behaves_like 'authorization protected action'
@@ -27,6 +27,12 @@ RSpec.describe '/attendees', type: :request do
         it 'binds the record to the event' do
           send_request
           expect(Attendee.last.event_id).to eq(event.id)
+        end
+
+        it "specifies the attendee's password" do
+          send_request
+          attendee = Attendee.last
+          expect(attendee.valid_password?(attendee_params[:password])).to be true
         end
       end
 
