@@ -52,7 +52,7 @@ class Token < ApplicationRecord
   end
 
   def label(event_id:)
-    labels.select { |h| h.event_id == event_id }.first
+    labels.find_by(event_id: event_id, external_id: token)
   end
 
   def detach_hotspot!(event_id:)
