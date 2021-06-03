@@ -26,9 +26,6 @@ class Token < ApplicationRecord
 
   belongs_to :room
 
-  has_many :hotspots
-  has_many :labels
-
   validates :name, :token, :type, presence: true
 
   def create_url_hotspot(event:, url:, text:, type:)
@@ -36,7 +33,7 @@ class Token < ApplicationRecord
   end
 
   def create_label(event:, text:)
-    labels.create!(event: event, external_id: token, text: text)
+    Label.create!(event: event, external_id: token, text: text)
   end
 
   def create_content_hotspot(event:, content:, text:)
@@ -48,11 +45,11 @@ class Token < ApplicationRecord
   end
 
   def hotspot(event_id:)
-    hotspots.find_by(event_id: event_id, external_id: token)
+    Hotspot.find_by(event_id: event_id, external_id: token)
   end
 
   def label(event_id:)
-    labels.find_by(event_id: event_id, external_id: token)
+    Label.find_by(event_id: event_id, external_id: token)
   end
 
   def detach_hotspot!(event_id:)
@@ -63,8 +60,9 @@ class Token < ApplicationRecord
   private
 
   def create_hotspot(event:, text:, type:, content: nil, url: nil)
-    create_label(event: event, text: text)
-    hotspots.create!(
+    label = create_label(event: event, text: text)
+    Hotspot.create!(
+      label: label,
       event: event,
       destination_url: url,
       external_id: token,    # NB: token.token

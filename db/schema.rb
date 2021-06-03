@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_02_221400) do
+ActiveRecord::Schema.define(version: 2021_06_02_222226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,12 +113,12 @@ ActiveRecord::Schema.define(version: 2021_06_02_221400) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "presign", default: false
     t.string "mime_type"
-    t.bigint "token_id"
     t.bigint "content_id"
+    t.bigint "label_id"
     t.index ["content_id"], name: "index_hotspots_on_content_id"
     t.index ["event_id", "external_id"], name: "index_hotspots_on_event_id_and_external_id", unique: true
     t.index ["event_id"], name: "index_hotspots_on_event_id"
-    t.index ["token_id"], name: "index_hotspots_on_token_id"
+    t.index ["label_id"], name: "index_hotspots_on_label_id"
   end
 
   create_table "labels", force: :cascade do |t|
@@ -224,7 +224,6 @@ ActiveRecord::Schema.define(version: 2021_06_02_221400) do
   add_foreign_key "events", "rooms", column: "main_entrance_id"
   add_foreign_key "hotspots", "contents"
   add_foreign_key "hotspots", "events"
-  add_foreign_key "hotspots", "tokens"
   add_foreign_key "labels", "events"
   add_foreign_key "labels", "tokens"
   add_foreign_key "taggings", "tags"
