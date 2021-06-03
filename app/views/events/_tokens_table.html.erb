@@ -25,19 +25,19 @@
             <% if hotspot&.display? %>
               <td>File</td>
               <td>
-                <%= hotspot.content.file.filename %>
+                <%= hotspot&.content&.file&.filename %>
                 <%= link_to edit_content_path(hotspot.content), target: '_blank' do %>
                   <i class='fas fa-edit'></i>
                 <% end %>
 
               </td>
               <td>
-                <% hotspot.content.tags.each do |tag| %>
+                <% hotspot&.content&.tags&.each do |tag| %>
                   <span class="badge badge-light"><%= tag %></span>
                 <% end %>
               </td>
             <% elsif hotspot %>
-              <td><%= hotspot.type.humanize %></td>
+              <td><%= hotspot&.type&.humanize %></td>
               <td>
                 <%= link_to hotspot.destination_url, hotspot.destination_url, target: '_blank' %>
               </td>
