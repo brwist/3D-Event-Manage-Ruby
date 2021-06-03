@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe '/hotspots', type: :request do
   let(:admin) { create :user, :admin }
+  let(:room) { create :room }
 
   before { sign_in admin }
 
@@ -14,13 +15,14 @@ RSpec.describe '/hotspots', type: :request do
 
     let(:token) { create(:token, type: :navigation) }
     let(:event) { create(:event) }
+    let(:room) { create(:room) }
 
     let(:hotspot_params) {
       {
         event_id: event.id,
         token_id: token.id,
         type: 'navigation',
-        room: 'room_1'
+        room_id: room.id
       }
     }
 
@@ -39,7 +41,7 @@ RSpec.describe '/hotspots', type: :request do
 
     context 'change the room for the token' do
       before do
-        token.create_navigation_hotspot(event: event, room: '_')
+        token.create_navigation_hotspot(event: event, room: room)
       end
 
       it 'deletes the existing hotspot and label', :aggregate_failures do
@@ -82,12 +84,12 @@ RSpec.describe '/hotspots', type: :request do
           event_id: event.id,
           token_id: token.id,
           type: 'navigation',
-          room: ''
+          room_id: room.id
         }
       }
 
       before do
-        token.create_navigation_hotspot(event: event, room: '_')
+        token.create_navigation_hotspot(event: event, room: room)
       end
 
       it 'deletes the existing hotspot and label', :aggregate_failures do
@@ -101,9 +103,7 @@ RSpec.describe '/hotspots', type: :request do
       end
 
       it "doesn't attach new hotspot and label to the token" do
-        send_request
-        stuff = [token.reload.hotspot(event_id: event.id), token.label(event_id: event.id)]
-        expect(stuff).to all(be_nil)
+        expect { send_request }.not_to change(Hotspot, :count)
       end
 
       it 'sends the notification' do

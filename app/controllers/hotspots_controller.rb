@@ -7,7 +7,7 @@ class HotspotsController < ApplicationController
   def create
     token = Token.find(hotspot_params[:token_id])
     event = Event.find(hotspot_params[:event_id])
-    room  = hotspot_params[:room]
+    room  = Room.find(hotspot_params[:room_id])
 
     authorize event, :update?
 

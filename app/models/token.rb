@@ -41,7 +41,7 @@ class Token < ApplicationRecord
   end
 
   def create_navigation_hotspot(event:, room:)
-    create_hotspot(event: event, url: room, text: room, type: :navigation)
+    create_hotspot(event: event, url: room.path, text: room.name, type: :navigation)
   end
 
   def hotspot(event_id:)
