@@ -14,8 +14,9 @@
 #
 # Indexes
 #
-#  index_labels_on_event_id  (event_id)
-#  index_labels_on_token_id  (token_id)
+#  index_labels_on_event_id                  (event_id)
+#  index_labels_on_event_id_and_external_id  (event_id,external_id) UNIQUE
+#  index_labels_on_token_id                  (token_id)
 #
 # Foreign Keys
 #
@@ -26,6 +27,8 @@ class Label < ApplicationRecord
   include BelongsToEvent
 
   belongs_to :token, optional: true
+
+  validates :external_id, uniqueness: { scope: :event_id }
 
   def labels_key
     "label.#{event_key}"

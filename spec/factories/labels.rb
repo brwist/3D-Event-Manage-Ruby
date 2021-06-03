@@ -14,8 +14,9 @@
 #
 # Indexes
 #
-#  index_labels_on_event_id  (event_id)
-#  index_labels_on_token_id  (token_id)
+#  index_labels_on_event_id                  (event_id)
+#  index_labels_on_event_id_and_external_id  (event_id,external_id) UNIQUE
+#  index_labels_on_token_id                  (token_id)
 #
 # Foreign Keys
 #
@@ -28,7 +29,7 @@ FactoryBot.define do
     text { Faker::Lorem.words.join(' ') }
 
     after(:create) do |label|
-      label.update!(external_id: label.id.to_s)
+      label.update!(external_id: "a#{label.id}")
     end
   end
 end
