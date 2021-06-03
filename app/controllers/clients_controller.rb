@@ -6,9 +6,12 @@ class ClientsController < ApplicationController
   # GET /clients or /clients.json
   def index
     @search = Client.reverse_chronologically.ransack(params[:q])
+    @clients = set_page_and_extract_portion_from @search.result
+
+    authorize @clients
 
     respond_to do |format|
-      format.any(:html, :json) { @clients = set_page_and_extract_portion_from @search.result }
+      format.any(:html, :json) {}
       format.csv { render csv: @search.result }
     end
   end
@@ -19,6 +22,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
+    authorize @client
   end
 
   # GET /clients/1/edit
@@ -27,6 +31,7 @@ class ClientsController < ApplicationController
   # POST /clients or /clients.json
   def create
     @client = Client.new(compact_parameters)
+    authorize @client
 
     respond_to do |format|
       if @client.save
@@ -66,6 +71,7 @@ class ClientsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_client
     @client = Client.friendly.find(params[:id])
+    authorize @client
   end
 
   # Only allow a list of trusted parameters through.
