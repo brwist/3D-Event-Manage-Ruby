@@ -57,6 +57,10 @@ class Event < ApplicationRecord
     labels.each(&:publish)
   end
 
+  def router_app_url
+    "#{Config.event_url_root}/#{client_slug}/#{slug}"
+  end
+
   private
 
   def publish_event

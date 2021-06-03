@@ -17,6 +17,10 @@
 class Config < ApplicationRecord
   validates :name, uniqueness: true
 
+  def self.event_url_root
+    find_by(name: 'event_url_root')&.value
+  end
+
   def self.publish_all
     configs = pluck(:name, :value).to_h
     Redis.current.mapped_hmset('config', configs)

@@ -27,7 +27,7 @@ ActiveAdmin.register Config do
     f.semantic_errors(*f.object.errors.keys)
     f.inputs do
       f.input :name, as: :select,
-                     collection: %w[custom_font styling_color login_logo login_prompt default_redirect],
+                     collection: %w[custom_font styling_color login_logo login_prompt default_redirect event_url_root],
                      include_blank: false
       f.input :value
     end
