@@ -17,9 +17,10 @@ require 'rails_helper'
 RSpec.describe '/clients', type: :request do
   let(:admin) { create :user, :admin }
 
-  let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
-  }
+  let(:valid_attributes) do
+    name = Faker::Company.name
+    { name: name, slug: name.parameterize }
+  end
 
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
@@ -28,6 +29,10 @@ RSpec.describe '/clients', type: :request do
   before { sign_in admin }
 
   describe 'GET /index' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get clients_url }
+    end
+
     it 'renders a successful response' do
       Client.create! valid_attributes
       get clients_url
@@ -36,14 +41,23 @@ RSpec.describe '/clients', type: :request do
   end
 
   describe 'GET /show' do
+    let!(:client) { create :client }
+
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get client_url(client) }
+    end
+
     it 'renders a successful response' do
-      client = Client.create! valid_attributes
       get client_url(client)
       expect(response).to be_successful
     end
   end
 
   describe 'GET /new' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get new_client_url }
+    end
+
     it 'renders a successful response' do
       get new_client_url
       expect(response).to be_successful
@@ -51,6 +65,12 @@ RSpec.describe '/clients', type: :request do
   end
 
   describe 'GET /edit' do
+    let(:client) { create :client }
+
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { get edit_client_url(client) }
+    end
+
     it 'render a successful response' do
       client = Client.create! valid_attributes
       get edit_client_url(client)
@@ -59,6 +79,12 @@ RSpec.describe '/clients', type: :request do
   end
 
   describe 'POST /create' do
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) do
+        post clients_url, params: { client: valid_attributes }
+      end
+    end
+
     context 'with valid parameters' do
       it 'creates a new Client' do
         expect {
@@ -87,20 +113,23 @@ RSpec.describe '/clients', type: :request do
   end
 
   describe 'PATCH /update' do
-    context 'with valid parameters' do
-      let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
-      }
+    let(:new_attributes) { { name: 'New name', slug: 'new-name' } }
+    let!(:client) { create :client }
 
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) do
+        patch client_url(client), params: { client: new_attributes }
+      end
+    end
+
+    context 'with valid parameters' do
       it 'updates the requested client' do
-        client = Client.create! valid_attributes
         patch client_url(client), params: { client: new_attributes }
         client.reload
         skip('Add assertions for updated state')
       end
 
       it 'redirects to the client' do
-        client = Client.create! valid_attributes
         patch client_url(client), params: { client: new_attributes }
         client.reload
         expect(response).to redirect_to(client_url(client))
@@ -109,7 +138,6 @@ RSpec.describe '/clients', type: :request do
 
     context 'with invalid parameters' do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        client = Client.create! valid_attributes
         patch client_url(client), params: { client: invalid_attributes }
         expect(response).to be_successful
       end
@@ -117,15 +145,19 @@ RSpec.describe '/clients', type: :request do
   end
 
   describe 'DELETE /destroy' do
+    let!(:client) { create :client }
+
+    it_behaves_like 'authorization protected action' do
+      subject(:send_request) { delete client_url(client) }
+    end
+
     it 'destroys the requested client' do
-      client = Client.create! valid_attributes
       expect {
         delete client_url(client)
       }.to change(Client, :count).by(-1)
     end
 
     it 'redirects to the clients list' do
-      client = Client.create! valid_attributes
       delete client_url(client)
       expect(response).to redirect_to(clients_url)
     end
