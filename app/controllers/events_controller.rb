@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
     @attendees = @event.attendees
     @rooms = Room.all
-    @navigation_tokens = Token.navigation.includes(:hotspots)
+    @navigation_tokens = Token.navigation
 
     fresh_when etag: @event
   end
