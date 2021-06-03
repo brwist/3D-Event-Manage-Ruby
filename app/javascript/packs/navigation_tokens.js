@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function(){
             token_id: $this.data('token'),
             type: 'navigation',
             event_id: $this.data('event'),
-            room: $this.val()
+            room_id: $this.val()
           }
         }
       });

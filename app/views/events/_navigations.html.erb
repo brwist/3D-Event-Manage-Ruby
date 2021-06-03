@@ -20,7 +20,7 @@
             <% hotspot = token.hotspot(event_id: event.id) %>
 
             <td>
-              <%= select_tag(:room, options_from_collection_for_select(Room.all, 'name', 'name', hotspot&.destination_url || ''), class: 'form-control navigation-selectbox', include_blank: true, data: { token: token.id, event: event.id }) %>
+              <%= select_tag(:room, options_from_collection_for_select(Room.all, :id, :name, Room.find_by(path: hotspot&.destination_url)&.id), class: 'form-control navigation-selectbox', include_blank: true, data: { token: token.id, event: event.id }) %>
             </td>
           </tr>
         <% end %>
