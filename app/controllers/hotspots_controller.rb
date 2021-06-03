@@ -22,9 +22,8 @@ class HotspotsController < ApplicationController
 
   def destroy
     authorize @hotspot
-    token = @hotspot.token
     event = @hotspot.event
-    token.detach_hotspot!(event_id: event.id)
+    @hotspot.destroy!
 
     respond_to do |format|
       format.html { redirect_to edit_event_url(event), notice: 'Hotspot was successfully detached.' }

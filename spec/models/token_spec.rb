@@ -95,6 +95,8 @@ RSpec.describe Token, type: :model do
       label = Label.last
       expect(label.external_id).to eq(token.token)
       expect(label.text).to eq(text)
+
+      expect(hotspot.label).to eq(label)
     end
 
     it 'creates label' do
@@ -156,7 +158,7 @@ RSpec.describe Token, type: :model do
       token.create_content_hotspot(event: other_event, content: other_content, text: 'tbd')
       token.create_content_hotspot(event: event, content: content, text: 'tbd')
 
-      expected_hotspot = Hotspot.find_by!(token_id: token.id, event_id: event.id)
+      expected_hotspot = Hotspot.find_by!(external_id: token.token, event_id: event.id)
 
       expect(token.hotspot(event_id: event.id)).to eq(expected_hotspot)
     end
@@ -169,7 +171,7 @@ RSpec.describe Token, type: :model do
       token.create_content_hotspot(event: other_event, content: other_content, text: 'tbd')
       token.create_content_hotspot(event: event, content: content, text: 'tbd')
 
-      expected_label = Label.find_by!(token_id: token.id, event_id: event.id)
+      expected_label = Label.find_by!(external_id: token.token, event_id: event.id)
 
       expect(token.label(event_id: event.id)).to eq(expected_label)
     end

@@ -14,20 +14,19 @@
 #  content_id      :bigint
 #  event_id        :bigint           not null
 #  external_id     :string
-#  token_id        :bigint
+#  label_id        :bigint
 #
 # Indexes
 #
 #  index_hotspots_on_content_id                (content_id)
 #  index_hotspots_on_event_id                  (event_id)
 #  index_hotspots_on_event_id_and_external_id  (event_id,external_id) UNIQUE
-#  index_hotspots_on_token_id                  (token_id)
+#  index_hotspots_on_label_id                  (label_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (content_id => contents.id)
 #  fk_rails_...  (event_id => events.id)
-#  fk_rails_...  (token_id => tokens.id)
 #
 class Hotspot < ApplicationRecord
   self.inheritance_column = nil
@@ -40,7 +39,7 @@ class Hotspot < ApplicationRecord
     navigation: 'navigation'
   }
 
-  belongs_to :token, optional: true
+  belongs_to :label, optional: true, dependent: :destroy
   belongs_to :content, optional: true
 
   validates :external_id, uniqueness: { scope: :event_id }

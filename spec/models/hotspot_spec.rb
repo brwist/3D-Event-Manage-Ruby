@@ -14,20 +14,19 @@
 #  content_id      :bigint
 #  event_id        :bigint           not null
 #  external_id     :string
-#  token_id        :bigint
+#  label_id        :bigint
 #
 # Indexes
 #
 #  index_hotspots_on_content_id                (content_id)
 #  index_hotspots_on_event_id                  (event_id)
 #  index_hotspots_on_event_id_and_external_id  (event_id,external_id) UNIQUE
-#  index_hotspots_on_token_id                  (token_id)
+#  index_hotspots_on_label_id                  (label_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (content_id => contents.id)
 #  fk_rails_...  (event_id => events.id)
-#  fk_rails_...  (token_id => tokens.id)
 #
 require 'rails_helper'
 
@@ -37,7 +36,7 @@ RSpec.describe Hotspot, type: :model do
   let(:event) { hotspot.event }
   let(:client) { event.client }
 
-  it { is_expected.to belong_to(:token).optional }
+  it { is_expected.to belong_to(:label).optional.dependent(:destroy) }
   it { is_expected.to belong_to(:content).optional }
   it { is_expected.to validate_uniqueness_of(:external_id).scoped_to(:event_id) }
 
