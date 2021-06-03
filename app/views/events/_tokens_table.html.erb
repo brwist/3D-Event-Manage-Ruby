@@ -22,7 +22,7 @@
 
           <% hotspot = token.hotspot(event_id: event.id) %>
           <% if type == :hotspots %>
-            <% if hotspot&.display? %>
+            <% if hotspot&.display? && hotspot&.content %>
               <td>File</td>
               <td>
                 <%= hotspot&.content&.file&.filename %>
