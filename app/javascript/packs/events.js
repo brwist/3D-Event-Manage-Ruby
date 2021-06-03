@@ -42,4 +42,9 @@ $(document).on('turbolinks:load', function(){
       $('#token-title-url-modal').text($(this).data('token-title'));
     });
   }
+
+  // Tag list
+  if ($('#event_tag_list').length > 0) {
+    $('#event_tag_list').tagsinput();
+  }
 });
