@@ -18,6 +18,7 @@ RSpec.describe '/events', type: :request do
   let(:admin) { create :user, :admin }
   let(:client) { create :client }
   let(:main_entrance) { create :room }
+  let(:attached_tags) { %w[tag1 tag2 tag3] }
 
   let(:valid_attributes) do
     {
@@ -25,7 +26,8 @@ RSpec.describe '/events', type: :request do
       start_time: 20.hours.from_now.to_s,
       end_time: 25.hours.from_now.to_s,
       client_id: client.id,
-      main_entrance_id: main_entrance.id
+      main_entrance_id: main_entrance.id,
+      tag_list: attached_tags.join(',')
     }
   end
 
@@ -94,6 +96,11 @@ RSpec.describe '/events', type: :request do
       it 'redirects to the created event' do
         post events_url, params: { event: valid_attributes }
         expect(response).to redirect_to(events_url)
+      end
+
+      it 'attaches tags to event' do
+        post events_url, params: { event: valid_attributes }
+        expect(Event.last.tags.pluck(:name)).to contain_exactly(*attached_tags)
       end
     end
 

@@ -28,6 +28,8 @@ class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :scoped, scope: :client
 
+  acts_as_taggable_on :tags
+
   has_many :attendees, dependent: :destroy
   has_many :hotspots, dependent: :destroy
   has_many :labels, dependent: :destroy

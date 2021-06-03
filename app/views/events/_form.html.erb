@@ -23,8 +23,8 @@
     </div>
     <div class="col-5">
       <div class="form-group">
-        <label>Tags (TBD)</label>
-        <input type="text" class="form-control inputtags">
+        <%= form.label :tag_list %>
+        <%= form.text_field :tag_list, class: 'form-control', value: event.tag_list.join(',') %>
       </div>
     </div>
   </div>
