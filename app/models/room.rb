@@ -11,6 +11,8 @@
 #  updated_at :datetime         not null
 #
 class Room < ApplicationRecord
+  has_one_attached :appearance
+
   has_many :tokens, dependent: :destroy
 
   def to_s
