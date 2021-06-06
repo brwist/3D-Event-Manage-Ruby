@@ -7,7 +7,7 @@ ActiveAdmin.register Room do
   # Uncomment all parameters which should be permitted for assignment
   #
 
-  permit_params :name, :path
+  permit_params :name, :path, :appearance
 
   #
   # or
@@ -17,4 +17,24 @@ ActiveAdmin.register Room do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  index do
+    selectable_column
+    id_column
+    column :name
+    column :path
+    column :appearance do |room|
+      room.appearance.attached? ? room.appearance.filename.to_s : nil
+    end
+    actions
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :path
+      f.input :appearance, as: :file, hint: f.object.appearance.attached? ? f.object.appearance.filename.to_s : nil
+    end
+    f.actions
+  end
 end

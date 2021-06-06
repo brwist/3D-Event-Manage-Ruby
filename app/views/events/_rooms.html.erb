@@ -8,6 +8,11 @@
 <div class="tab-content" id="myTabContent2">
   <% rooms.each_with_index do |room, i| %>
     <div class="tab-pane fade show <%= 'active' if i.zero? %>" id='<%= "room#{i}" %>' role="tabpanel" aria-labelledby="home-tab3">
+      <% if room.appearance.attached? %>
+        <div class="d-flex justify-content-center">
+          <iframe src="<%= url_for(room.appearance) %>" class='room-appearance'></iframe>
+        </div>
+      <% end %>
       <h4>Hotspots</h4>
       <%= render 'tokens_table', type: :hotspots, tokens: room.tokens.content, room: room, event: event %>
 
