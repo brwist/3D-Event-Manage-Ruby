@@ -9,7 +9,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :client_id %>
-        <%= form.collection_select(:client_id, Client.all, :id, :name, {}, { class: 'form-control', data: { controller: 'select' } }) %>
+        <%= form.collection_select(:client_id, Client.order(:name), :id, :name, {}, { class: 'form-control', data: { controller: 'select' } }) %>
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :main_entrance_id %>
-        <%= form.collection_select(:main_entrance_id, Room.all, :id, :path, {}, { class: 'form-control', data: { controller: 'select' } }) %>
+        <%= form.collection_select(:main_entrance_id, Room.order(:path), :id, :path, {}, { class: 'form-control', data: { controller: 'select' } }) %>
       </div>
     </div>
   </div>
