@@ -23,7 +23,7 @@
 
             <div class="col-6 form-group">
               <%= form.label :content_id, 'Content' %>
-              <%= form.collection_select :content_id, Content.all, :id, :name, {}, class: 'form-control', data: { controller: 'select' } %>
+              <%= form.collection_select :content_id, Content.order(:name), :id, :name, {}, class: 'form-control', data: { controller: 'select' } %>
             </div>
           </div>
         </div>
