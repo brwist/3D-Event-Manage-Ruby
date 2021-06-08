@@ -100,6 +100,6 @@ class EventsController < ApplicationController
   end
 
   def clear_session
-    session[:attendees_report] = nil
+    session[:attendees_report] = nil if session[:attendees_report].present?
   end
 end

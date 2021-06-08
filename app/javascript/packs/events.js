@@ -43,6 +43,14 @@ $(document).on('turbolinks:load', function(){
     });
   }
 
+  // Edit Label modal window
+  if ($('.edit-label-link').length > 0) {
+    $('.edit-label-link').on('click', function(){
+      $('#label_text').val($(this).data('label'));
+      $('#label_id').val($(this).data('id'));
+    });
+  }
+
   // Tag list
   if ($('#event_tag_list').length > 0) {
     $('#event_tag_list').tagsinput();

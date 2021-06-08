@@ -28,6 +28,7 @@ class Label < ApplicationRecord
 
   belongs_to :token, optional: true
 
+  validates :text, presence: true
   validates :external_id, uniqueness: { scope: :event_id }
 
   def labels_key
