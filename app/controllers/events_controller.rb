@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy upload_attendees publish]
+  after_action :clear_session, only: :edit
 
   def index
     @search = Event.includes(:client).reverse_chronologically.ransack(params[:q])
@@ -23,6 +24,7 @@ class EventsController < ApplicationController
   def edit
     authorize @event
 
+    setup_tab
     @attendees = @event.attendees
     @rooms = Room.all
     @navigation_tokens = Token.navigation
@@ -62,6 +64,7 @@ class EventsController < ApplicationController
   def upload_attendees
     authorize @event
     importer = AttendeesImporter.new(@event, params[:upload][:file])
+    session[:attendees_report] = 'Attendees Report'
 
     if importer.call
       flash[:notice] = 'Attendees added'
@@ -69,7 +72,7 @@ class EventsController < ApplicationController
       flash[:error] = importer.errors_report
     end
 
-    redirect_to edit_event_url(@event)
+    redirect_to edit_event_url(@event, tab: 'attendees')
   end
 
   def publish
@@ -89,5 +92,14 @@ class EventsController < ApplicationController
     params.require(:event).permit(
       :name, :start_time, :end_time, :client_id, :main_entrance_id, :tag_list
     )
+  end
+
+  def setup_tab
+    tab = params[:tab].to_s.downcase
+    @tab = %w[attendees permissions rooms].include?(tab) ? tab : 'details'
+  end
+
+  def clear_session
+    session[:attendees_report] = nil
   end
 end

@@ -14,14 +14,13 @@ class AttendeesController < ApplicationController
       flash[:error] = @attendee.errors.full_messages.join('. ')
     end
 
-    redirect_to @event
+    redirect_to edit_event_url(@event, tab: 'attendees')
   end
 
   def destroy
     authorize @attendee
-
     @attendee.destroy
-    redirect_to edit_event_url(@attendee.event), notice: 'Participance cancelled'
+    redirect_to edit_event_url(@attendee.event, tab: 'attendees'), notice: 'Participance cancelled'
   end
 
   private
