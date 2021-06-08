@@ -26,7 +26,7 @@ class HotspotsController < ApplicationController
     @hotspot.destroy!
 
     respond_to do |format|
-      format.html { redirect_to edit_event_url(event), notice: 'Hotspot was successfully detached.' }
+      format.html { redirect_to edit_event_url(event, tab: 'rooms'), notice: 'Hotspot was successfully detached.' }
       format.json { head :no_content }
     end
   end

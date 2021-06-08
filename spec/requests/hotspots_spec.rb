@@ -128,7 +128,7 @@ RSpec.describe '/hotspots', type: :request do
 
     it 'responses with redirect' do
       delete hotspot_path(hotspot)
-      expect(response).to redirect_to(edit_event_path(event))
+      expect(response).to redirect_to(edit_event_path(event, tab: 'rooms'))
     end
 
     it 'detaches the hotspot from the token' do

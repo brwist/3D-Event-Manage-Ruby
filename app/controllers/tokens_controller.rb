@@ -11,7 +11,7 @@ class TokensController < ApplicationController
     authorize event, :update?
 
     token.create_content_hotspot(event: event, content: content, text: text)
-    redirect_to edit_event_url(event)
+    redirect_to edit_event_url(event, tab: 'rooms'), notice: 'Hotspot attached'
   end
 
   # rubocop:disable Metrics/AbcSize
@@ -25,7 +25,7 @@ class TokensController < ApplicationController
     authorize event, :update?
 
     token.create_url_hotspot(event: event, url: url, text: label, type: type)
-    redirect_to edit_event_url(event)
+    redirect_to edit_event_url(event, tab: 'rooms'), notice: 'Hotspot attached'
   end
   # rubocop:enable Metrics/AbcSize
 

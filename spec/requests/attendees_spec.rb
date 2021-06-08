@@ -102,7 +102,7 @@ RSpec.describe '/attendees', type: :request do
 
     it 'redirects to the event page' do
       send_request
-      expect(response).to redirect_to(edit_event_url(event))
+      expect(response).to redirect_to(edit_event_url(event, tab: 'attendees'))
     end
   end
 end
