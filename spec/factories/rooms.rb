@@ -12,6 +12,7 @@
 #
 FactoryBot.define do
   factory :room do
-    path  { Faker::Internet.domain_word }
+    path { Faker::Internet.domain_word }
+    name { path.humanize }
   end
 end
