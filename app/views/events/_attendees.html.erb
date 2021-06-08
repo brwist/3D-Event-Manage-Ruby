@@ -62,5 +62,13 @@
         </button>
       </div>
     <% end %>
+
+    <% if session[:attendees_report] %>
+      <div>
+        <code>
+          <%= session[:attendees_report] %>
+        </code>
+      </div>
+    <% end %>
   </div>
 </div>
