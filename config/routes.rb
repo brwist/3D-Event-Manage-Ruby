@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   end
 
   resources :hotspots, only: %i[create destroy]
+  resources :labels do
+    patch :update_text, on: :collection
+  end
 
   root 'events#index'
 end

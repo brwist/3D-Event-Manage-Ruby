@@ -1,0 +1,30 @@
+<div class="modal fade" id="editLabelModal" tabindex="-1" aria-labelledby="editLabelModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editLabelModalLabel">
+          Edit label
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for(:label, url: update_text_labels_path, method: :patch, html: { id: 'edit-label-form' }) do |form| %>
+        <div class="modal-body">
+          <%= form.hidden_field :id %>
+          <div class="row">
+            <div class="col-12 form-group">
+              <%= form.text_field :text, class: 'form-control', placeholder: 'Label text' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= form.submit 'Update label', class: "btn btn-primary" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
