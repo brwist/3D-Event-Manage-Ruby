@@ -18,6 +18,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  session_index          :string
 #  sign_in_count          :integer          default(0), not null
 #  unlock_token           :string
 #  created_at             :datetime         not null
@@ -32,8 +33,12 @@ class User < ApplicationRecord
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :saml_authenticatable, :trackable,
-         :recoverable, :rememberable, :validatable
+
+  devise_modules = %i[trackable recoverable rememberable validatable]
+  devise_modules << :saml_authenticatable if ENV.fetch('SAML_AUTHENTICATION', 'false') == 'true'
+  devise_modules << :database_authenticatable if ENV.fetch('DATABASE_AUTHENTICATION', 'true') == 'true'
+
+  devise(*devise_modules)
 
   validates :first_name, :last_name, presence: true
 
