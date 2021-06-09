@@ -8,7 +8,7 @@
     <% if params[:action] == 'new' %>
       <div class="form-group col-5">
         <%= form.label :file, 'Choose File' %>
-        <%= form.file_field :file, label: 'Report', class: 'form-control', accept: 'application/pdf, video/*' %>
+        <%= form.file_field :file, label: 'Report', class: 'form-control', accept: Content.mime_types %>
       </div>
     <% else %>
       <div class="form-group col-5">
