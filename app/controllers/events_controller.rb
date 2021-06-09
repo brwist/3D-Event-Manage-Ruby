@@ -64,7 +64,6 @@ class EventsController < ApplicationController
   def upload_attendees
     authorize @event
     importer = AttendeesImporter.new(@event, params[:upload][:file])
-    session[:attendees_report] = 'Attendees Report'
 
     if importer.call
       flash[:notice] = 'Attendees added'
@@ -72,6 +71,7 @@ class EventsController < ApplicationController
       flash[:error] = importer.errors_report
     end
 
+    session[:attendees_report] = importer.logs_html_report
     redirect_to edit_event_url(@event, tab: 'attendees')
   end
 
