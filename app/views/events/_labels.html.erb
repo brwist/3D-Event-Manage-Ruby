@@ -1,0 +1,30 @@
+<div class="table-responsive">
+  <table class="table table-striped table-md">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Token</th>
+        <th>Label</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% tokens.each do |token| %>
+        <tr>
+          <td><%= token.name %></td>
+          <td><%= token.token %></td>
+          <td>
+            <% if (label = token.label(event_id: event.id)) %>
+              <%= link_to '#', class: 'edit-label-link', data: { toggle: 'modal', target: '#editLabelModal', label: label.text, id: label.id } do %>
+                <%= label.text %>
+                <span class='fas fa-edit'></span>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
