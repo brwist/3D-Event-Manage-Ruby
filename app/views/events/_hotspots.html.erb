@@ -13,59 +13,12 @@
     </thead>
     <tbody>
       <% tokens.each do |token| %>
-        <tr>
-          <td><%= token.name %></td>
-          <td><%= token.token %></td>
-          <td>
-            <% if (label = token.label(event_id: event.id)) %>
-              <%= link_to '#', class: 'edit-label-link', data: { toggle: 'modal', target: '#editLabelModal', label: label.text, id: label.id } do %>
-                <%= label.text %>
-                <span class='fas fa-edit'></span>
-              <% end %>
-            <% end %>
-          </td>
-
-          <% hotspot = token.hotspot(event_id: event.id) %>
-            <% if hotspot&.display? && hotspot&.content %>
-              <td>File</td>
-              <td>
-                <%= hotspot&.content&.file&.filename %>
-                <%= link_to edit_content_path(hotspot.content), target: '_blank' do %>
-                  <i class='fas fa-edit'></i>
-                <% end %>
-
-              </td>
-              <td>
-                <% hotspot&.content&.tags&.each do |tag| %>
-                  <span class="badge badge-light"><%= tag %></span>
-                <% end %>
-              </td>
-            <% elsif hotspot %>
-              <td><%= hotspot&.type&.humanize %></td>
-              <td>
-                <%= link_to hotspot.destination_url, hotspot.destination_url, target: '_blank' %>
-              </td>
-              <td></td>
-            <% else %>
-              <td></td>
-              <td></td>
-              <td></td>
-            <% end %>
-
-          <td>
-            <% if hotspot.nil? %>
-              <button type="button" class="btn btn-primary btn-sm bind-content-to-token-btn" data-toggle="modal" data-target="#bindContentModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
-                Set content
-              </button>
-
-              <button type="button" class="btn btn-info btn-sm bind-url-to-token-btn" data-toggle="modal" data-target="#bindUrlModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
-                Set URL
-              </button>
-            <% end %>
-
-            <%= link_to icon('fas fa-trash'), hotspot_path(hotspot), title: 'Unset hotspot', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } if hotspot %>
-          </td>
-        </tr>
+        <% hotspot = token.hotspot(event_id: event.id) %>
+        <% if hotspot.nil? %>
+          <%= render 'hotspot_create', token: token, room: room %>
+        <% else %>
+          <%= render 'hotspot_details', hotspot: hotspot, token: token, room: room %>
+      <% end %>
       <% end %>
     </tbody>
   </table>
