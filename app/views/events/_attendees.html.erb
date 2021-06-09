@@ -63,11 +63,12 @@
       </div>
     <% end %>
 
-    <% if session[:attendees_report] %>
-      <div>
-        <code>
-          <%= session[:attendees_report] %>
-        </code>
+    <% if session[:attendees_report].present? %>
+      <div class="mt-5">
+        <h3>Operation logs</h3>
+        <div class="p-4">
+          <%= session[:attendees_report].html_safe %>
+        </div>
       </div>
     <% end %>
   </div>
