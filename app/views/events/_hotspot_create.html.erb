@@ -1,0 +1,16 @@
+<tr>
+  <td><%= token.name %></td>
+  <td><%= token.token %></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td>
+      <button type="button" class="btn btn-primary btn-sm bind-content-to-token-btn" data-toggle="modal" data-target="#bindContentModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
+        Set content
+      </button>
+      <button type="button" class="btn btn-info btn-sm bind-url-to-token-btn" data-toggle="modal" data-target="#bindUrlModal" data-token-id='<%= token.id %>' data-token-title='<%= "#{room.name} - #{token.name}".truncate(45) %>'>
+        Set URL
+      </button>
+  </td>
+</tr>
