@@ -24,6 +24,7 @@ class Content < ApplicationRecord
 
   acts_as_taggable_on :tags
 
+  has_many :hotspots, dependent: :destroy
   has_one_attached :file
 
   validates :name, presence: true
