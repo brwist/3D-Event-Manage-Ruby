@@ -14,10 +14,10 @@
         </div>
       <% end %>
       <h4>Hotspots</h4>
-      <%= render 'tokens_table', type: :hotspots, tokens: room.tokens.content, room: room, event: event %>
+      <%= render 'hotspots', tokens: room.tokens.content, room: room, event: event %>
 
       <h4 class='mt-4'>Labels</h4>
-      <%= render 'tokens_table', type: :labels, tokens: room.tokens.label, room: room, event: event %>
+      <%= render 'labels', tokens: room.tokens.label, room: room, event: event %>
     </div>
   <% end %>
 </div>
