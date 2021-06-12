@@ -46,3 +46,7 @@ Rails/SkipsModelValidations:
 
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/controllers/devise/**/*.rb'

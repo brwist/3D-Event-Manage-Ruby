@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :clients
   ActiveAdmin.routes(self)
 
+  devise_for :attendees, controllers: { passwords: 'devise/attendees/passwords' }
   devise_for :users
 
   resources :events do
