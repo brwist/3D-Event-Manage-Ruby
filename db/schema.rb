@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_031838) do
+ActiveRecord::Schema.define(version: 2021_06_10_232043) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -65,8 +64,11 @@ ActiveRecord::Schema.define(version: 2021_06_08_031838) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "event_id", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.index ["email", "event_id"], name: "index_attendees_on_email_and_event_id", unique: true
     t.index ["event_id"], name: "index_attendees_on_event_id"
+    t.index ["reset_password_token"], name: "index_attendees_on_reset_password_token", unique: true
   end
 
   create_table "clients", force: :cascade do |t|
