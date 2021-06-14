@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
 class AttendeesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:show]
+  before_action :authenticate_model!, only: [:show]
   before_action :set_event, only: [:create]
-  before_action :set_attendee, only: [:destroy]
+  before_action :set_attendee, only: %i[show destroy]
+
+  def show
+    not_authorized! unless AttendeePolicy.new(current_user, @attendee, current_attendee).show?
+    render :show, layout: nil
+  end
 
   def create
     @attendee = @event.attendees.build(attendee_params)
@@ -35,5 +42,17 @@ class AttendeesController < ApplicationController
 
   def set_event
     @event = Event.friendly.find(params[:event_id])
+  end
+
+  def authenticate_model!
+    if current_attendee
+      authenticate_attendee!
+    else
+      authenticate_user!
+    end
+  end
+
+  def not_authorized!
+    raise Pundit::NotAuthorizedError, "Not allowed to view the resource #{@attendee.inspect}"
   end
 end

@@ -50,3 +50,7 @@ Metrics/BlockLength:
 Style/ClassAndModuleChildren:
   Exclude:
     - 'app/controllers/devise/**/*.rb'
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - 'app/controllers/devise/**/*.rb'
