@@ -17,6 +17,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def after_sign_in_path_for(resource)
+    return root_path unless resource.is_a?(Attendee)
+
+    event_attendee_path(resource.event_id, resource)
+  end
+
   def permission_denied
     head 403
   end

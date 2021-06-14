@@ -27,7 +27,7 @@
 class Attendee < ApplicationRecord
   include BelongsToEvent
 
-  devise :database_authenticatable, :recoverable
+  devise :database_authenticatable, :recoverable, :validatable
 
   validates :name, :email, presence: true
   validates :email, uniqueness: { scope: :event_id }
@@ -48,5 +48,10 @@ class Attendee < ApplicationRecord
 
   def publish
     Redis.current.hset(attendees_key, email, to_json)
+  end
+
+  # Hack to get around the Validatable email uniqueness validation
+  def will_save_change_to_email?
+    false
   end
 end

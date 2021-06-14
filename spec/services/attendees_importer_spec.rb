@@ -43,8 +43,11 @@ RSpec.describe AttendeesImporter do
       end
 
       it 'replaces existing attendees from event' do
-        tommy_lee_jones = event.attendees.create!(name: 'Sheriff E. T. Bell', email: 'email@email.email')
-        event.attendees << tommy_lee_jones
+        tommy_lee_jones = event.attendees.create!(
+          name: 'Sheriff E. T. Bell',
+          email: 'email@email.email',
+          password: 'oldschool'
+        )
 
         subject.call
         expect(event.reload.attendees).not_to include(tommy_lee_jones)
