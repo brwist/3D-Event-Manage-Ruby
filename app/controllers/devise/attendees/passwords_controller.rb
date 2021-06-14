@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Devise::Attendees::PasswordsController < Devise::PasswordsController
-  prepend_before_action :deny_action, except: %i[edit]
+  prepend_before_action :deny_action, except: %i[edit update]
 
   # GET /attendees/password/edit?reset_password_token=abcdef
   def edit
