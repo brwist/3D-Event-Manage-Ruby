@@ -50,6 +50,12 @@ class Attendee < ApplicationRecord
     Redis.current.hset(attendees_key, email, to_json)
   end
 
+  def initials
+    name
+      .split(/\s/).select(&:present?).first(2).compact
+      .map { |part| part.first.upcase }.join
+  end
+
   # Hack to get around the Validatable email uniqueness validation
   def will_save_change_to_email?
     false
