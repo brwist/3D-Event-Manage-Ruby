@@ -32,6 +32,50 @@ RSpec.describe Attendee, type: :model do
   it { is_expected.to(validate_presence_of(:name)) }
   it { is_expected.to(validate_presence_of(:email)) }
 
+  describe 'validations' do
+    let!(:event) { create :event }
+    let(:attendee_params) do
+      {
+        name: 'Name',
+        email: 'email@gmail.com',
+        password: '7878787878'
+      }
+    end
+
+    context 'email' do
+      it 'is uniq for a particular event' do
+        event.attendees.create!(attendee_params)
+        attendee = event.attendees.build(attendee_params)
+        attendee.valid?
+        expect(attendee.errors[:email]).to include('has already been taken')
+      end
+    end
+
+    context 'password' do
+      it 'requires password not to be empty' do
+        password_params = { password: '' }
+        attendee = event.attendees.build(attendee_params.merge(password_params))
+        attendee.valid?
+        expect(attendee.errors[:password]).to include("can't be blank")
+      end
+
+      it 'requires password to have at least 6 symbols' do
+        password_params = { password: '123' }
+        attendee = event.attendees.build(attendee_params.merge(password_params))
+        attendee.valid?
+        expect(attendee.errors[:password]).to include('is too short (minimum is 6 characters)')
+      end
+
+      it 'requires the confirmation to be equal if present' do
+        password_params = { password: '1234567', password_confirmation: '123' }
+        attendee = event.attendees.build(attendee_params.merge(password_params))
+        attendee.valid?
+        expect(attendee.errors[:password_confirmation]).to \
+          include("doesn't match Password")
+      end
+    end
+  end
+
   describe '#as_json' do
     it 'exports as json' do
       expect(attendee.as_json[:client]).to eq attendee.client_slug
