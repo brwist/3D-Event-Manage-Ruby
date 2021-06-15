@@ -1,2 +1,25 @@
-<h1><%= @attendee.name %></h1>
-<div>TBD</div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3">
+      <div class="card card-success">
+        <div class="card-header">
+          <h1>
+            <figure class="avatar mr-2 avatar-lg" data-initial="<%= @attendee.initials %>">
+            </figure>
+            <%= @attendee.name %>
+
+            </h1>
+        </div>
+        <div class="card-body">
+          <div class="m-4">
+            Thank you for registering!<br>
+            Now you can visit the <%= @attendee.event.name %> event at this link
+            <div class="mt-5 text-center">
+              <%= link_to 'Follow', @attendee.event.router_app_url, class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

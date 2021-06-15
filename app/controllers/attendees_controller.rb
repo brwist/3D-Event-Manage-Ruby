@@ -6,9 +6,11 @@ class AttendeesController < ApplicationController
   before_action :set_event, only: [:create]
   before_action :set_attendee, only: %i[show destroy]
 
+  layout 'devise'
+
   def show
     not_authorized! unless AttendeePolicy.new(current_user, @attendee, current_attendee).show?
-    render :show, layout: nil
+    render :show
   end
 
   def create
