@@ -56,6 +56,7 @@ class User < ApplicationRecord
 
   def ensure_password
     return unless password.blank? && password_confirmation.blank?
+    return unless respond_to?(:password=)
 
     self.password = self.password_confirmation = SecureRandom.hex(64)
   end
