@@ -34,15 +34,21 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 
-  devise_modules = %i[trackable recoverable rememberable validatable]
+  devise_modules = %i[trackable rememberable]
+
+  if ENV.fetch('DATABASE_AUTHENTICATION', 'true') == 'true'
+    devise_modules << :database_authenticatable
+    devise_modules << :validatable
+    devise_modules << :recoverable
+
+    before_validation :ensure_password, on: :create
+  end
+
   devise_modules << :saml_authenticatable if ENV.fetch('SAML_AUTHENTICATION', 'false') == 'true'
-  devise_modules << :database_authenticatable if ENV.fetch('DATABASE_AUTHENTICATION', 'true') == 'true'
 
   devise(*devise_modules)
 
   validates :first_name, :last_name, presence: true
-
-  before_validation :ensure_password, on: :create
 
   def admin?
     (roles.map(&:name) & %w[superadmin admin]).present?
@@ -56,7 +62,6 @@ class User < ApplicationRecord
 
   def ensure_password
     return unless password.blank? && password_confirmation.blank?
-    return unless respond_to?(:password=)
 
     self.password = self.password_confirmation = SecureRandom.hex(64)
   end
