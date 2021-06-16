@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Token</th>
+        <th>Description</th>
         <th>Label</th>
         <th></th>
       </tr>
@@ -12,7 +12,7 @@
       <% tokens.each do |token| %>
         <tr>
           <td><%= token.name %></td>
-          <td><%= token.token %></td>
+          <td><%= token.description %></td>
           <td>
             <% if (label = token.label(event_id: event.id)) %>
               <%= link_to '#', class: 'edit-label-link', data: { toggle: 'modal', target: '#editLabelModal', label: label.text, id: label.id } do %>

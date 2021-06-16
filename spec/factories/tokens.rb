@@ -4,13 +4,14 @@
 #
 # Table name: tokens
 #
-#  id         :bigint           not null, primary key
-#  name       :string           not null
-#  token      :string           not null
-#  type       :string           default("content")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  room_id    :bigint           not null
+#  id          :bigint           not null, primary key
+#  description :string
+#  name        :string           not null
+#  token       :string           not null
+#  type        :string           default("content")
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  room_id     :bigint           not null
 #
 # Indexes
 #

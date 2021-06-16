@@ -1,6 +1,6 @@
 <tr>
   <td><%= token.name %></td>
-  <td><%= token.token %></td>
+  <td><%= token.description %></td>
   <td>
     <%= link_to '#', class: 'edit-label-link', data: { toggle: 'modal', target: '#editLabelModal', label: hotspot&.label&.text, id: hotspot&.label&.id } do %>
       <%= hotspot&.label&.text %>
