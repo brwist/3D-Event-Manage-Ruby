@@ -4,15 +4,19 @@
 #
 # Table name: events
 #
-#  id               :bigint           not null, primary key
-#  end_time         :datetime
-#  name             :string
-#  slug             :string
-#  start_time       :datetime
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  client_id        :bigint           not null
-#  main_entrance_id :bigint
+#  id                       :bigint           not null, primary key
+#  end_time                 :datetime
+#  landing_background_color :string
+#  landing_foreground_color :string
+#  landing_logo             :string
+#  landing_prompt           :string
+#  name                     :string
+#  slug                     :string
+#  start_time               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  client_id                :bigint           not null
+#  main_entrance_id         :bigint
 #
 # Indexes
 #
@@ -41,7 +45,13 @@ class Event < ApplicationRecord
   delegate :path, to: :main_entrance, prefix: true, allow_nil: true
   delegate :name, to: :client, prefix: true, allow_nil: true
 
-  validates :name, :start_time, :end_time, presence: true
+  validates :name,
+            :start_time,
+            :end_time,
+            :landing_prompt,
+            :landing_logo,
+            :landing_background_color,
+            :landing_foreground_color, presence: true
 
   def key
     "#{client_slug}.#{slug}"
@@ -65,11 +75,17 @@ class Event < ApplicationRecord
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def publish_event
     Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
     Redis.current.hset(configuration_key, 'start_time', time_to_publish_format(start_time))
     Redis.current.hset(configuration_key, 'end_time', time_to_publish_format(end_time))
+    Redis.current.hset(configuration_key, 'landing_prompt', landing_prompt)
+    Redis.current.hset(configuration_key, 'landing_logo', landing_logo)
+    Redis.current.hset(configuration_key, 'landing_background_color', landing_background_color)
+    Redis.current.hset(configuration_key, 'landing_foreground_color', landing_foreground_color)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def time_to_publish_format(time)
     (time.to_i * 1000).to_s
