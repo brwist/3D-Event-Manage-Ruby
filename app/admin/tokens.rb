@@ -7,7 +7,7 @@ ActiveAdmin.register Token do
   # Uncomment all parameters which should be permitted for assignment
   #
 
-  permit_params :name, :token, :room_id, :type
+  permit_params :name, :token, :description, :room_id, :type
 
   #
   # or
@@ -24,6 +24,7 @@ ActiveAdmin.register Token do
     column :room
     column :name
     column :token
+    column :description
     column :type
     actions
   end
@@ -33,6 +34,7 @@ ActiveAdmin.register Token do
       f.input :room
       f.input :name
       f.input :token
+      f.input :description
       f.input :type, as: :select, collection: %i[content label navigation], include_blank: false
     end
     f.actions
