@@ -29,6 +29,8 @@ class Content < ApplicationRecord
 
   validates :name, presence: true
 
+  delegate :key, to: :file, allow_nil: false, prefix: true
+
   def self.mime_types
     ALLOWED_MIME_TYPES.join(', ')
   end

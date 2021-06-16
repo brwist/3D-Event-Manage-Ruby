@@ -4,15 +4,19 @@
 #
 # Table name: events
 #
-#  id               :bigint           not null, primary key
-#  end_time         :datetime
-#  name             :string
-#  slug             :string
-#  start_time       :datetime
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  client_id        :bigint           not null
-#  main_entrance_id :bigint
+#  id                       :bigint           not null, primary key
+#  end_time                 :datetime
+#  landing_background_color :string
+#  landing_foreground_color :string
+#  landing_logo             :string
+#  landing_prompt           :string
+#  name                     :string
+#  slug                     :string
+#  start_time               :datetime
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  client_id                :bigint           not null
+#  main_entrance_id         :bigint
 #
 # Indexes
 #
@@ -35,6 +39,10 @@ RSpec.describe Event, type: :model do
   it { is_expected.to(validate_presence_of(:name)) }
   it { is_expected.to(validate_presence_of(:start_time)) }
   it { is_expected.to(validate_presence_of(:end_time)) }
+  it { is_expected.to(validate_presence_of(:landing_prompt)) }
+  it { is_expected.to(validate_presence_of(:landing_logo)) }
+  it { is_expected.to(validate_presence_of(:landing_background_color)) }
+  it { is_expected.to(validate_presence_of(:landing_foreground_color)) }
   it { is_expected.to belong_to(:main_entrance).class_name('Room') }
 
   describe '#publish' do
@@ -46,6 +54,10 @@ RSpec.describe Event, type: :model do
       expect(Redis.current.hget("event.#{event.key}", 'main_entrance')).to eq event.main_entrance.path
       expect(Redis.current.hget("event.#{event.key}", 'start_time')).to eq (event.start_time.to_i * 1000).to_s
       expect(Redis.current.hget("event.#{event.key}", 'end_time')).to eq (event.end_time.to_i * 1000).to_s
+      expect(Redis.current.hget("event.#{event.key}", 'landing_prompt')).to eq event.landing_prompt
+      expect(Redis.current.hget("event.#{event.key}", 'landing_logo')).to eq event.landing_logo
+      expect(Redis.current.hget("event.#{event.key}", 'landing_background_color')).to eq event.landing_background_color
+      expect(Redis.current.hget("event.#{event.key}", 'landing_foreground_color')).to eq event.landing_foreground_color
 
       event.attendees.each do |attendee|
         expect(Redis.current.hget(attendee.attendees_key, attendee.email)).to eq attendee.to_json

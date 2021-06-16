@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_212730) do
+ActiveRecord::Schema.define(version: 2021_06_16_021856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -104,6 +104,10 @@ ActiveRecord::Schema.define(version: 2021_06_15_212730) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "main_entrance_id"
+    t.string "landing_prompt"
+    t.string "landing_logo"
+    t.string "landing_background_color"
+    t.string "landing_foreground_color"
     t.index ["client_id"], name: "index_events_on_client_id"
     t.index ["main_entrance_id"], name: "index_events_on_main_entrance_id"
   end
