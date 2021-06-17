@@ -10,7 +10,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :client_id %>
-        <%= form.collection_select(:client_id, Client.order(:name), :id, :name, {}, { class: 'form-control', data: { controller: 'select' } }) %>
+        <%= form.collection_select(:client_id, @clients, :id, :name, {}, { class: 'form-control', data: { controller: 'select' } }) %>
       </div>
     </div>
   </div>
@@ -41,12 +41,40 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :main_entrance_id %>
-        <%= form.collection_select(:main_entrance_id, Room.order(:path), :id, :path, {}, { class: 'form-control', data: { controller: 'select' } }) %>
+        <%= form.collection_select(:main_entrance_id, @rooms, :id, :path, {}, { class: 'form-control', data: { controller: 'select' } }) %>
       </div>
     </div>
   </div>
 
+  <div class="row">
+    <div class="col-5">
+      <div class="form-group">
+        <%= form.label :landing_logo %>
+        <%= form.collection_select :landing_logo, @content_images, :file_key, :name, {}, class: 'form-control', data: { controller: 'select' } %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= form.label :landing_foreground_color %>
+        <%= form.color_field :landing_foreground_color, class: 'form-control', tabindex: 4 %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= form.label :landing_background_color %>
+        <%= form.color_field :landing_background_color, class: 'form-control', tabindex: 4 %>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col-10">
+      <div class="form-group">
+        <%= form.label :landing_prompt %>
+        <%= form.text_field :landing_prompt, class: 'form-control', tabindex: 5 %>
+      </div>
+    </div>
+  </div>
 
   <div class="card-footer pl-0">
     <%= form.submit class: 'btn btn-success' %>

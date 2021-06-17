@@ -12,6 +12,17 @@
 FactoryBot.define do
   factory :content do
     name { Faker::File.name }
-    file { Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.pdf', 'application/pdf') }
+
+    trait :with_pdf_file do
+      file { Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.pdf', 'application/pdf') }
+    end
+
+    trait :with_jpeg_file do
+      file { Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.jpeg', 'image/jpeg') }
+    end
+
+    trait :with_png_file do
+      file { Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.png', 'image/png') }
+    end
   end
 end
