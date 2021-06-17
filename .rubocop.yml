@@ -54,3 +54,6 @@ Style/ClassAndModuleChildren:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/devise/**/*.rb'
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
