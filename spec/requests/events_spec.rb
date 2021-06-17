@@ -19,7 +19,6 @@ RSpec.describe '/events', type: :request do
   let(:client) { create :client }
   let(:main_entrance) { create :room }
   let(:attached_tags) { %w[tag1 tag2 tag3] }
-
   let(:valid_attributes) do
     {
       name: Faker::FunnyName.name,
@@ -27,7 +26,11 @@ RSpec.describe '/events', type: :request do
       end_time: 25.hours.from_now.to_s,
       client_id: client.id,
       main_entrance_id: main_entrance.id,
-      tag_list: attached_tags.join(',')
+      tag_list: attached_tags.join(','),
+      landing_prompt: Faker::Lorem.words.join(' '),
+      landing_logo: Faker::Lorem.word,
+      landing_background_color: Faker::Color.hex_color,
+      landing_foreground_color: Faker::Color.hex_color
     }
   end
 
