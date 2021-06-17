@@ -26,6 +26,21 @@
               <%= form.collection_select :content_id, Content.order(:name), :id, :name, {}, class: 'form-control', data: { controller: 'select' } %>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-12 form-group">
+              <label for="content-query">Content query</label>
+              <input class="form-control" type="text" name="content-query" id="content-query">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 form-group">
+              <ul id='output'>
+
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div class="modal-footer">
