@@ -50,7 +50,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :landing_logo %>
-        <%= form.collection_select :landing_logo, Content.order(:name), :file_key, :name, {}, class: 'form-control', data: { controller: 'select' } %>
+        <%= form.collection_select :landing_logo, Content.images.order(:name), :file_key, :name, {}, class: 'form-control', data: { controller: 'select' } %>
       </div>
     </div>
     <div class="col-2">

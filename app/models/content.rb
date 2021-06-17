@@ -31,6 +31,8 @@ class Content < ApplicationRecord
 
   delegate :key, to: :file, allow_nil: false, prefix: true
 
+  scope :images, -> { joins(:file_attachment, :file_blob).where("content_type LIKE 'image/%'") }
+
   def self.mime_types
     ALLOWED_MIME_TYPES.join(', ')
   end

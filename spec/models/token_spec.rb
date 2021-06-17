@@ -27,7 +27,7 @@ RSpec.describe Token, type: :model do
   subject(:token) { create(:token) }
 
   let(:event) { create(:event) }
-  let(:content) { create(:content) }
+  let(:content) { create(:content, :with_pdf_file) }
   let(:url) { Faker::Internet.url }
   let(:text) { Faker::Tea.variety }
 
