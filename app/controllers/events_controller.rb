@@ -2,6 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy upload_attendees publish]
+  before_action :set_dropdown_values, only: %i[new edit]
   after_action :clear_session, only: :edit
 
   def index
@@ -26,10 +27,7 @@ class EventsController < ApplicationController
 
     setup_tab
     @attendees = @event.attendees
-    @rooms = Room.all
     @navigation_tokens = Token.navigation
-
-    fresh_when etag: @event
   end
 
   def create
@@ -86,6 +84,12 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.friendly.find(params[:id])
+  end
+
+  def set_dropdown_values
+    @rooms = Room.all
+    @clients = Client.order(:name)
+    @content_images = Content.images.order(:name)
   end
 
   def event_params
