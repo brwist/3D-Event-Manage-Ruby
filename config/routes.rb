@@ -12,9 +12,7 @@ Rails.application.routes.draw do
     post 'publish', on: :member
     resources :attendees
   end
-  resources :contents do
-    get 'search', to: 'contents#search', on: :collection
-  end
+  resources :contents
   resources :tokens do
     post 'attach_content_hotspot', on: :collection
     post 'attach_url_hotspot', on: :collection

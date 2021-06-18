@@ -14,16 +14,6 @@ class ContentsController < ApplicationController
     end
   end
 
-  def search
-    snippet = "%#{params[:snippet].to_s.downcase}%"
-    @contents = Content
-      .with_attached_file
-      .joins(file_attachment: :blob)
-      .where('contents.name LIKE :snippet OR active_storage_blobs.filename LIKE :snippet', snippet: snippet)
-
-    render 'index.json'
-  end
-
   # GET /contents/1 or /contents/1.json
   def show; end
 
