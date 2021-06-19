@@ -16,6 +16,7 @@
         <h4>Event Parameters</h4>
         <div class="card-header-action">
           <%= link_to icon('fas fa-database', 'Publish'), publish_event_path(id: @event.id), class: 'btn btn-icon icon-left btn-primary', method: :post, remote: true %>
+          <%= link_to icon('fas fa-unlink', 'Unpublish'), unpublish_event_path(id: @event.id), class: 'btn btn-icon icon-left btn-primary', method: :post, remote: true %>
 
           <%= link_to icon('fas fa-external-link-alt', 'Open Event'), @event.router_app_url, class: 'btn btn-icon icon-left btn-primary', target: '_blank' %>
         </div>

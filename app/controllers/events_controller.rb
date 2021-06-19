@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy upload_attendees publish]
+  before_action :set_event, only: %i[show edit update destroy upload_attendees publish unpublish]
   before_action :set_dropdown_values, only: %i[new edit]
   after_action :clear_session, only: :edit
 
@@ -77,6 +77,13 @@ class EventsController < ApplicationController
     @event.publish
     respond_to do |format|
       format.js { flash.now[:notice] = 'Event published' }
+    end
+  end
+
+  def unpublish
+    @event.unpublish
+    respond_to do |format|
+      format.js { flash.now[:notice] = 'Event unpublished' }
     end
   end
 

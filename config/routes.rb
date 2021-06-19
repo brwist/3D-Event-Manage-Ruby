@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :events do
     post 'upload_attendees', on: :member
     post 'publish', on: :member
+    post 'unpublish', on: :member
     resources :attendees
   end
   resources :contents
