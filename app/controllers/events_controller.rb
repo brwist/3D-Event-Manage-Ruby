@@ -50,7 +50,6 @@ class EventsController < ApplicationController
     @event.update!(event_params)
     respond_to do |format|
       format.html { redirect_to edit_event_url(@event), notice: 'Event was successfully updated.' }
-      format.json { render :show }
     end
   end
 
