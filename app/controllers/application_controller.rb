@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   include SetPlatform
 
+  add_flash_types :alert
+
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
 
   layout :layout_by_resource
