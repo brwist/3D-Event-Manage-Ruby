@@ -33,11 +33,15 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     authorize @event
-    @event.save!
+
+    if @event.save
+      flash[:notice] = 'Event was successfully created.'
+    else
+      flash[:alert] = @event.errors.full_messages.to_sentence
+    end
 
     respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully created.' }
-      format.json { render :show, status: :created }
+      format.html { redirect_to events_url }
     end
   end
 
