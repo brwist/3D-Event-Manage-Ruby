@@ -47,9 +47,15 @@ class EventsController < ApplicationController
 
   def update
     authorize @event
-    @event.update!(event_params)
+
+    if @event.update(event_params)
+      flash[:notice] = 'Event was successfully updated.'
+    else
+      flash[:alert] = @event.errors.full_messages.to_sentence
+    end
+
     respond_to do |format|
-      format.html { redirect_to edit_event_url(@event), notice: 'Event was successfully updated.' }
+      format.html { redirect_to edit_event_url(@event) }
     end
   end
 
