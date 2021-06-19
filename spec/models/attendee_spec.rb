@@ -92,4 +92,12 @@ RSpec.describe Attendee, type: :model do
       expect(Redis.current.hget("attendee.#{attendee.event_key}", attendee.email)).to eq attendee.to_json
     end
   end
+  
+  describe '#unpublish' do
+    it 'unpublishes from redis' do
+      attendee.publish
+      Attendee.unpublish(attendee.event_key)
+      expect(Redis.current.exists("attendee.#{attendee.event_key}")).to eq 0
+    end
+  end
 end
