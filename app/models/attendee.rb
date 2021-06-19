@@ -47,7 +47,7 @@ class Attendee < ApplicationRecord
   end
 
   def self.unpublish(event_key)
-    Redis.current.del("hotspot.#{event_key}")
+    Redis.current.del("attendee.#{event_key}")
   end
 
   def publish
