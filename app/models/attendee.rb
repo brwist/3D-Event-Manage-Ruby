@@ -46,7 +46,12 @@ class Attendee < ApplicationRecord
     }
   end
 
+  def unpublish
+    Redis.current.hdel(attendees_key, email)
+  end
+
   def publish
+    unpublish
     Redis.current.hset(attendees_key, email, to_json)
   end
 

@@ -44,7 +44,12 @@ class Label < ApplicationRecord
     }
   end
 
+  def unpublish
+    Redis.current.hdel(labels_key, external_id)
+  end
+
   def publish
+    unpublish
     Redis.current.hset(labels_key, external_id, to_json)
   end
 end

@@ -60,7 +60,12 @@ class Hotspot < ApplicationRecord
     }
   end
 
+  def unpublish
+    Redis.current.hdel(hotspots_key, external_id)
+  end
+
   def publish
+    unpublish
     Redis.current.hset(hotspots_key, external_id, to_json)
   end
 end
