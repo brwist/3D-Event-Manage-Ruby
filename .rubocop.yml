@@ -9,6 +9,7 @@ require:
   - rubocop-rspec
 
 AllCops:
+  NewCops: enable
   Exclude:
     - 'db/migrate/*.rb'
     - 'lib/tasks/auto_annotate_models.rake'
