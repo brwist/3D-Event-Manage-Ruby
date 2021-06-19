@@ -64,16 +64,22 @@ class Event < ApplicationRecord
   def unpublish
     unpublish_event
 
-    attendees.each(&:unpublish)
-    hotspots.each(&:unpublish)
-    labels.each(&:unpublish)
+    Attendee.unpublish(key)
+    Hotspot.unpublish(key)
+    Label.unpublish(key)
   end
   
   def publish
     publish_event
 
+    # clean related models records before publish
+    Attendee.unpublish(key)
     attendees.each(&:publish)
+    
+    Hotspot.unpublish(key)
     hotspots.each(&:publish)
+    
+    Label.unpublish(key)
     labels.each(&:publish)
   end
 
@@ -84,19 +90,11 @@ class Event < ApplicationRecord
   private
 
   def unpublish_event
-    Redis.current.hdel(configuration_key, 'main_entrance')
-    Redis.current.hdel(configuration_key, 'start_time')
-    Redis.current.hdel(configuration_key, 'end_time')
-    Redis.current.hdel(configuration_key, 'landing_prompt')
-    Redis.current.hdel(configuration_key, 'landing_logo')
-    Redis.current.hdel(configuration_key, 'landing_background_color')
-    Redis.current.hdel(configuration_key, 'landing_foreground_color')
+    Redis.current.del(configuration_key)
   end
 
   # rubocop:disable Metrics/AbcSize
   def publish_event
-    unpublish_event
-
     Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
     Redis.current.hset(configuration_key, 'start_time', time_to_publish_format(start_time))
     Redis.current.hset(configuration_key, 'end_time', time_to_publish_format(end_time))
