@@ -32,15 +32,15 @@ class ContentsController < ApplicationController
   def create
     authorize(@content = Content.new(content_params))
 
+    if @content.save
+      flash[:notice] = 'Content was successfully created.'
+    else
+      flash[:alert] = @content.errors.full_messages.join('. ')
+    end
+
     respond_to do |format|
-      if @content.save
-        format.html do
-          redirect_to contents_url, notice: 'Content was successfully created.'
-        end
-        format.json { render :show, status: :created, location: @content }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @content.errors, status: :unprocessable_entity }
+      format.html do
+        redirect_to contents_url
       end
     end
   end
@@ -49,16 +49,14 @@ class ContentsController < ApplicationController
   def update
     authorize @content
 
+    if @content.update(content_params)
+      flash[:notice] = 'Content was successfully updated.'
+    else
+      flash[:alert] = @content.errors.full_messages.to_sentence
+    end
+
     respond_to do |format|
-      if @content.update(content_params)
-        format.html do
-          redirect_to contents_url, notice: 'Content was successfully updated.'
-        end
-        format.json { render :show, status: :ok, location: @content }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @content.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to edit_content_url(@content) }
     end
   end
 
