@@ -33,27 +33,27 @@ class ClientsController < ApplicationController
     @client = Client.new(compact_parameters)
     authorize @client
 
+    if @client.save
+      flash[:notice] = 'Client was successfully created.'
+    else
+      flash[:alert] = @client.errors.full_messages.to_sentence
+    end
+
     respond_to do |format|
-      if @client.save
-        format.html { redirect_to clients_url, notice: 'Client was successfully created.' }
-        format.json { render :show, status: :created, location: @client }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to clients_url }
     end
   end
 
   # PATCH/PUT /clients/1 or /clients/1.json
   def update
+    if @client.update(compact_parameters)
+      flash[:notice] = 'Client was successfully updated.'
+    else
+      flash[:alert] = @client.errors.full_messages.to_sentence
+    end
+
     respond_to do |format|
-      if @client.update(compact_parameters)
-        format.html { redirect_to clients_url, notice: 'Client was successfully updated.' }
-        format.json { render :show, status: :ok, location: @client }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to edit_client_url(@client) }
     end
   end
 
