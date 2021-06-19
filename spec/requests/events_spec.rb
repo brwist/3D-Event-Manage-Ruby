@@ -50,6 +50,39 @@ RSpec.describe '/events', type: :request do
       get events_url
       expect(response).to be_successful
     end
+
+    it 'returns success response after publish' do
+      event = Event.create! valid_attributes
+      post publish_event_url(id: event.id), params: { format: :js }
+      expect(response).to be_successful
+    end
+
+    it 'returns success response after unpublish' do
+      event = Event.create! valid_attributes
+      # post publish_event_url(id: event.id), params: { format: :js }
+      post unpublish_event_url(id: event.id), params: { format: :js }
+      expect(response).to be_successful
+    end
+
+    it 'publishes the event in redis' do
+      event = Event.create! valid_attributes
+      post publish_event_url(id: event.id), params: { format: :js }
+
+      expect(Redis.current.hget("event.#{event.key}", 'main_entrance')).to eq event.main_entrance.path
+      expect(Redis.current.hget("event.#{event.key}", 'start_time')).to eq (event.start_time.to_i * 1000).to_s
+      expect(Redis.current.hget("event.#{event.key}", 'end_time')).to eq (event.end_time.to_i * 1000).to_s
+      expect(Redis.current.hget("event.#{event.key}", 'landing_prompt')).to eq event.landing_prompt
+      expect(Redis.current.hget("event.#{event.key}", 'landing_logo')).to eq event.landing_logo
+      expect(Redis.current.hget("event.#{event.key}", 'landing_background_color')).to eq event.landing_background_color
+      expect(Redis.current.hget("event.#{event.key}", 'landing_foreground_color')).to eq event.landing_foreground_color
+    end
+
+    it 'unpublishes the event from redis' do
+      event = Event.create! valid_attributes
+      post publish_event_url(id: event.id), params: { format: :js }
+      post unpublish_event_url(id: event.id), params: { format: :js }
+      expect(Redis.current.exists("event.#{event.key}")).to eq 0
+    end
   end
 
   describe 'GET /show' do
