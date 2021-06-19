@@ -58,4 +58,12 @@ RSpec.describe Hotspot, type: :model do
       expect(Redis.current.hget("hotspot.#{hotspot.event_key}", hotspot.external_id)).to eq hotspot.to_json
     end
   end
+
+  describe '#unpublish' do
+    it 'unpublishes from redis' do
+      hotspot.publish
+      Hotspot.unpublish(hotspot.event_key)
+      expect(Redis.current.exists("hotspot.#{hotspot.event_key}")).to eq 0
+    end
+  end
 end

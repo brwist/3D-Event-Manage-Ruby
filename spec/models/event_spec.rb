@@ -72,4 +72,26 @@ RSpec.describe Event, type: :model do
       end
     end
   end
+
+  describe '#unpublish' do
+    before do
+      event.publish
+      event.unpublish
+    end
+    it 'unpublishes event configuration' do
+      expect(Redis.current.exists("event.#{event.key}")).to eq 0
+    end
+    
+    it 'unpublishes related attendees' do
+      expect(Redis.current.exists("attendee.#{event.key}")).to eq 0
+    end
+    
+    it 'unpublishes related hostpots' do
+      expect(Redis.current.exists("hotspot.#{event.key}")).to eq 0
+    end
+    
+    it 'unpublishes related labels' do
+      expect(Redis.current.exists("label.#{event.key}")).to eq 0
+    end
+  end
 end

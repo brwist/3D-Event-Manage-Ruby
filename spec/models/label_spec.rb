@@ -48,4 +48,12 @@ RSpec.describe Label, type: :model do
       expect(Redis.current.hget("label.#{label.event_key}", label.external_id)).to eq label.to_json
     end
   end
+
+  describe '#unpublish' do
+    it 'unpublishes from redis' do
+      label.publish
+      Label.unpublish(label.event_key)
+      expect(Redis.current.exists("label.#{label.event_key}")).to eq 0
+    end
+  end
 end
