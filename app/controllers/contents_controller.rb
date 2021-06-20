@@ -5,12 +5,16 @@ class ContentsController < ApplicationController
 
   # GET /contents or /contents.json
   def index
-    @search = Content.includes(:tags).reverse_chronologically.ransack(params[:q])
+    @search = Content.includes(:tags, file_attachment: :blob).reverse_chronologically
+    @search = @search.images if params[:type] == 'images'
+    @search = @search.ransack(params[:q])
+
     authorize @search.result
 
     respond_to do |format|
-      format.any(:html, :json) { @contents = set_page_and_extract_portion_from @search.result }
+      format.html { @contents = set_page_and_extract_portion_from @search.result }
       format.csv { render csv: @search.result }
+      format.json { render json: @search.result.as_json(include: :file_blob) }
     end
   end
 
