@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     resources :attendees
   end
   resources :contents
-  get 'contents/search', to: 'contents#search'
   resources :tokens do
     post 'attach_content_hotspot', on: :collection
     post 'attach_url_hotspot', on: :collection
