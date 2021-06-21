@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_18_204153) do
+ActiveRecord::Schema.define(version: 2021_06_21_164823) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -110,6 +111,7 @@ ActiveRecord::Schema.define(version: 2021_06_18_204153) do
     t.datetime "send_invitation_at"
     t.boolean "invitation_scheduled", default: false
     t.boolean "invitation_sent", default: false
+    t.string "timezone"
     t.index ["client_id"], name: "index_events_on_client_id"
     t.index ["main_entrance_id"], name: "index_events_on_main_entrance_id"
   end
