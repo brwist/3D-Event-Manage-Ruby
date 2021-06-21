@@ -111,7 +111,8 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(
       :name, :start_time, :end_time, :client_id, :main_entrance_id, :tag_list,
-      :landing_prompt, :landing_logo, :landing_background_color, :landing_foreground_color
+      :landing_prompt, :landing_logo, :landing_background_color, :landing_foreground_color,
+      :invitation_scheduled, :send_invitation_at
     )
   end
 
