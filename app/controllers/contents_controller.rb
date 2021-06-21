@@ -60,7 +60,7 @@ class ContentsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to edit_content_url(@content) }
+      format.html { redirect_to contents_url }
     end
   end
 
