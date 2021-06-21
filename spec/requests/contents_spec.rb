@@ -25,6 +25,14 @@ RSpec.describe '/contents', type: :request do
     }
   end
 
+  let(:valid_attributes_2) do
+    {
+      name: 'Not useful manual',
+      tag_list: ['tag one', 'tag two', 'tag three'],
+      file: fixture_file_upload('wrong_attendees_list.csv', 'text/csv')
+    }
+  end
+
   let(:invalid_attributes) {
     skip('Add a hash of attributes invalid for your model')
   }
@@ -40,6 +48,31 @@ RSpec.describe '/contents', type: :request do
       Content.create! valid_attributes
       get contents_url
       expect(response).to be_successful
+    end
+
+    it 'renders a successful json response' do
+      Content.create! valid_attributes
+      headers = { 'accept' => 'application/json' }
+      get contents_url, headers: headers
+      expect(response).to be_successful
+    end
+
+    it 'returns json with two records' do
+      Content.create! valid_attributes
+      Content.create! valid_attributes_2
+      headers = { 'accept' => 'application/json' }
+      get contents_url, params: { 'q[name_cont]': 'manual' }, headers: headers
+      json = JSON.parse(response.body)
+      expect(json.count).to eq 2
+    end
+
+    it 'returns json with one records' do
+      Content.create! valid_attributes
+      Content.create! valid_attributes_2
+      headers = { 'accept' => 'application/json' }
+      get contents_url, params: { 'q[name_cont]': 'not' }, headers: headers
+      json = JSON.parse(response.body)
+      expect(json.count).to eq 1
     end
   end
 
@@ -122,6 +155,12 @@ RSpec.describe '/contents', type: :request do
         patch content_url(content), params: { content: new_attributes }
         content.reload
         skip('Add assertions for updated state')
+      end
+
+      it 'redirects to the content' do
+        patch content_url(content), params: { content: new_attributes }
+        content.reload
+        expect(response).to redirect_to(contents_url)
       end
 
       it 'redirects to the content' do
