@@ -43,7 +43,9 @@
             <tbody data-target="infinite-page.container">
               <% @events.each do |event| %>
                 <tr data-target="infinite-page.item">
-                  <td><%= event.name %></td>
+                  <td>
+                    <%= link_to event.name, edit_event_path(event) %>
+                  </td>
                   <td><%= event.client_name %></td>
                   <td>
                     <% event.tags.each do |tag| %>
