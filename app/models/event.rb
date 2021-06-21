@@ -57,7 +57,7 @@ class Event < ApplicationRecord
             :landing_background_color,
             :landing_foreground_color, presence: true
 
-  validates :timezone, inclusion: { in: ActiveSupport::TimeZone.all.map {|k,v| k.name } }
+  validates :timezone, inclusion: ActiveSupport::TimeZone.all.map(&:name)
 
   def key
     "#{client_slug}.#{slug}"
