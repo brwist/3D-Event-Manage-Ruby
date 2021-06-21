@@ -16,6 +16,7 @@
 #  send_invitation_at       :datetime
 #  slug                     :string
 #  start_time               :datetime
+#  timezone                 :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  client_id                :bigint           not null
@@ -55,6 +56,8 @@ class Event < ApplicationRecord
             :landing_logo,
             :landing_background_color,
             :landing_foreground_color, presence: true
+
+  validates :timezone, inclusion: { in: ActiveSupport::TimeZone.all.map {|k,v| k.name } }
 
   def key
     "#{client_slug}.#{slug}"
