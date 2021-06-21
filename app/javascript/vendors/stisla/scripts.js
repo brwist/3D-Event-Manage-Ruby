@@ -588,7 +588,7 @@ $(document).on("turbolinks:load", function() {
       }
       if($(".datetimepicker").length) {
         $('.datetimepicker').daterangepicker({
-          locale: {format: 'YYYY-MM-DD HH:mm Z'},
+          locale: {format: 'YYYY-MM-DD HH:mm'},
           singleDatePicker: true,
           timePicker: true,
           timePicker24Hour: true,
