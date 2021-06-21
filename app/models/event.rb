@@ -104,6 +104,7 @@ class Event < ApplicationRecord
     Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
     Redis.current.hset(configuration_key, 'start_time', time_to_publish_format(start_time))
     Redis.current.hset(configuration_key, 'end_time', time_to_publish_format(end_time))
+    Redis.current.hset(configuration_key, 'timezone', timezone)
     Redis.current.hset(configuration_key, 'landing_prompt', landing_prompt)
     Redis.current.hset(configuration_key, 'landing_logo', landing_logo)
     Redis.current.hset(configuration_key, 'landing_background_color', landing_background_color)
