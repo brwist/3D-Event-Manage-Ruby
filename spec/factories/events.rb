@@ -6,11 +6,14 @@
 #
 #  id                       :bigint           not null, primary key
 #  end_time                 :datetime
+#  invitation_scheduled     :boolean          default(FALSE)
+#  invitation_sent          :boolean          default(FALSE)
 #  landing_background_color :string
 #  landing_foreground_color :string
 #  landing_logo             :string
 #  landing_prompt           :string
 #  name                     :string
+#  send_invitation_at       :datetime
 #  slug                     :string
 #  start_time               :datetime
 #  created_at               :datetime         not null

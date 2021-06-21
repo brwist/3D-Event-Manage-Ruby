@@ -6,11 +6,14 @@
 #
 #  id                       :bigint           not null, primary key
 #  end_time                 :datetime
+#  invitation_scheduled     :boolean          default(FALSE)
+#  invitation_sent          :boolean          default(FALSE)
 #  landing_background_color :string
 #  landing_foreground_color :string
 #  landing_logo             :string
 #  landing_prompt           :string
 #  name                     :string
+#  send_invitation_at       :datetime
 #  slug                     :string
 #  start_time               :datetime
 #  created_at               :datetime         not null
@@ -68,17 +71,17 @@ class Event < ApplicationRecord
     Hotspot.unpublish(key)
     Label.unpublish(key)
   end
-  
+
   def publish
     publish_event
 
     # clean related models records before publish
     Attendee.unpublish(key)
     attendees.each(&:publish)
-    
+
     Hotspot.unpublish(key)
     hotspots.each(&:publish)
-    
+
     Label.unpublish(key)
     labels.each(&:publish)
   end

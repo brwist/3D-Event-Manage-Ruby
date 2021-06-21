@@ -6,11 +6,14 @@
 #
 #  id                       :bigint           not null, primary key
 #  end_time                 :datetime
+#  invitation_scheduled     :boolean          default(FALSE)
+#  invitation_sent          :boolean          default(FALSE)
 #  landing_background_color :string
 #  landing_foreground_color :string
 #  landing_logo             :string
 #  landing_prompt           :string
 #  name                     :string
+#  send_invitation_at       :datetime
 #  slug                     :string
 #  start_time               :datetime
 #  created_at               :datetime         not null
@@ -78,18 +81,19 @@ RSpec.describe Event, type: :model do
       event.publish
       event.unpublish
     end
+
     it 'unpublishes event configuration' do
       expect(Redis.current.exists("event.#{event.key}")).to eq 0
     end
-    
+
     it 'unpublishes related attendees' do
       expect(Redis.current.exists("attendee.#{event.key}")).to eq 0
     end
-    
+
     it 'unpublishes related hostpots' do
       expect(Redis.current.exists("hotspot.#{event.key}")).to eq 0
     end
-    
+
     it 'unpublishes related labels' do
       expect(Redis.current.exists("label.#{event.key}")).to eq 0
     end
