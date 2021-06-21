@@ -16,6 +16,7 @@
 #  send_invitation_at       :datetime
 #  slug                     :string
 #  start_time               :datetime
+#  timezone                 :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  client_id                :bigint           not null
