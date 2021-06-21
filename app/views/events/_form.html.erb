@@ -49,6 +49,15 @@
   <div class="row">
     <div class="col-5">
       <div class="form-group">
+        <%= form.label :timezone %>
+        <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all.sort, { default: "Pacific Time (US & Canada)", model: ActiveSupport::TimeZone }, { class: 'form-control', data: { controller: 'select' }}) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-5">
+      <div class="form-group">
         <%= form.label :landing_logo %>
         <%= form.collection_select :landing_logo, @content_images, :file_key, :name, {}, class: 'form-control', data: { controller: 'select', type: 'event-content-select' } %>
       </div>
