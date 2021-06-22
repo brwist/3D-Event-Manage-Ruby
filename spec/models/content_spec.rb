@@ -26,4 +26,63 @@ RSpec.describe Content, type: :model do
       expect(images).to contain_exactly(*image_files)
     end
   end
+
+  describe 'filesize' do
+    it 'does not create a content with large image' do
+      jpg_file = Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.jpeg', 'image/jpeg')
+
+      content = described_class.new({
+                                      name: 'Test',
+                                      file: jpg_file
+                                    })
+      # simulate large jpg file
+      content.file.byte_size = 576_716_80 # 55mb
+
+      content.save
+
+      expect(content.errors[:file].first).to eq 'is too big'
+    end
+
+    it 'creates a content with image' do
+      jpg_file = Rack::Test::UploadedFile.new('spec/fixtures/files/dummy.jpeg', 'image/jpeg')
+
+      content = described_class.new({
+                                      name: 'Test',
+                                      file: jpg_file
+                                    })
+      content.file.byte_size = 471_859_20 # 45mb
+
+      content.save
+
+      expect(content.errors[:file].first).to eq nil
+    end
+
+    it 'creates a content with document' do
+      ppt_file = Rack::Test::UploadedFile.new('spec/fixtures/files/sample.ppt', 'application/vnd.ms-powerpoint')
+
+      content = described_class.new({
+                                      name: 'Test',
+                                      file: ppt_file
+                                    })
+      content.file.byte_size = 13_631_488 # 13mb
+
+      content.save
+
+      expect(content.errors[:file].first).to eq nil
+    end
+
+    it 'does not create a content with large document' do
+      ppt_file = Rack::Test::UploadedFile.new('spec/fixtures/files/sample.ppt', 'application/vnd.ms-powerpoint')
+
+      content = described_class.new({
+                                      name: 'Test',
+                                      file: ppt_file
+                                    })
+      content.file.byte_size = 27_262_976 # 26mb
+
+      content.save
+
+      expect(content.errors[:file].first).to eq 'is too big'
+    end
+  end
 end
