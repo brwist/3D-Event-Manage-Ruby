@@ -132,7 +132,7 @@ RSpec.describe '/clients', type: :request do
       it 'redirects to the client' do
         patch client_url(client), params: { client: new_attributes }
         client.reload
-        expect(response).to redirect_to(clients_url)
+        expect(response).to redirect_to(edit_client_url(client))
       end
     end
 
