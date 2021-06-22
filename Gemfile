@@ -94,3 +94,5 @@ group :production do
   gem 'rack-ratelimit'
   gem 'rack-timeout'
 end
+
+gem 'flipflop', '~> 2.6'

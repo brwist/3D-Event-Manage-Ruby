@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_21_164823) do
+ActiveRecord::Schema.define(version: 2021_06_22_022434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -114,6 +114,13 @@ ActiveRecord::Schema.define(version: 2021_06_21_164823) do
     t.string "timezone"
     t.index ["client_id"], name: "index_events_on_client_id"
     t.index ["main_entrance_id"], name: "index_events_on_main_entrance_id"
+  end
+
+  create_table "flipflop_features", force: :cascade do |t|
+    t.string "key", null: false
+    t.boolean "enabled", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "hotspots", force: :cascade do |t|

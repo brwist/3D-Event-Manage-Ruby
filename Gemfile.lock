@@ -151,6 +151,8 @@ GEM
     faker (2.18.0)
       i18n (>= 1.6, < 2)
     ffi (1.15.1)
+    flipflop (2.6.0)
+      activesupport (>= 4.0)
     formtastic (4.0.0)
       actionpack (>= 5.2.0)
     formtastic_i18n (0.7.0)
@@ -424,6 +426,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  flipflop (~> 2.6)
   friendly_id (~> 5.4.0)
   geared_pagination
   jbuilder (~> 2.7)

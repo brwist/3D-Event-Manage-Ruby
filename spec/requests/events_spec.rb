@@ -30,7 +30,8 @@ RSpec.describe '/events', type: :request do
       landing_prompt: Faker::Lorem.words.join(' '),
       landing_logo: Faker::Lorem.word,
       landing_background_color: Faker::Color.hex_color,
-      landing_foreground_color: Faker::Color.hex_color
+      landing_foreground_color: Faker::Color.hex_color,
+      timezone: ActiveSupport::TimeZone.all.first.name
     }
   end
 

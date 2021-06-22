@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :clients
   ActiveAdmin.routes(self)
 
   devise_for :attendees, controllers: { passwords: 'devise/attendees/passwords' }
@@ -13,7 +12,9 @@ Rails.application.routes.draw do
     post 'unpublish', on: :member
     resources :attendees
   end
+
   resources :contents
+  resources :clients
   resources :tokens do
     post 'attach_content_hotspot', on: :collection
     post 'attach_url_hotspot', on: :collection
@@ -25,4 +26,13 @@ Rails.application.routes.draw do
   end
 
   root 'events#index'
+
+  admin_web_constraint = lambda do |request|
+    current_user = request.env['warden'].user(:user)
+    current_user.present? && current_user.respond_to?(:has_role?) && current_user.has_role?(:superadmin)
+  end
+
+  constraints admin_web_constraint do
+    mount Flipflop::Engine => '/flipflop'
+  end
 end

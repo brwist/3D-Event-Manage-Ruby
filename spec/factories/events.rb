@@ -45,6 +45,7 @@ FactoryBot.define do
     landing_logo { Faker::Lorem.word }
     landing_background_color { Faker::Color.hex_color }
     landing_foreground_color { Faker::Color.hex_color }
+    timezone { ActiveSupport::TimeZone.all.first.name }
 
     trait :with_attendees do
       after(:build) do |event|
