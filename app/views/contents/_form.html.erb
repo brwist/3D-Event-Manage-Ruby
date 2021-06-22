@@ -8,7 +8,8 @@
     <% if params[:action] == 'new' %>
       <div class="form-group col-5">
         <%= form.label :file, 'Choose File' %>
-        <%= form.file_field :file, label: 'Report', class: 'form-control', accept: Content.mime_types %>
+        <%= form.file_field :file, label: 'Report', class: 'form-control', accept: Content.mime_types, direct_upload: true, data: { controller: 'direct-uploader' } %>
+        <small class="form-text text-muted"></small>
       </div>
     <% else %>
       <div class="form-group col-5">
