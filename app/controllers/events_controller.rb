@@ -26,7 +26,7 @@ class EventsController < ApplicationController
     authorize @event
 
     setup_tab
-    @attendees = @event.attendees
+    @attendees = set_page_and_extract_portion_from @event.attendees, ordered_by: { created_at: :desc }
     @navigation_tokens = Token.navigation
   end
 
@@ -105,7 +105,7 @@ class EventsController < ApplicationController
   def set_dropdown_values
     @rooms = Room.all
     @clients = Client.order(:name)
-    @content_images = Content.images.order(:name)
+    @content_images = Content.images.limit(5).order(:name)
   end
 
   def event_params

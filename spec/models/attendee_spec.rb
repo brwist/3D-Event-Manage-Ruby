@@ -92,12 +92,41 @@ RSpec.describe Attendee, type: :model do
       expect(Redis.current.hget("attendee.#{attendee.event_key}", attendee.email)).to eq attendee.to_json
     end
   end
-  
+
   describe '#unpublish' do
     it 'unpublishes from redis' do
       attendee.publish
-      Attendee.unpublish(attendee.event_key)
+      described_class.unpublish(attendee.event_key)
       expect(Redis.current.exists("attendee.#{attendee.event_key}")).to eq 0
+    end
+  end
+
+  describe '.initials' do
+    let!(:event) { create :event }
+    let(:attendee_params) do
+      {
+        name: 'Sergio Mobiych',
+        email: 'sergm@gmail.com',
+        password: '55555555'
+      }
+    end
+
+    let(:attendee_params_second) do
+      {
+        name: 'Olha',
+        email: 'olha2@gmail.com',
+        password: '55555555'
+      }
+    end
+
+    it 'returns correct initials with 2 chars' do
+      event.attendees.create!(attendee_params)
+      expect(Event.last.attendees.last.initials).to eq 'SM'
+    end
+
+    it 'returns correct initials with 1 char' do
+      event.attendees.create!(attendee_params_second)
+      expect(Event.last.attendees.last.initials).to eq 'O'
     end
   end
 end

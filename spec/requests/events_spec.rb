@@ -116,7 +116,21 @@ RSpec.describe '/events', type: :request do
       get edit_event_url(event)
       expect(response).to be_successful
     end
+
+    it 'renders the attendees by page' do
+      event = create(:event)
+
+      1.upto(20).each do |i|
+        attendee_params = { name: Faker::Name.name, email: Faker::Internet.email, password: '12345678' }
+        event.attendees.create!(attendee_params)
+      end
+
+      get edit_event_url(event)
+
+      expect(assigns(:attendees).count).to eq 15
+    end
   end
+
 
   describe 'POST /create' do
     context 'with valid parameters' do

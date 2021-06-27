@@ -55,9 +55,12 @@ class Event < ApplicationRecord
             :landing_prompt,
             :landing_logo,
             :landing_background_color,
-            :landing_foreground_color, presence: true
+            :landing_foreground_color,
+            :timezone, presence: true
 
   validates :timezone, inclusion: ActiveSupport::TimeZone.all.map(&:name)
+
+  before_save :normalize_datetimes
 
   def key
     "#{client_slug}.#{slug}"
@@ -93,7 +96,37 @@ class Event < ApplicationRecord
     "#{Config.event_url_root}/#{client_slug}/#{slug}"
   end
 
+  def start_time_in_selected_zone
+    dt_convert_to_zone(start_time, timezone)
+  end
+
+  def end_time_in_selected_zone
+    dt_convert_to_zone(end_time, timezone)
+  end
+
   private
+
+  def normalize_datetimes
+    self.start_time = dt_convert_to_app_zone(start_time)
+    self.end_time = dt_convert_to_app_zone(end_time)
+  end
+
+  def dt_convert_to_zone(dt, timezone_name)
+    tz = ActiveSupport::TimeZone[timezone_name]
+    dt.in_time_zone(tz)
+  end
+
+  # converts the date in current app timezone
+  def dt_convert_to_app_zone(dt)
+    # create datetime instance in selected timezone
+    dt_without_tz = dt.strftime('%Y-%m-%d %H:%M')
+    dt_in_selected_timezone = dt_without_tz.in_time_zone(timezone)
+
+    # app timezone
+    app_tz = Time.zone
+
+    dt_in_selected_timezone.in_time_zone(app_tz)
+  end
 
   def unpublish_event
     Redis.current.del(configuration_key)
@@ -104,7 +137,6 @@ class Event < ApplicationRecord
     Redis.current.hset(configuration_key, 'main_entrance', main_entrance_path)
     Redis.current.hset(configuration_key, 'start_time', time_to_publish_format(start_time))
     Redis.current.hset(configuration_key, 'end_time', time_to_publish_format(end_time))
-    Redis.current.hset(configuration_key, 'timezone', timezone)
     Redis.current.hset(configuration_key, 'landing_prompt', landing_prompt)
     Redis.current.hset(configuration_key, 'landing_logo', landing_logo)
     Redis.current.hset(configuration_key, 'landing_background_color', landing_background_color)

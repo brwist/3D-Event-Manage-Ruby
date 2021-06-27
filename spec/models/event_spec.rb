@@ -43,10 +43,12 @@ RSpec.describe Event, type: :model do
   it { is_expected.to(validate_presence_of(:name)) }
   it { is_expected.to(validate_presence_of(:start_time)) }
   it { is_expected.to(validate_presence_of(:end_time)) }
+  it { is_expected.to(validate_presence_of(:timezone)) }
   it { is_expected.to(validate_presence_of(:landing_prompt)) }
   it { is_expected.to(validate_presence_of(:landing_logo)) }
   it { is_expected.to(validate_presence_of(:landing_background_color)) }
   it { is_expected.to(validate_presence_of(:landing_foreground_color)) }
+  it { is_expected.to(validate_inclusion_of(:timezone).in_array(ActiveSupport::TimeZone.all.map(&:name))) }
   it { is_expected.to belong_to(:main_entrance).class_name('Room') }
 
   describe '#publish' do
@@ -99,4 +101,17 @@ RSpec.describe Event, type: :model do
       expect(Redis.current.exists("label.#{event.key}")).to eq 0
     end
   end
+
+  describe 'timezone conversion' do
+    it 'converts datetime to app timezone' do
+      test_date = '30/Nov/2021 14:00'.to_datetime
+      event.timezone = 'Kyiv'
+      event.start_time = test_date
+      event.end_time = test_date
+      event.save!
+
+      expect(event.start_time_in_selected_zone.strftime('%Y, %b %d - %H:%M')).to eq '2021, Nov 30 - 09:00'
+    end
+  end
+
 end

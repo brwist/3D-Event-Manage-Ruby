@@ -19,7 +19,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :start_time %>
-        <%= form.text_field :start_time, class: 'form-control datetimepicker', tabindex: 2 %>
+        <%= form.text_field :start_time, value: (event.start_time.nil? ? '' : event.start_time_in_selected_zone.strftime('%Y-%m-%d %H:%M')), class: 'form-control datetimepicker', tabindex: 2 %>
       </div>
     </div>
     <div class="col-5">
@@ -34,7 +34,7 @@
     <div class="col-5">
       <div class="form-group">
         <%= form.label :end_time %>
-        <%= form.text_field :end_time, class: 'form-control datetimepicker', tabindex: 3 %>
+        <%= form.text_field :end_time, value: (event.end_time.nil? ? '' : event.end_time_in_selected_zone.strftime('%Y-%m-%d %H:%M')), class: 'form-control datetimepicker', tabindex: 3 %>
       </div>
     </div>
 
