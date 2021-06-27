@@ -56,4 +56,10 @@ RSpec.describe Label, type: :model do
       expect(Redis.current.exists("label.#{label.event_key}")).to eq 0
     end
   end
+
+  describe '.labels_key' do
+    it 'returns correct key' do
+      expect(label.labels_key).to include('label.')
+    end
+  end
 end

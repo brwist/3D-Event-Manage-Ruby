@@ -37,7 +37,6 @@
                 <th>Tags</th>
                 <th><%= sort_link_turbo(@search, :start_time, 'Start') %></th>
                 <th><%= sort_link_turbo(@search, :end_time, 'End') %></th>
-                <th><%= sort_link_turbo(@search, :timezone, :timezone) %></th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -53,9 +52,8 @@
                       <span class='badge badge-light'><%= tag %></span>
                     <% end %>
                   </td>
-                  <td><%= pretty_time(event.start_time) %></td>
-                  <td><%= pretty_time(event.end_time) %></td>
-                  <td><%= event.timezone %></td>
+                  <td><%= pretty_event_time(event.start_time_in_selected_zone) %></td>
+                  <td><%= pretty_event_time(event.end_time_in_selected_zone) %></td>
                   <td>
                     <%= link_to icon('fas fa-database'), publish_event_path(event), title: 'Publish', method: :post, remote: true, class: 'btn btn-icon btn-sm btn-primary mr-1' %>
                     <%= link_to icon('fas fa-unlink'), unpublish_event_path(event), title: 'Unpublish', method: :post, remote: true, class: 'btn btn-icon btn-sm btn-primary mr-1' %>

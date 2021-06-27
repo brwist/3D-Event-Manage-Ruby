@@ -27,12 +27,12 @@
       </div>
     </div>
 
-    <div class="card card-highlight-info">
+    <div class="card card-highlight-info" data-controller="infinite-page">
       <div class="table-responsive">
         <table class="table table-striped table-md">
-          <tbody>
+          <tbody data-target="infinite-page.container" >
             <% @attendees.each do |a| %>
-              <tr>
+              <tr data-target="infinite-page.item">
                 <td><%= a.email %></td>
                 <td><%= a.name %></td>
                 <td>
@@ -42,6 +42,9 @@
             <% end %>
           </tbody>
         </table>
+        <% if @page %>
+          <%= link_to 'Next page', edit_event_path(event, page: @page.next_number), data: { target: 'infinite-page.more' } unless @page.last? %>
+        <% end %>
       </div>
     </div>
 

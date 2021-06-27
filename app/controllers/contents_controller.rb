@@ -14,7 +14,7 @@ class ContentsController < ApplicationController
     respond_to do |format|
       format.html { @contents = set_page_and_extract_portion_from @search.result }
       format.csv { render csv: @search.result }
-      format.json { render json: @search.result.as_json(include: :file_blob) }
+      format.json { render json: @search.result.limit(20).as_json(include: :file_blob) }
     end
   end
 

@@ -23,7 +23,7 @@ RSpec.describe '/clients', type: :request do
   end
 
   let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
+    { name: '', slug: '' }
   }
 
   before { sign_in admin }
@@ -105,9 +105,9 @@ RSpec.describe '/clients', type: :request do
         }.to change(Client, :count).by(0)
       end
 
-      it "renders a successful response (i.e. to display the 'new' template)" do
+      it 'redirects to events' do
         post clients_url, params: { client: invalid_attributes }
-        expect(response).to be_successful
+        expect(response).to redirect_to(clients_url)
       end
     end
   end
@@ -126,20 +126,13 @@ RSpec.describe '/clients', type: :request do
       it 'updates the requested client' do
         patch client_url(client), params: { client: new_attributes }
         client.reload
-        skip('Add assertions for updated state')
+        expect({ name: client.name, slug: client.slug }).to eq new_attributes
       end
 
       it 'redirects to the client' do
         patch client_url(client), params: { client: new_attributes }
         client.reload
         expect(response).to redirect_to(edit_client_url(client))
-      end
-    end
-
-    context 'with invalid parameters' do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        patch client_url(client), params: { client: invalid_attributes }
-        expect(response).to be_successful
       end
     end
   end
